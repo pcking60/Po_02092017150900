@@ -179,6 +179,10 @@
     <Compile Include="Migrations\201709010624064_group_by_service_district_po_time_bccp.Designer.cs">
       <DependentUpon>201709010624064_group_by_service_district_po_time_bccp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709021532266_group_by_service_district_po_time_bccp1.cs" />
+    <Compile Include="Migrations\201709021532266_group_by_service_district_po_time_bccp1.Designer.cs">
+      <DependentUpon>201709021532266_group_by_service_district_po_time_bccp1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PostOfficeDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -280,6 +284,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709010624064_group_by_service_district_po_time_bccp.resx">
       <DependentUpon>201709010624064_group_by_service_district_po_time_bccp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709021532266_group_by_service_district_po_time_bccp1.resx">
+      <DependentUpon>201709021532266_group_by_service_district_po_time_bccp1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

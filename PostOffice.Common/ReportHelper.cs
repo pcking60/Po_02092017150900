@@ -366,7 +366,26 @@ namespace PostOffice.Common
                     ws.Cells["C6:I6"].Style.Indent = 2;
                     ws.Cells["C6:I6"].Value = "Từ " + vm.FromDate.ToString("dd/MM/yyyy") + " đến " + vm.ToDate.ToString("dd/MM/yyyy");
 
-                    #endregion template info
+                    //info
+                    ws.Cells["A4:B4"].Merge = true;
+                    ws.Cells["A4:B4"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
+                    ws.Row(4).Style.Font.Bold = true;
+                    ws.Cells["A4:B4"].Value = "Huyện: ";
+                    ws.Cells["A4:B4"].Style.Indent = 1;
+
+                    ws.Cells["A5:B5"].Merge = true;
+                    ws.Cells["A5:B5"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
+                    ws.Row(5).Style.Font.Bold = true;
+                    ws.Cells["A5:B5"].Value = "Bưu cục: ";
+                    ws.Cells["A5:B5"].Style.Indent = 1;
+
+                    ws.Cells["A6:B6"].Merge = true;
+                    ws.Cells["A6:B6"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
+                    ws.Row(6).Style.Font.Bold = true;
+                    ws.Cells["A6:B6"].Value = "Thời gian:";
+                    ws.Cells["A6:B6"].Style.Indent = 1;
+
+                    #endregion template info                  
 
                     #region count data                    
                     int noRow = datasource1.Count; //count number rows BCCP                    
