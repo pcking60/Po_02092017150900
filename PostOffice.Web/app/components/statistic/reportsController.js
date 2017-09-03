@@ -137,7 +137,7 @@
                     toDate: toDate,
                     districtId: $scope.report.districtId || 0,
                     functionId: $scope.report.functionId || 0,
-                    unitId: $scope.report.poId || 0,
+                    poId: $scope.report.poId || 0,
                     userId: $scope.report.userId || '',
                     serviceId: $scope.report.serviceId || 0,
                 }

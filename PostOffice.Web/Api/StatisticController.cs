@@ -71,7 +71,7 @@ namespace PostOffice.Web.Api
 
         [HttpGet]
         [Route("rp1")]
-        public async Task<HttpResponseMessage> RP1(HttpRequestMessage request, string fromDate, string toDate, int districtId, int functionId, int unitId, string userId, int serviceId)
+        public async Task<HttpResponseMessage> RP1(HttpRequestMessage request, string fromDate, string toDate, int districtId, int functionId, int poId, string userId, int serviceId)
         {
             //check role
             bool isAdmin = false;
@@ -112,14 +112,17 @@ namespace PostOffice.Web.Api
                 //rp1Advance = _statisticService.RP1Advance();
 
                 //check param đầu vào
+
+                #region data input
+
                 if (districtId != 0)
                 {
                     district = _districtService.GetById(districtId);
                     vm.District = district.Name;
                 }
-                if (unitId != 0)
+                if (poId != 0)
                 {
-                    po = _poService.GetByID(unitId);
+                    po = _poService.GetByID(poId);
                     vm.Unit = po.Name;
                 }
                 if (!string.IsNullOrEmpty(userId))
@@ -131,68 +134,78 @@ namespace PostOffice.Web.Api
                 {
                     sv = _serviceService.GetById(serviceId);
                     vm.Service = sv.Name;
-                }                
+                }
+                #endregion data input
                 
-                var listMainGroup = _mainGroupService.GetAll();
+                //var listMainGroup = _mainGroupService.GetAll();
 
-                int Gg1 = 1; //BCCP
-                int Gg2 = 2; //PPTT
-                int Gg3 = 3; //TCBC
-                int Gg4 = 4; //OTHER
-
+                const int bccpId = 1; //BCCP
+                const int ppttId = 2; //PPTT
+                const int tcbcId = 3; //TCBC
+                const int otherId = 4; //OTHER
+                string currentUser = User.Identity.Name;
                 switch (functionId)
                 {
+                    #region case 1 Bảng kê thu tiền tại bưu cục - tổng hợp
                     case 1:
                         vm.FunctionName = "Bảng kê thu tiền tại bưu cục - tổng hợp";
-                      
-                        if (districtId == 0)
-                        {
-                            var currentUser = User.Identity.Name;
-                            var responseDBGg1 = _statisticService.Export_By_Service_Group_And_Time_District_Po_BCCP(fromDate, toDate, districtId, unitId, currentUser);
-                            var responseDBGg2 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, Gg2, districtId, unitId, currentUser);
-                            var responseDBGg3 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, Gg3, districtId, unitId, currentUser);
-                            var responseDBGg4 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, Gg4, districtId, unitId, currentUser);
-                            await ReportHelper.Export_By_Service_Group_And_Time(responseDBGg1.ToList(), responseDBGg2.ToList(), responseDBGg3.ToList(), fullPath, vm);
-                        }
-                        else // districtId != 0
-                        {
-                            if (unitId == 0)
-                            {
-                                var currentUser = User.Identity.Name;
-                                var responseDBGg1 = _statisticService.Export_By_Service_Group_And_Time_District_Po_BCCP(fromDate, toDate, districtId, unitId, currentUser);
-                                var responseDBGg2 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, Gg2, districtId, unitId, currentUser);
-                                var responseDBGg3 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, Gg3, districtId, unitId, currentUser);
-                                var responseDBGg4 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, Gg4, districtId, unitId, currentUser);
-                                await ReportHelper.Export_By_Service_Group_And_Time(responseDBGg1.ToList(), responseDBGg2.ToList(), responseDBGg3.ToList(), fullPath, vm);
-                            }
-                            else //unitId != 0
-                            {
-                                var currentUser = User.Identity.Name;
-                                var responseDBGg1 = _statisticService.Export_By_Service_Group_And_Time_District_Po_BCCP(fromDate, toDate,districtId, unitId, currentUser);
-                                var responseDBGg2 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, Gg2, districtId, unitId, currentUser);
-                                var responseDBGg3 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, Gg3, districtId, unitId, currentUser);
-                                var responseDBGg4 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, Gg4, districtId, unitId, currentUser);
-                                await ReportHelper.Export_By_Service_Group_And_Time(responseDBGg1.ToList(), responseDBGg2.ToList(), responseDBGg3.ToList(), fullPath, vm);
-                            }
-                        }
-                       
-                        
-                        break;
 
+                        #region method 1
+                        //if (districtId == 0)
+                        //{
+                        //    var currentUser = User.Identity.Name;
+                        //    var responseDBGg1 = _statisticService.Export_By_Service_Group_And_Time_District_Po_BCCP(fromDate, toDate, districtId, poId, currentUser);
+                        //    var responseDBGg2 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, ppttId, districtId, poId, currentUser);
+                        //    var responseDBGg3 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, tcbcId, districtId, poId, currentUser);
+                        //    var responseDBGg4 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, otherId, districtId, poId, currentUser);
+                        //    await ReportHelper.Export_By_Service_Group_And_Time(responseDBGg1.ToList(), responseDBGg2.ToList(), responseDBGg3.ToList(), fullPath, vm);
+                        //}
+                        //else // districtId != 0
+                        //{
+                        //    if (poId == 0)
+                        //    {
+                        //        var currentUser = User.Identity.Name;
+                        //        var responseDBGg1 = _statisticService.Export_By_Service_Group_And_Time_District_Po_BCCP(fromDate, toDate, districtId, poId, currentUser);
+                        //        var responseDBGg2 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, ppttId, districtId, poId, currentUser);
+                        //        var responseDBGg3 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, tcbcId, districtId, poId, currentUser);
+                        //        var responseDBGg4 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, otherId, districtId, poId, currentUser);
+                        //        await ReportHelper.Export_By_Service_Group_And_Time(responseDBGg1.ToList(), responseDBGg2.ToList(), responseDBGg3.ToList(), fullPath, vm);
+                        //    }
+                        //    else //poId != 0
+                        //    {
+                        //        var currentUser = User.Identity.Name;
+                        //        var responseDBGg1 = _statisticService.Export_By_Service_Group_And_Time_District_Po_BCCP(fromDate, toDate, districtId, poId, currentUser);
+                        //        var responseDBGg2 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, ppttId, districtId, poId, currentUser);
+                        //        var responseDBGg3 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, tcbcId, districtId, poId, currentUser);
+                        //        var responseDBGg4 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, otherId, districtId, poId, currentUser);
+                        //        await ReportHelper.Export_By_Service_Group_And_Time(responseDBGg1.ToList(), responseDBGg2.ToList(), responseDBGg3.ToList(), fullPath, vm);
+                        //    }
+                        //}
+                        #endregion end method 1    
+                   
+                        var responseBCCP = _statisticService.Export_By_Service_Group_And_Time_District_Po_BCCP(fromDate, toDate, districtId, poId, currentUser);
+                        var responsePPTT = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, ppttId, districtId, poId, currentUser);
+                        var responseTCBC = _statisticService.Export_By_Service_Group_TCBC(fromDate, toDate, districtId, poId, currentUser);
+                        var responseOther = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, otherId, districtId, poId, currentUser);
+                        await ReportHelper.Export_By_Service_Group_And_Time(responseBCCP.ToList(), responsePPTT.ToList(), responseTCBC.ToList(), fullPath, vm);
+
+                        break;
+                    #endregion
+                    #region case 2 Bảng kê thu tiền tại bưu cục - chi tiết
                     case 2:
                         vm.FunctionName = "Bảng kê thu tiền tại bưu cục - chi tiết";
                         if (!isAdmin && !isManager)
                         {
                             break;
-                        }                        
+                        }
                         if (isAdmin)
                         {
                             if (districtId == 0)
-                            {                                
-                                var modelGg1 = _trasactionService.GetAllByMainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), Gg1);
-                                var modelGg2 = _trasactionService.GetAllByMainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), Gg2);
-                                var modelGg3 = _trasactionService.GetAllByMainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), Gg3);
-                                var modelGg4 = _trasactionService.GetAllByMainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), Gg4);
+                            {
+                                var modelGg1 = _trasactionService.GetAllByMainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), bccpId);
+                                var modelGg2 = _trasactionService.GetAllByMainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), ppttId);
+                                var modelGg3 = _trasactionService.GetAllByMainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), tcbcId);
+                                var modelGg4 = _trasactionService.GetAllByMainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), otherId);
                                 var responseGg1 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg1);
                                 var responseGg2 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg2);
                                 var responseGg3 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg3);
@@ -277,7 +290,7 @@ namespace PostOffice.Web.Api
                                     item.ServiceName = _serviceService.GetById(item.ServiceId).Name;
                                     item.EarnMoney = _transactionDetailService.GetTotalEarnMoneyByTransactionId(item.ID);
                                     var groupId = _serviceGroupService.GetSigleByServiceId(item.ID);
-                                    if (groupId != null && (groupId.ID == 93 || groupId.ID == 75)) 
+                                    if (groupId != null && (groupId.ID == 93 || groupId.ID == 75))
                                     {
                                         item.IsReceive = true;
                                         item.TotalMoneyReceive = _transactionDetailService.GetTotalMoneyByTransactionId(item.ID);
@@ -296,12 +309,12 @@ namespace PostOffice.Web.Api
                             }//end if districtId=0
                             else
                             {
-                                if (unitId == 0)
-                                {                                   
-                                    var modelGg1 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, Gg1);
-                                    var modelGg2 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, Gg2);
-                                    var modelGg3 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, Gg3);
-                                    var modelGg4 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, Gg4);
+                                if (poId == 0)
+                                {
+                                    var modelGg1 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, bccpId);
+                                    var modelGg2 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, ppttId);
+                                    var modelGg3 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, tcbcId);
+                                    var modelGg4 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, otherId);
                                     var responseGg1 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg1);
                                     var responseGg2 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg2);
                                     var responseGg3 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg3);
@@ -404,11 +417,11 @@ namespace PostOffice.Web.Api
                                     await ReportHelper.RP2_1(responseDBGg1.ToList(), responseDBGg2.ToList(), responseDBGg3.ToList(), fullPath, vm);
                                 }
                                 else
-                                {                                    
-                                    var modelGg1 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, unitId, Gg1);
-                                    var modelGg2 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, unitId, Gg2);
-                                    var modelGg3 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, unitId, Gg3);
-                                    var modelGg4 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, unitId, Gg4);
+                                {
+                                    var modelGg1 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, poId, bccpId);
+                                    var modelGg2 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, poId, ppttId);
+                                    var modelGg3 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, poId, tcbcId);
+                                    var modelGg4 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, poId, otherId);
                                     var responseGg1 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg1);
                                     var responseGg2 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg2);
                                     var responseGg3 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg3);
@@ -514,12 +527,12 @@ namespace PostOffice.Web.Api
                         }
                         else
                         {
-                            if (unitId == 0)
-                            {                               
-                                var modelGg1 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, Gg1);
-                                var modelGg2 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, Gg2);
-                                var modelGg3 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, Gg3);
-                                var modelGg4 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, Gg4);
+                            if (poId == 0)
+                            {
+                                var modelGg1 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, bccpId);
+                                var modelGg2 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, ppttId);
+                                var modelGg3 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, tcbcId);
+                                var modelGg4 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, otherId);
                                 var responseGg1 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg1);
                                 var responseGg2 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg2);
                                 var responseGg3 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg3);
@@ -622,11 +635,11 @@ namespace PostOffice.Web.Api
                                 await ReportHelper.RP2_1(responseDBGg1.ToList(), responseDBGg2.ToList(), responseDBGg3.ToList(), fullPath, vm);
                             }
                             else
-                            {                               
-                                var modelGg1 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, unitId, Gg1);
-                                var modelGg2 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, unitId, Gg2);
-                                var modelGg3 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, unitId, Gg3);
-                                var modelGg4 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, unitId, Gg4);
+                            {
+                                var modelGg1 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, poId, bccpId);
+                                var modelGg2 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, poId, ppttId);
+                                var modelGg3 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, poId, tcbcId);
+                                var modelGg4 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, poId, otherId);
                                 var responseGg1 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg1);
                                 var responseGg2 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg2);
                                 var responseGg3 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg3);
@@ -731,9 +744,16 @@ namespace PostOffice.Web.Api
                         }
 
                         break;
+                    #endregion
 
                     case 3:
                         vm.FunctionName = "Bảng kê thu tiền theo nhân viên";
+                        var responseBCCP3 = _statisticService.Export_By_Service_Group_And_Time_District_Po_BCCP(fromDate, toDate, districtId, poId, currentUser);
+                        var responsePPTT3 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, ppttId, districtId, poId, currentUser);
+                        var responseTCBC3 = _statisticService.Export_By_Service_Group_TCBC(fromDate, toDate, districtId, poId, currentUser);
+                        var responseOther3 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, otherId, districtId, poId, currentUser);
+                        await ReportHelper.Export_By_Service_Group_And_Time(responseBCCP3.ToList(), responsePPTT3.ToList(), responseTCBC3.ToList(), fullPath, vm);
+                                             
                         break;
 
                     case 4:
@@ -755,19 +775,19 @@ namespace PostOffice.Web.Api
 
                 //IEnumerable<ReportFunction1> rp = Enumerable.Empty<ReportFunction1>();
 
-                //if ( districtId == 0 && unitId == 0)
+                //if ( districtId == 0 && poId == 0)
                 //{
                 //    rp = _statisticService.ReportFunction1(fromDate, toDate);
                 //}
                 //else
                 //{
-                //    if(districtId!=0&& unitId == 0)
+                //    if(districtId!=0&& poId == 0)
                 //    {
                 //        rp = _statisticService.ReportFunction1(fromDate, toDate, districtId);
                 //    }
                 //    else
                 //    {
-                //        rp = _statisticService.ReportFunction1(fromDate, toDate, districtId, unitId);
+                //        rp = _statisticService.ReportFunction1(fromDate, toDate, districtId, poId);
                 //    }
                 //}
 
@@ -776,7 +796,7 @@ namespace PostOffice.Web.Api
                 #region Bussiness method 2
 
                 //IEnumerable<ReportFunction1> rp = Enumerable.Empty<ReportFunction1>();
-                //rp = _statisticService.RP1(fromDate, toDate, districtId, unitId);
+                //rp = _statisticService.RP1(fromDate, toDate, districtId, poId);
 
                 #endregion Bussiness method 2
 
