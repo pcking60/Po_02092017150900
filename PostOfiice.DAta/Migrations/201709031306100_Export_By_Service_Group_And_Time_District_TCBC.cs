@@ -3,28 +3,37 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class group_by_service_district_po_time_bccp1 : DbMigration
+    public partial class Export_By_Service_Group_And_Time_District_TCBC : DbMigration
     {
         public override void Up()
         {
-            CreateStoredProcedure("Export_By_Service_Group_And_Time_District_Po_TCBC", p => new
+            CreateStoredProcedure("Export_By_Service_Group_And_Time_District_TCBC", p => new
             {
                 fromDate = p.String(),
                 toDate = p.String(),
-                districtId = p.Int(),
-                poId = p.Int()
+                districtId = p.Int()
 
             },
             @"select 
-    sl.Name as ServiceName, 
-	convert(int,sum(sl.Money)) as [Quantity], 				        
-    sl.VAT as VAT,
-    ISNULL(sum(st.Money),0) as [TotalColection], 
+                    rs.ServiceName, 
+                    rs.Quantity, 
+                    rs.VAT, 
+	                sum(rs.TotalColection) as [TotalColection], 
+	                sum(rs.VatOfTotalColection) as VatOfTotalColection, 
+	                sum(rs.TotalPay) as [TotalPay], 
+	                sum(rs.VatOfTotalPay) as VatOfTotalPay, 
+	                sum(rs.EarnMoney) as EarnMoney
+            from 
+                    (select 
+                            sl.Name as ServiceName, 
+	                        convert(int,sum(sl.Money)) as [Quantity], 				        
+                            sl.VAT as VAT,
+                            ISNULL(sum(st.Money),0) as [TotalColection], 
     				        ISNULL(convert(decimal(16,2), (st.Money - st.Money/sl.VAT)),0) as VatOfTotalColection,
     				        ISNULL(sum(st1.Money),0) as [TotalPay], 
-    				        ISNULL(convert(decimal(16,2), (st.Money - st.Money/sl.VAT)),0) as VatOfTotalPay, 
+    				        ISNULL(convert(decimal(16,2), (st1.Money - st1.Money/sl.VAT)),0) as VatOfTotalPay, 
     				        convert(decimal(16,2),(ISNULL(st.Money *st.[Percent],0)+ISNULL(st1.Money *st1.[Percent],0))/ISNULL(sl.VAT,0) + (sl.Money/sl.VAT)*sl.[Percent]) as EarnMoney				        
-    				    from 
+    				from 
     	                    (select s.Name, sum(td.Money) as Money, ps.[Percent]
     	                    from ServiceGroups sg
     	                    inner join Services s
@@ -41,7 +50,7 @@
     	                    on u.POID = p.ID
     	                    inner join Districts d
     	                    on p.DistrictID = d.ID
-    	                    where (ps.Name like N'Số tiền%' or ps.Name like N'Phí%') and ts.Status=1 and ts.IsCash=1 and sg.MainServiceGroupId=3 and (sg.ID=93 or sg.ID=75) and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date) and d.ID=@districtId and p.ID=@poId
+    	                    where (ps.Name like N'Số tiền%' or ps.Name like N'Phí%') and ts.Status=1 and ts.IsCash=1 and sg.MainServiceGroupId=3 and (sg.ID=93 or sg.ID=75) and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date) and d.ID=@districtId 
     	                    group by s.Name, ps.[Percent]
     	                    ) st	
     	                full outer join 
@@ -61,7 +70,7 @@
     	                    on u.POID = p.ID
     	                    inner join Districts d
     	                    on p.DistrictID = d.ID
-    	                    where ps.Name like N'Sản lượng%' and ts.Status=1 and sg.MainServiceGroupId=3 and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date) and d.ID=@districtId and p.ID=@poId
+    	                    where ps.Name like N'Sản lượng%' and ts.Status=1 and sg.MainServiceGroupId=3 and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date) and d.ID=@districtId 
     	                    group by s.Name, ps.name, s.VAT, ps.[Percent]
     	                    ) sl	
     	                on sl.Name = st.Name
@@ -82,16 +91,17 @@
     	                    on u.POID = p.ID
     	                    inner join Districts d
     	                    on p.DistrictID = d.ID
-    	                    where (ps.Name like N'Số tiền%' or ps.Name like N'Phí%') and ts.Status=1 and ts.IsCash=1 and sg.MainServiceGroupId=3 and sg.ID=94 and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date) and d.ID=@districtId and p.ID=@poId
+    	                    where (ps.Name like N'Số tiền%' or ps.Name like N'Phí%') and ts.Status=1 and ts.IsCash=1 and sg.MainServiceGroupId=3 and sg.ID=94 and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date) and d.ID=@districtId 
     	                    group by s.Name, ps.[Percent]
     	                    ) st1
     	                on sl.Name = st1.name
-    	            group by sl.Name, sl.Money, st.Money, st1.Money, sl.VAT, st1.[Percent], st.[Percent], sl.[Percent]");
+    	            group by sl.Name, sl.Money, st.Money, st1.Money, sl.VAT, st1.[Percent], st.[Percent], sl.[Percent]) rs
+                    group by rs.ServiceName, rs.Quantity, rs.VAT");
         }
         
         public override void Down()
         {
-            DropStoredProcedure("Export_By_Service_Group_And_Time_District_Po_TCBC");
+            DropStoredProcedure("Export_By_Service_Group_And_Time_District_TCBC");
         }
     }
 }

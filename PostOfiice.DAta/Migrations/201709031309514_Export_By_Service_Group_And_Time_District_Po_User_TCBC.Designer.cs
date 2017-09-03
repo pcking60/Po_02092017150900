@@ -7,13 +7,13 @@ namespace PostOfiice.DAta.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class group_by_service_district_po_time_bccp1 : IMigrationMetadata
+    public sealed partial class Export_By_Service_Group_And_Time_District_Po_User_TCBC : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(group_by_service_district_po_time_bccp1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Export_By_Service_Group_And_Time_District_Po_User_TCBC));
         
         string IMigrationMetadata.Id
         {
-            get { return "201709021532266_group_by_service_district_po_time_bccp1"; }
+            get { return "201709031309514_Export_By_Service_Group_And_Time_District_Po_User_TCBC"; }
         }
         
         string IMigrationMetadata.Source
