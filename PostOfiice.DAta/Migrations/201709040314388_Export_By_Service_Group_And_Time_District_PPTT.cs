@@ -3,12 +3,12 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class group_by_service_district_time_bccp : DbMigration
+    public partial class Export_By_Service_Group_And_Time_District_PPTT : DbMigration
     {
         public override void Up()
         {
             CreateStoredProcedure(
-                   "Export_By_Service_Group_And_Time_District_BCCP",
+                   "Export_By_Service_Group_And_Time_District_PPTT",
                    p => new
                    {
                        fromDate = p.String(),
@@ -40,7 +40,7 @@
 	                    on u.POID = p.ID
 	                    inner join Districts d
 	                    on p.DistrictID = d.ID
-	                    where (ps.Name like N'Số tiền%' or ps.Name like N'Phí%') and ts.Status=1 and ts.IsCash=0 and sg.MainServiceGroupId=1 and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date) and d.ID=@districtId 
+	                    where (ps.Name like N'Số tiền%' or ps.Name like N'Phí%') and ts.Status=1 and ts.IsCash=0 and sg.MainServiceGroupId=2 and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date) and d.ID=@districtId 
 	                    group by s.Name, ps.[Percent]
 	                    ) st	
 	                full outer join 
@@ -60,7 +60,7 @@
 	                    on u.POID = p.ID
 	                    inner join Districts d
 	                    on p.DistrictID = d.ID
-	                    where ps.Name like N'Sản lượng%' and ts.Status=1 and sg.MainServiceGroupId=1 and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date) and d.ID=@districtId 
+	                    where ps.Name like N'Sản lượng%' and ts.Status=1 and sg.MainServiceGroupId=2 and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date) and d.ID=@districtId 
 	                    group by s.Name, ps.name, s.VAT, ps.[Percent]
 	                    ) sl	
 	                on sl.Name = st.Name
@@ -81,7 +81,7 @@
 	                    on u.POID = p.ID
 	                    inner join Districts d
 	                    on p.DistrictID = d.ID
-	                    where (ps.Name like N'Số tiền%' or ps.Name like N'Phí%') and ts.Status=1 and ts.IsCash=1 and sg.MainServiceGroupId=1 and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date) and d.ID=@districtId 
+	                    where (ps.Name like N'Số tiền%' or ps.Name like N'Phí%') and ts.Status=1 and ts.IsCash=1 and sg.MainServiceGroupId=2 and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date) and d.ID=@districtId 
 	                    group by s.Name, ps.[Percent]
 	                    ) st1
 	                on sl.Name = st1.name
@@ -90,7 +90,7 @@
         
         public override void Down()
         {
-            DropStoredProcedure("Export_By_Service_Group_And_Time_District_BCCP");
+            DropStoredProcedure("Export_By_Service_Group_And_Time_District_PPTT");
         }
     }
 }

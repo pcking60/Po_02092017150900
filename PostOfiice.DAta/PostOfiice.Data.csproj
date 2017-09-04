@@ -195,6 +195,22 @@
     <Compile Include="Migrations\201709031309514_Export_By_Service_Group_And_Time_District_Po_User_TCBC.Designer.cs">
       <DependentUpon>201709031309514_Export_By_Service_Group_And_Time_District_Po_User_TCBC.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709040311567_Export_By_Service_Group_And_Time_PPTT.cs" />
+    <Compile Include="Migrations\201709040311567_Export_By_Service_Group_And_Time_PPTT.Designer.cs">
+      <DependentUpon>201709040311567_Export_By_Service_Group_And_Time_PPTT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709040314388_Export_By_Service_Group_And_Time_District_PPTT.cs" />
+    <Compile Include="Migrations\201709040314388_Export_By_Service_Group_And_Time_District_PPTT.Designer.cs">
+      <DependentUpon>201709040314388_Export_By_Service_Group_And_Time_District_PPTT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709040317474_Export_By_Service_Group_And_Time_District_Po_PPTT.cs" />
+    <Compile Include="Migrations\201709040317474_Export_By_Service_Group_And_Time_District_Po_PPTT.Designer.cs">
+      <DependentUpon>201709040317474_Export_By_Service_Group_And_Time_District_Po_PPTT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709040323344_Export_By_Service_Group_And_Time_District_Po_User_PPTT.cs" />
+    <Compile Include="Migrations\201709040323344_Export_By_Service_Group_And_Time_District_Po_User_PPTT.Designer.cs">
+      <DependentUpon>201709040323344_Export_By_Service_Group_And_Time_District_Po_User_PPTT.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PostOfficeDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -308,6 +324,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709031309514_Export_By_Service_Group_And_Time_District_Po_User_TCBC.resx">
       <DependentUpon>201709031309514_Export_By_Service_Group_And_Time_District_Po_User_TCBC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709040311567_Export_By_Service_Group_And_Time_PPTT.resx">
+      <DependentUpon>201709040311567_Export_By_Service_Group_And_Time_PPTT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709040314388_Export_By_Service_Group_And_Time_District_PPTT.resx">
+      <DependentUpon>201709040314388_Export_By_Service_Group_And_Time_District_PPTT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709040317474_Export_By_Service_Group_And_Time_District_Po_PPTT.resx">
+      <DependentUpon>201709040317474_Export_By_Service_Group_And_Time_District_Po_PPTT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709040323344_Export_By_Service_Group_And_Time_District_Po_User_PPTT.resx">
+      <DependentUpon>201709040323344_Export_By_Service_Group_And_Time_District_Po_User_PPTT.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

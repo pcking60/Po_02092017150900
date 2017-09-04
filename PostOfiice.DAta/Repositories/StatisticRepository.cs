@@ -47,6 +47,13 @@ namespace PostOfiice.DAta.Repositories
         IEnumerable<Export_By_Service_Group_TCBC> Export_By_Service_Group_And_Time_District_TCBC(string fromDate, string toDate, int districtId);
 
         IEnumerable<Export_By_Service_Group_TCBC> Export_By_Service_Group_And_Time_TCBC(string fromDate, string toDate);
+        IEnumerable<Export_By_Service_Group_And_Time_District_Po_BCCP> Export_By_Service_Group_And_Time_District_Po_User_PPTT(string fromDate, string toDate, int districtId, int poId, string userId);
+
+        IEnumerable<Export_By_Service_Group_And_Time_District_Po_BCCP> Export_By_Service_Group_And_Time_District_Po_PPTT(string fromDate, string toDate, int districtId, int poId);
+
+        IEnumerable<Export_By_Service_Group_And_Time_District_Po_BCCP> Export_By_Service_Group_And_Time_District_PPTT(string fromDate, string toDate, int districtId);
+
+        IEnumerable<Export_By_Service_Group_And_Time_District_Po_BCCP> Export_By_Service_Group_And_Time_PPTT(string fromDate, string toDate);
 
         IEnumerable<RP2_1> RP2_1();
     }
@@ -120,6 +127,17 @@ namespace PostOfiice.DAta.Repositories
             return DbContext.Database.SqlQuery<Export_By_Service_Group_And_Time_District_Po_BCCP>("Export_By_Service_Group_And_Time_District_Po_BCCP @fromDate,@toDate,@districtId,@poId", parameters);
         }
 
+        public IEnumerable<Export_By_Service_Group_And_Time_District_Po_BCCP> Export_By_Service_Group_And_Time_District_Po_PPTT(string fromDate, string toDate, int districtId, int poId)
+        {
+            var parameters = new SqlParameter[] {
+                new SqlParameter("@fromDate", fromDate),
+                new SqlParameter("@toDate", toDate),
+                new SqlParameter("@districtId", districtId),
+                new SqlParameter("@poId", poId)
+            };
+            return DbContext.Database.SqlQuery<Export_By_Service_Group_And_Time_District_Po_BCCP>("Export_By_Service_Group_And_Time_District_Po_PPTT @fromDate,@toDate,@districtId,@poId", parameters);
+        }
+
         public IEnumerable<Export_By_Service_Group_TCBC> Export_By_Service_Group_And_Time_District_Po_TCBC(string fromDate, string toDate, int districtId, int poId)
         {
             var parameters = new SqlParameter[] {
@@ -143,6 +161,18 @@ namespace PostOfiice.DAta.Repositories
             return DbContext.Database.SqlQuery<Export_By_Service_Group_And_Time_District_Po_BCCP>("Export_By_Service_Group_And_Time_District_Po_User_BCCP @fromDate,@toDate,@districtId,@poId,@userId", parameters);
         }
 
+        public IEnumerable<Export_By_Service_Group_And_Time_District_Po_BCCP> Export_By_Service_Group_And_Time_District_Po_User_PPTT(string fromDate, string toDate, int districtId, int poId, string userId)
+        {
+            var parameters = new SqlParameter[] {
+                new SqlParameter("@fromDate", fromDate),
+                new SqlParameter("@toDate", toDate),
+                new SqlParameter("@districtId", districtId),
+                new SqlParameter("@poId", poId),
+                new SqlParameter("@userId", userId)
+            };
+            return DbContext.Database.SqlQuery<Export_By_Service_Group_And_Time_District_Po_BCCP>("Export_By_Service_Group_And_Time_District_Po_User_PPTT @fromDate,@toDate,@districtId,@poId,@userId", parameters);
+        }
+
         public IEnumerable<Export_By_Service_Group_TCBC> Export_By_Service_Group_And_Time_District_Po_User_TCBC(string fromDate, string toDate, int districtId, int poId, string userId)
         {
             var parameters = new SqlParameter[] {
@@ -153,6 +183,16 @@ namespace PostOfiice.DAta.Repositories
                 new SqlParameter("@userId", userId)
             };
             return DbContext.Database.SqlQuery<Export_By_Service_Group_TCBC>("Export_By_Service_Group_And_Time_District_Po_User_TCBC @fromDate,@toDate,@districtId,@poId,@userId", parameters);
+        }
+
+        public IEnumerable<Export_By_Service_Group_And_Time_District_Po_BCCP> Export_By_Service_Group_And_Time_District_PPTT(string fromDate, string toDate, int districtId)
+        {
+            var parameters = new SqlParameter[] {
+                new SqlParameter("@fromDate", fromDate),
+                new SqlParameter("@toDate", toDate),
+                new SqlParameter("@districtId", districtId)
+            };
+            return DbContext.Database.SqlQuery<Export_By_Service_Group_And_Time_District_Po_BCCP>("Export_By_Service_Group_And_Time_District_PPTT @fromDate,@toDate,@districtId", parameters);
         }
 
         public IEnumerable<Export_By_Service_Group_TCBC> Export_By_Service_Group_And_Time_District_TCBC(string fromDate, string toDate, int districtId)
@@ -174,6 +214,15 @@ namespace PostOfiice.DAta.Repositories
                 new SqlParameter("@poId", poId)
             };
             return DbContext.Database.SqlQuery<Export_By_Service_Group_And_Time>("Export_By_Service_Group_And_Time_Manager @fromDate,@toDate,@mainGroup,@poId", parameters);
+        }
+
+        public IEnumerable<Export_By_Service_Group_And_Time_District_Po_BCCP> Export_By_Service_Group_And_Time_PPTT(string fromDate, string toDate)
+        {
+            var parameters = new SqlParameter[] {
+                new SqlParameter("@fromDate", fromDate),
+                new SqlParameter("@toDate", toDate)
+            };
+            return DbContext.Database.SqlQuery<Export_By_Service_Group_And_Time_District_Po_BCCP>("Export_By_Service_Group_And_Time_PPTT @fromDate,@toDate", parameters);
         }
 
         public IEnumerable<Export_By_Service_Group_TCBC> Export_By_Service_Group_And_Time_TCBC(string fromDate, string toDate)

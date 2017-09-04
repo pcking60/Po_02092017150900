@@ -135,8 +135,9 @@ namespace PostOffice.Web.Api
                     sv = _serviceService.GetById(serviceId);
                     vm.Service = sv.Name;
                 }
+
                 #endregion data input
-                
+
                 //var listMainGroup = _mainGroupService.GetAll();
 
                 const int bccpId = 1; //BCCP
@@ -147,51 +148,22 @@ namespace PostOffice.Web.Api
                 switch (functionId)
                 {
                     #region case 1 Bảng kê thu tiền tại bưu cục - tổng hợp
+
                     case 1:
                         vm.FunctionName = "Bảng kê thu tiền tại bưu cục - tổng hợp";
 
-                        #region method 1
-                        //if (districtId == 0)
-                        //{
-                        //    var currentUser = User.Identity.Name;
-                        //    var responseDBGg1 = _statisticService.Export_By_Service_Group_And_Time_District_Po_BCCP(fromDate, toDate, districtId, poId, currentUser);
-                        //    var responseDBGg2 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, ppttId, districtId, poId, currentUser);
-                        //    var responseDBGg3 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, tcbcId, districtId, poId, currentUser);
-                        //    var responseDBGg4 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, otherId, districtId, poId, currentUser);
-                        //    await ReportHelper.Export_By_Service_Group_And_Time(responseDBGg1.ToList(), responseDBGg2.ToList(), responseDBGg3.ToList(), fullPath, vm);
-                        //}
-                        //else // districtId != 0
-                        //{
-                        //    if (poId == 0)
-                        //    {
-                        //        var currentUser = User.Identity.Name;
-                        //        var responseDBGg1 = _statisticService.Export_By_Service_Group_And_Time_District_Po_BCCP(fromDate, toDate, districtId, poId, currentUser);
-                        //        var responseDBGg2 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, ppttId, districtId, poId, currentUser);
-                        //        var responseDBGg3 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, tcbcId, districtId, poId, currentUser);
-                        //        var responseDBGg4 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, otherId, districtId, poId, currentUser);
-                        //        await ReportHelper.Export_By_Service_Group_And_Time(responseDBGg1.ToList(), responseDBGg2.ToList(), responseDBGg3.ToList(), fullPath, vm);
-                        //    }
-                        //    else //poId != 0
-                        //    {
-                        //        var currentUser = User.Identity.Name;
-                        //        var responseDBGg1 = _statisticService.Export_By_Service_Group_And_Time_District_Po_BCCP(fromDate, toDate, districtId, poId, currentUser);
-                        //        var responseDBGg2 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, ppttId, districtId, poId, currentUser);
-                        //        var responseDBGg3 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, tcbcId, districtId, poId, currentUser);
-                        //        var responseDBGg4 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, otherId, districtId, poId, currentUser);
-                        //        await ReportHelper.Export_By_Service_Group_And_Time(responseDBGg1.ToList(), responseDBGg2.ToList(), responseDBGg3.ToList(), fullPath, vm);
-                        //    }
-                        //}
-                        #endregion end method 1    
-                   
-                        var responseBCCP = _statisticService.Export_By_Service_Group_And_Time_District_Po_BCCP(fromDate, toDate, districtId, poId, currentUser);
-                        var responsePPTT = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, ppttId, districtId, poId, currentUser);
-                        var responseTCBC = _statisticService.Export_By_Service_Group_TCBC(fromDate, toDate, districtId, poId, currentUser);
-                        var responseOther = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, otherId, districtId, poId, currentUser);
+                        var responseBCCP = _statisticService.Export_By_Service_Group_And_Time_District_Po_BCCP(fromDate, toDate, districtId, poId, currentUser, userId);
+                        var responsePPTT = _statisticService.Export_By_Service_Group_And_Time_District_Po_PPTT(fromDate, toDate, districtId, poId, currentUser, userId);
+                        var responseTCBC = _statisticService.Export_By_Service_Group_TCBC(fromDate, toDate, districtId, poId, currentUser, userId);
+                        //var responseOther = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, otherId, districtId, poId, userId);
                         await ReportHelper.Export_By_Service_Group_And_Time(responseBCCP.ToList(), responsePPTT.ToList(), responseTCBC.ToList(), fullPath, vm);
 
                         break;
-                    #endregion
+
+                    #endregion case 1 Bảng kê thu tiền tại bưu cục - tổng hợp
+
                     #region case 2 Bảng kê thu tiền tại bưu cục - chi tiết
+
                     case 2:
                         vm.FunctionName = "Bảng kê thu tiền tại bưu cục - chi tiết";
                         if (!isAdmin && !isManager)
@@ -744,16 +716,17 @@ namespace PostOffice.Web.Api
                         }
 
                         break;
-                    #endregion
+
+                    #endregion case 2 Bảng kê thu tiền tại bưu cục - chi tiết
 
                     case 3:
                         vm.FunctionName = "Bảng kê thu tiền theo nhân viên";
-                        var responseBCCP3 = _statisticService.Export_By_Service_Group_And_Time_District_Po_BCCP(fromDate, toDate, districtId, poId, currentUser);
-                        var responsePPTT3 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, ppttId, districtId, poId, currentUser);
-                        var responseTCBC3 = _statisticService.Export_By_Service_Group_TCBC(fromDate, toDate, districtId, poId, currentUser);
-                        var responseOther3 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, otherId, districtId, poId, currentUser);
+                        var responseBCCP3 = _statisticService.Export_By_Service_Group_And_Time_District_Po_BCCP(fromDate, toDate, districtId, poId, currentUser, userId);
+                        var responsePPTT3 = _statisticService.Export_By_Service_Group_And_Time_District_Po_PPTT(fromDate, toDate, districtId, poId, currentUser, userId);
+                        var responseTCBC3 = _statisticService.Export_By_Service_Group_TCBC(fromDate, toDate, districtId, poId, currentUser, userId);
+                        //var responseOther3 = _statisticService.Export_By_Service_Group_And_Time(fromDate, toDate, otherId, districtId, poId, userId);
                         await ReportHelper.Export_By_Service_Group_And_Time(responseBCCP3.ToList(), responsePPTT3.ToList(), responseTCBC3.ToList(), fullPath, vm);
-                                             
+
                         break;
 
                     case 4:
@@ -770,44 +743,6 @@ namespace PostOffice.Web.Api
                 }
 
                 #endregion customFill Test
-
-                #region Bussiness medthod 1
-
-                //IEnumerable<ReportFunction1> rp = Enumerable.Empty<ReportFunction1>();
-
-                //if ( districtId == 0 && poId == 0)
-                //{
-                //    rp = _statisticService.ReportFunction1(fromDate, toDate);
-                //}
-                //else
-                //{
-                //    if(districtId!=0&& poId == 0)
-                //    {
-                //        rp = _statisticService.ReportFunction1(fromDate, toDate, districtId);
-                //    }
-                //    else
-                //    {
-                //        rp = _statisticService.ReportFunction1(fromDate, toDate, districtId, poId);
-                //    }
-                //}
-
-                #endregion Bussiness medthod 1
-
-                #region Bussiness method 2
-
-                //IEnumerable<ReportFunction1> rp = Enumerable.Empty<ReportFunction1>();
-                //rp = _statisticService.RP1(fromDate, toDate, districtId, poId);
-
-                #endregion Bussiness method 2
-
-                //List<ReportFunction1> listData = new List<ReportFunction1>();
-                //if (rp!=null)
-                //{
-                //    listData = rp.ToList();
-                //}
-
-                ////test medthod customFill
-                //await ReportHelper.RP1(listData, fullPath, vm, rp1Advance);
 
                 return request.CreateErrorResponse(HttpStatusCode.OK, Path.Combine(folderReport, fileName));
             }

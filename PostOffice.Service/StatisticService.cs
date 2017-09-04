@@ -16,8 +16,9 @@ namespace PostOffice.Service
         IEnumerable<ReportFunction1> RP1(string fromDate, string toDate, int districtId, int unitId);
         IEnumerable<RP1Advance> RP1Advance();
         IEnumerable<Export_By_Service_Group_And_Time> Export_By_Service_Group_And_Time(string fromDate, string toDate, int mainGroup, int districtId, int poId, string currentUser);
-        IEnumerable<Export_By_Service_Group_And_Time_District_Po_BCCP> Export_By_Service_Group_And_Time_District_Po_BCCP(string fromDate, string toDate, int districtId, int poId, string currentUser);
-        IEnumerable<Export_By_Service_Group_TCBC> Export_By_Service_Group_TCBC(string fromDate, string toDate, int districtId, int poId, string currentUser);
+        IEnumerable<Export_By_Service_Group_And_Time_District_Po_BCCP> Export_By_Service_Group_And_Time_District_Po_BCCP(string fromDate, string toDate, int districtId, int poId, string currentUser, string userSelected);
+        IEnumerable<Export_By_Service_Group_And_Time_District_Po_BCCP> Export_By_Service_Group_And_Time_District_Po_PPTT(string fromDate, string toDate, int districtId, int poId, string currentUser, string userSelected);
+        IEnumerable<Export_By_Service_Group_TCBC> Export_By_Service_Group_TCBC(string fromDate, string toDate, int districtId, int poId, string currentUser, string userSelected);
     }
 
     public class StatisticService : IStatisticService
@@ -120,14 +121,14 @@ namespace PostOffice.Service
             
         }
 
-        public IEnumerable<Export_By_Service_Group_And_Time_District_Po_BCCP> Export_By_Service_Group_And_Time_District_Po_BCCP(string fromDate, string toDate, int districtId, int poId, string currentUser)
+        public IEnumerable<Export_By_Service_Group_And_Time_District_Po_BCCP> Export_By_Service_Group_And_Time_District_Po_BCCP(string fromDate, string toDate, int districtId, int poId, string currentUser, string userSelected)
         {
             // define role of user
             bool isAdmin = _userRepository.CheckRole(currentUser, "Administrator");
             bool isManager = _userRepository.CheckRole(currentUser, "Manager");
 
             //get user info
-            var user = _userRepository.getByUserName(currentUser);
+            var user = _userRepository.getByUserId(userSelected);
             string userId = null;
             if (user != null)
             {
@@ -154,7 +155,7 @@ namespace PostOffice.Service
                         }
                         else
                         {
-                            return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_BCCP(fromDate, toDate, districtId, poId, userId);
+                            return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_BCCP(fromDate, toDate, districtId, poId, userSelected);
                         }
                         
                     }
@@ -177,25 +178,25 @@ namespace PostOffice.Service
                         }
                         else
                         {
-                            return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_BCCP(fromDate, toDate, districtId, poId, userId);
+                            return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_BCCP(fromDate, toDate, districtId, poId, userSelected);
                         }
                     }
                 }
                 else //is basic user
                 {
-                    return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_BCCP(fromDate, toDate, districtId, poId, userId);
+                    return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_BCCP(fromDate, toDate, districtId, poId, userSelected);
                 }
             }
         }
 
-        public IEnumerable<Export_By_Service_Group_TCBC> Export_By_Service_Group_TCBC(string fromDate, string toDate, int districtId, int poId, string currentUser)
+        public IEnumerable<Export_By_Service_Group_TCBC> Export_By_Service_Group_TCBC(string fromDate, string toDate, int districtId, int poId, string currentUser, string userSelected)
         {
             // define role of user
             bool isAdmin = _userRepository.CheckRole(currentUser, "Administrator");
             bool isManager = _userRepository.CheckRole(currentUser, "Manager");
 
             //get user info
-            var user = _userRepository.getByUserName(currentUser);
+            var user = _userRepository.getByUserId(userSelected);
             string userId = null;
             if (user != null)
             {
@@ -216,13 +217,13 @@ namespace PostOffice.Service
                     }
                     else // po id and district id not null
                     {
-                        if (userId == null) //po && district are not null && user null
+                        if (user == null) //po && district are not null && user null
                         {
                             return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_TCBC(fromDate, toDate, districtId, poId);
                         }
                         else // po && district && user are not null
                         {
-                            return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_TCBC(fromDate, toDate, districtId, poId, userId);
+                            return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_TCBC(fromDate, toDate, districtId, poId, userSelected);
                         }                        
                     }
                 }
@@ -244,13 +245,81 @@ namespace PostOffice.Service
                         }
                         else // po && district && user are not null
                         {
-                            return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_TCBC(fromDate, toDate, districtId, poId, userId);
+                            return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_TCBC(fromDate, toDate, districtId, poId, userSelected);
                         }
                     }
                 }
                 else //is basic user
                 {
-                    return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_TCBC(fromDate, toDate, districtId, poId, userId);
+                    return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_TCBC(fromDate, toDate, districtId, poId, userSelected);
+                }
+            }
+        }
+
+        public IEnumerable<Export_By_Service_Group_And_Time_District_Po_BCCP> Export_By_Service_Group_And_Time_District_Po_PPTT(string fromDate, string toDate, int districtId, int poId, string currentUser, string userSelected)
+        {
+            // define role of user
+            bool isAdmin = _userRepository.CheckRole(currentUser, "Administrator");
+            bool isManager = _userRepository.CheckRole(currentUser, "Manager");
+
+            //get user info
+            var user = _userRepository.getByUserName(userSelected);
+            string userId = null;
+            if (user != null)
+            {
+                userId = user.Id;
+            }
+
+            if (isAdmin) //is admin
+            {
+                if (districtId == 0)
+                {
+                    return _statisticRepository.Export_By_Service_Group_And_Time_PPTT(fromDate, toDate);
+                }
+                else
+                {
+                    if (poId == 0)
+                    {
+                        return _statisticRepository.Export_By_Service_Group_And_Time_District_PPTT(fromDate, toDate, districtId);
+                    }
+                    else // po id and district id not null
+                    {
+                        if (userId == null)
+                        {
+                            return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_PPTT(fromDate, toDate, districtId, poId);
+                        }
+                        else
+                        {
+                            return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_PPTT(fromDate, toDate, districtId, poId, userId);
+                        }
+
+                    }
+                }
+
+            }
+            else
+            {
+                if (isManager) // is manager
+                {
+                    if (poId == 0)
+                    {
+                        return _statisticRepository.Export_By_Service_Group_And_Time_District_PPTT(fromDate, toDate, districtId);
+                    }
+                    else // po id and district id not null
+                    {
+                        if (userId == null)
+                        {
+                            return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_PPTT(fromDate, toDate, districtId, poId);
+                        }
+                        else
+                        {
+                            return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_PPTT(fromDate, toDate, districtId, poId, userId);
+                        }
+                    }
+                }
+                else //is basic user
+                {
+                    return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_PPTT(fromDate, toDate, districtId, poId, userId);
                 }
             }
         }

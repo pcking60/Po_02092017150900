@@ -14,14 +14,14 @@
                        fromDate = p.String(),
                        toDate = p.String()
                    },
-                   @"select 
-                        sl.Name, sum(sl.Money) as [sanluong], 
-				        ISNULL(sum(st1.Money),0) as [cash], 
+                   @"select                         
+                        sl.Name as ServiceName, sum(sl.Money) as [Quantity], 				        
                         sl.VAT as VAT,
-				        ISNULL(convert(decimal(16,2), (st1.Money - st1.Money/sl.VAT)),0) as VatOfCash,
-				        ISNULL(sum(st.Money),0) as [debt], 
-				        ISNULL(convert(decimal(16,2), (st.Money - st.Money/sl.VAT)),0) as VatOfDebt, 
-				        convert(decimal(16,2),(ISNULL(st.Money *st.[Percent],0)+ISNULL(st1.Money *st1.[Percent],0))/ISNULL(sl.VAT,0) + (sl.Money/sl.VAT)*sl.[Percent]) as DTTL				        
+                        ISNULL(sum(st1.Money),0) as [TotalCash], 
+				        ISNULL(convert(decimal(16,2), (st1.Money - st1.Money/sl.VAT)),0) as VatOfTotalCash,
+				        ISNULL(sum(st.Money),0) as [TotalDebt], 
+				        ISNULL(convert(decimal(16,2), (st.Money - st.Money/sl.VAT)),0) as VatOfTotalDebt, 
+				        convert(decimal(16,2),(ISNULL(st.Money *st.[Percent],0)+ISNULL(st1.Money *st1.[Percent],0))/ISNULL(sl.VAT,0) + (sl.Money/sl.VAT)*sl.[Percent]) as EarnMoney				        
 				    from 
 	                    (select s.Name, sum(td.Money) as Money, ps.[Percent]
 	                    from ServiceGroups sg
