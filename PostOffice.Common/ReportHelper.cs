@@ -392,12 +392,12 @@ namespace PostOffice.Common
                         // load data source 2
                         ws.Cells["A" + (noRowBCCP + 14)].LoadFromCollection<T3>(tcbcDataSource, true, TableStyles.Light1);
                         ws.Cells["A" + (noRowBCCP + 13) + ":I" + (noRowBCCP + 13)].Merge = true;
-                        ws.Cells["A" + (noRowBCCP + 13) + ":I" + (noRowBCCP + 13)].Value = "II. Nhóm Tài Chính Bưu Chính";
+                        ws.Cells["A" + (noRowBCCP + 13)].Value = "II. Nhóm Tài Chính Bưu Chính";
                         ws.Cells["A" + (noRowBCCP + 13) + ":I" + (noRowBCCP + 13)].Style.Font.Bold = true;
                         ws.Row(noRowBCCP + 13).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
 
                         //header
-                        ws.Row(noRowBCCP + 14).Height = 30;
+                        ws.Row(noRowBCCP + 14).Height = 50;
                         ws.Cells["A" + (noRowBCCP + 14)].Value = "STT";
                         ws.Cells["B" + (noRowBCCP + 14)].Value = "Dịch vụ";
                         ws.Cells["C" + (noRowBCCP + 14)].Value = "Số \nlượng";
@@ -430,9 +430,63 @@ namespace PostOffice.Common
                         ws.Cells[noRowBCCP + noRowTCBC + 15, 8].Formula = "sum(h" + (15 + noRowBCCP) + ":h" + (noRowBCCP + noRowTCBC + 14) + ")";
                         ws.Cells[noRowBCCP + noRowTCBC + 15, 9].Formula = "sum(i" + (15 + noRowBCCP) + ":i" + (noRowBCCP + noRowTCBC + 14) + ")";
                         ws.Cells[noRowBCCP + 15, 4, noRowBCCP + noRowTCBC + 15, 9].Style.Numberformat.Format = "#,##0.00";
-                    }                   
+                    }
 
                     #endregion TCBC
+
+                    #region PPTT
+
+                    if (noRowPPTT > 0)
+                    {
+                        //load data source 1 PPTT start from noRowBCCP + noRowBCCP+ 18
+                        ws.Cells["A" + (noRowBCCP + noRowTCBC+ 18)].LoadFromCollection<T2>(ppttDataSource, true, TableStyles.Light1);
+                        //fill STT
+                        for (int i = 1; i <= noRowPPTT; i++)
+                        {
+                            ws.Cells["A" + (i + noRowBCCP + noRowTCBC + 18)].Value = i;
+                        }
+                        
+                        //Header Label PPTT
+                        ws.Cells["A" + (noRowBCCP + noRowTCBC + 17) + ":I" + (noRowBCCP + noRowTCBC + 17)].Merge = true;
+                        ws.Cells["A" + (noRowBCCP + noRowTCBC + 17)].Value = "III. dddd";
+                        ws.Cells["A" + (noRowBCCP + noRowTCBC + 17) + ":I" + (noRowBCCP + noRowTCBC + 17)].Style.Font.Bold = true;
+                        ws.Row(noRowBCCP + noRowTCBC + 17).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+
+                        //header
+                        ws.Row(noRowBCCP + noRowTCBC + 18).Height = 30;
+                        ws.Cells["A" + (noRowBCCP + noRowTCBC + 18)].Value = "STT";
+                        ws.Cells["B" + (noRowBCCP + noRowTCBC + 18)].Value = "Dịch vụ";
+                        ws.Cells["C" + (noRowBCCP + noRowTCBC + 18)].Value = "Số \nlượng";
+                        ws.Cells["D" + (noRowBCCP + noRowTCBC + 18)].Value = "Thuế";
+                        ws.Cells["E" + (noRowBCCP + noRowTCBC + 18)].Value = "Tiền mặt";
+                        ws.Cells["F" + (noRowBCCP + noRowTCBC + 18)].Value = "Vat \ntiền mặt";
+                        ws.Cells["G" + (noRowBCCP + noRowTCBC + 18)].Value = "Tiền nợ";
+                        ws.Cells["H" + (noRowBCCP + noRowTCBC + 18)].Value = "Vat \ntiền nợ";
+                        ws.Cells["I" + (noRowBCCP + noRowTCBC + 18)].Value = "Doanh thu \ntính lương";
+
+                        ws.Cells["A" + (noRowBCCP + noRowTCBC + 18) + ":I" + (noRowBCCP + noRowTCBC + 18)].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                        ws.Cells["A" + (noRowBCCP + noRowTCBC + 18) + ":I" + (noRowBCCP + noRowTCBC + 18)].Style.Font.Bold = true;
+                        ws.Cells[noRowBCCP + noRowTCBC + 18, 1, noRowBCCP + noRowTCBC + 18, 9].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        ws.Cells[noRowBCCP + noRowTCBC + 18, 1, noRowBCCP + noRowTCBC + 18, 9].Style.Fill.BackgroundColor.SetColor(Color.FromArgb(236, 143, 50));
+
+                        ws.Cells.AutoFitColumns();
+                        ws.Row(noRowBCCP + noRowTCBC + 18).Style.WrapText = true;
+
+                        ws.Cells["D" + (noRowBCCP + noRowTCBC + 19) + ":I" + (noRowBCCP + noRowTCBC + 19 + noRowPPTT)].Style.Numberformat.Format = "#,##0.00";
+
+                        //sum group 1
+                        ws.Cells[noRowBCCP + noRowTCBC + 19 + noRowPPTT, 2].Value = "Tổng cộng";
+                        ws.Cells[noRowBCCP + noRowTCBC + 19 + noRowPPTT, 2].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;                        
+                        ws.Cells[noRowBCCP + noRowTCBC + 19 + noRowPPTT, 3].Formula = "sum(c" + (noRowBCCP + noRowTCBC + 19) + ":c" + (noRowBCCP + noRowTCBC + 18 + noRowPPTT) + ")";
+                        ws.Cells[noRowBCCP + noRowTCBC + 19 + noRowPPTT, 5].Formula = "sum(e" + (noRowBCCP + noRowTCBC + 19) + ":e" + (noRowBCCP + noRowTCBC + 18 + noRowPPTT) + ")";
+                        ws.Cells[noRowBCCP + noRowTCBC + 19 + noRowPPTT, 6].Formula = "sum(f" + (noRowBCCP + noRowTCBC + 19) + ":f" + (noRowBCCP + noRowTCBC + 18 + noRowPPTT) + ")";
+                        ws.Cells[noRowBCCP + noRowTCBC + 19 + noRowPPTT, 7].Formula = "sum(g" + (noRowBCCP + noRowTCBC + 19) + ":g" + (noRowBCCP + noRowTCBC + 18 + noRowPPTT) + ")";
+                        ws.Cells[noRowBCCP + noRowTCBC + 19 + noRowPPTT, 8].Formula = "sum(h" + (noRowBCCP + noRowTCBC + 19) + ":h" + (noRowBCCP + noRowTCBC + 18 + noRowPPTT) + ")";
+                        ws.Cells[noRowBCCP + noRowTCBC + 19 + noRowPPTT, 9].Formula = "sum(i" + (noRowBCCP + noRowTCBC + 19) + ":i" + (noRowBCCP + noRowTCBC + 18 + noRowPPTT) + ")";
+                        ws.Row(noRowBCCP + noRowTCBC + 19 + noRowPPTT).Style.Font.Bold = true;
+                    }
+
+                    #endregion PPTT
 
                     #region templateInfo
 
@@ -520,7 +574,7 @@ namespace PostOffice.Common
 
                     #endregion templateInfo
 
-                    if(noRowBCCP==0 && noRowTCBC == 0)
+                    if(noRowBCCP==0 && noRowTCBC == 0 && noRowPPTT==00)
                     {
                         ws.Cells["A10"].Value = "Không có dữ liệu";
                     }

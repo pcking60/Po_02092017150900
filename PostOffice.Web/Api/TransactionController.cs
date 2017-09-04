@@ -107,8 +107,7 @@ namespace PostOffice.Web.Api
                     {
                         item.TotalCash = _transactionDetailService.GetTotalMoneyByTransactionId(item.ID);
                     }
-                    item.EarnMoney = _transactionDetailService.GetTotalEarnMoneyByTransactionId(item.ID);
-                    item.EarnMoney = _transactionDetailService.GetTotalEarnMoneyByTransactionId(item.ID);
+                    item.EarnMoney = _transactionDetailService.GetTotalEarnMoneyByTransactionId(item.ID);                    
                 }
 
                 var paginationSet = new PaginationSet<TransactionViewModel>
