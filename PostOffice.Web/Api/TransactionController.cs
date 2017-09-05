@@ -162,6 +162,46 @@ namespace PostOffice.Web.Api
             });
         }
 
+        [Route("getall30days")]
+        public HttpResponseMessage GetAll30Days(HttpRequestMessage request, int page, int pageSize = 40)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                int totalRow = 0;
+                var userName = User.Identity.Name;
+                var model = _transactionService.GetAllBy_UserName_30_Days(userName);
+                totalRow = model.Count();
+                var query = model.OrderByDescending(x => x.Status).ThenBy(x => x.ID).Skip(page * pageSize).Take(pageSize);
+
+                var responseData = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(query);
+
+                foreach (var item in responseData)
+                {
+                    item.ServiceName = _serviceService.GetById(item.ServiceId).Name;
+                    item.Quantity = Convert.ToInt32(_transactionDetailService.GetAllByCondition("Sản lượng", item.ID).Money);
+                    if (!item.IsCash)
+                    {
+                        item.TotalDebt = _transactionDetailService.GetTotalMoneyByTransactionId(item.ID);
+                    }
+                    else
+                    {
+                        item.TotalCash = _transactionDetailService.GetTotalMoneyByTransactionId(item.ID);
+                    }
+                    item.EarnMoney = _transactionDetailService.GetTotalEarnMoneyByTransactionId(item.ID);
+                }
+
+                var paginationSet = new PaginationSet<TransactionViewModel>
+                {
+                    Items = responseData,
+                    Page = page,
+                    TotalCount = totalRow,
+                    TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)
+                };
+                var response = request.CreateResponse(HttpStatusCode.OK, paginationSet);
+                return response;
+            });
+        }
+
         [Route("delete")]
         [HttpDelete]
         [AllowAnonymous]

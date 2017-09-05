@@ -18,7 +18,7 @@
                             stateService.go('home');
                         }
                         else {
-                            stateService.go('user_dashboard');
+                            stateService.go('transactions');
                         }                        
                     }
                 });
