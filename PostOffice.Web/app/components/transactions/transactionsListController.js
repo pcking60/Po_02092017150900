@@ -6,12 +6,10 @@
         $scope.page = 0;
         $scope.pagesCount = 0;
         $scope.transactions = [];
-        $scope.getTransactions = getTransactions;
         $scope.keyword = '';
-        $scope.search = search;
+        //$scope.search = search;
         $scope.deleteTransaction = deleteTransaction;
-
-        $scope.getTransactionsIn7Days = 
+        
         function getTransactionsIn7Days(page) {
             page = page || 0;
             var config = {
@@ -24,12 +22,12 @@
                 if (result.data.TotalCount == 0) {
                     notificationService.displayWarning("Chưa có dữ liệu");
                 }
-                
+                $scope.transactions = [];
                 $scope.transactions = result.data.Items;
                 $scope.page = result.data.Page;
                 $scope.pagesCount = result.data.TotalPages;
                 $scope.totalCount = result.data.TotalCount;
-                
+                console.log(result.data.Count);
             },
             function () {
                 $scope.loading = false;
@@ -62,10 +60,10 @@
             });
          }
 
-        function search() {
-            getTransactionsIn7Days();
-            //$state.go('userbase', {}, { reload: true });
-        }
+        //function search() {
+        //    getTransactionsIn7Days();            
+        //}
+        
         function getTransactions(page) {
             page = page || 0;
             var config = {
@@ -77,13 +75,12 @@
             apiService.get('/api/transactions/getall', config, function (result) {
                 if (result.data.TotalCount == 0) {
                     notificationService.displayWarning("Chưa có dữ liệu");                    
-                }               
-                
+                } 
                 $scope.transactions = result.data.Items;
                 $scope.page = result.data.Page;
                 $scope.pagesCount = result.data.TotalPages;
                 $scope.totalCount = result.data.TotalCount;
-                
+                console.log(result.data.Count);                
                 $scope.loading = false;
             },
             function () {
@@ -113,8 +110,8 @@
 
         getUserInfo();
 
-        getTransactions();
-        
+        //getTransactionsIn7Days();
+        console.log("test");
     }
 
     
