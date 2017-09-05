@@ -2,8 +2,7 @@
     app.controller('transactionsListController', transactionsListController);
     transactionsListController.$inject = ['$scope', 'apiService', 'notificationService',
             '$ngBootbox', '$filter', '$state', 'authService'];
-    function transactionsListController($scope, apiService, notificationService, $ngBootbox, $filter, $state, authService) {
-             
+    function transactionsListController($scope, apiService, notificationService, $ngBootbox, $filter, $state, authService) {             
         $scope.page = 0;
         $scope.pagesCount = 0;
         $scope.transactions = [];
@@ -11,6 +10,32 @@
         $scope.keyword = '';
         $scope.search = search;
         $scope.deleteTransaction = deleteTransaction;
+
+        $scope.getTransactionsIn7Days = 
+        function getTransactionsIn7Days(page) {
+            page = page || 0;
+            var config = {
+                params: {
+                    page: page,
+                    pageSize: 40
+                }
+            }
+            apiService.get('/api/transactions/getall7days', config, function (result) {
+                if (result.data.TotalCount == 0) {
+                    notificationService.displayWarning("Chưa có dữ liệu");
+                }
+                
+                $scope.transactions = result.data.Items;
+                $scope.page = result.data.Page;
+                $scope.pagesCount = result.data.TotalPages;
+                $scope.totalCount = result.data.TotalCount;
+                
+            },
+            function () {
+                $scope.loading = false;
+                console.log('Load transactions failed');
+            });
+        }
 
         //test gettime()
         $scope.currentDate = new Date();     
@@ -38,7 +63,7 @@
          }
 
         function search() {
-            getTransactions();
+            getTransactionsIn7Days();
             //$state.go('userbase', {}, { reload: true });
         }
         function getTransactions(page) {
@@ -46,7 +71,7 @@
             var config = {
                 params: {                    
                     page: page,
-                    pageSize: 20
+                    pageSize: 40
                 }
             }
             apiService.get('/api/transactions/getall', config, function (result) {

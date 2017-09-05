@@ -22,10 +22,7 @@
             [
                 { Id: 1, Name: 'Bảng kê thu tiền tại bưu cục - tổng hợp' },
                 { Id: 2, Name: 'Bảng kê thu tiền tại bưu cục - chi tiết' },
-                { Id: 3, Name: 'Bảng kê thu tiền theo nhân viên' },
-                { Id: 4, Name: 'Bảng kê thu tiền theo dịch vụ' },
-                { Id: 5, Name: 'Bảng kê thu tiền theo nhân viên và dịch vụ' },
-
+                { Id: 3, Name: 'Bảng kê thu tiền theo nhân viên' }
             ]
 
        

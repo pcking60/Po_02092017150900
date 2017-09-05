@@ -54,6 +54,7 @@ namespace PostOfiice.DAta.Repositories
 
         public IEnumerable<Transaction> GetAllByUserName(string userName)
         {
+            var date = DateTime.Now;
             var pos = from po in this.DbContext.PostOffices
                       join u in this.DbContext.Users
                       on po.ID equals u.POID
@@ -64,7 +65,7 @@ namespace PostOfiice.DAta.Repositories
             var listTransaction = from u in this.DbContext.Users
                                   join ts in this.DbContext.Transactions
                                   on u.Id equals ts.UserId
-                                  where u.POID == p && ts.Status==true
+                                  where u.UserName == userName && ts.Status == true && ts.TransactionDate == date
                                   select ts;
 
             return listTransaction;

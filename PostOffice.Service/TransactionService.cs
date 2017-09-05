@@ -4,6 +4,7 @@ using PostOfiice.DAta.Infrastructure;
 using PostOfiice.DAta.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,8 @@ namespace PostOffice.Service
 
         IEnumerable<Transaction> GetAll(DateTime fromDate, DateTime toDate);
 
-        IEnumerable<Transaction> GetAllByUserName(string userName);
+        IEnumerable<Transaction> GetAllBy_UserName_Now(string userName);
+        IEnumerable<Transaction> GetAllBy_UserName_7_Days(string userName);
 
         IEnumerable<Transaction> GetAllByTime(DateTime fromDate, DateTime toDate, string userName, string userId, int serviceId);
 
@@ -82,43 +84,11 @@ namespace PostOffice.Service
             }
         }
 
-        public IEnumerable<Transaction> GetAllByUserName(string userName)
+        public IEnumerable<Transaction> GetAllBy_UserName_Now(string userName)
         {
-            var user = _userRepository.getByUserName(userName);
-            var listGroup = _groupRepository.GetListGroupByUserId(user.Id);
-
-            bool IsManager = false;
-            bool IsAdministrator = false;
-
-            foreach (var item in listGroup)
-            {
-                string name = item.Name;
-                if(name=="Manager")
-                {
-                    IsManager = true;
-                }
-                if (name == "Administrator")
-                {
-                    IsAdministrator = true;
-                }
-            }
-            if(IsAdministrator)
-            {
-                return _transactionRepository.GetAll();
-            }
-            else
-            {
-                if (IsManager)
-                {
-                   return  _transactionRepository.GetAllByUserName(userName);
-                    
-                }
-                else
-                {
-                    return _transactionRepository.GetMulti(x => x.UserId == user.Id && x.Status == true).ToList();
-                }
-            }
-            
+            var user = _userRepository.getByUserName(userName);            
+            var date = DateTime.Now.Date;           
+            return _transactionRepository.GetMulti(x => x.UserId == user.Id && x.Status == true && DbFunctions.TruncateTime(x.TransactionDate) == date).ToList();
         }
 
         public Transaction GetById(int id)
@@ -247,6 +217,14 @@ namespace PostOffice.Service
         public IEnumerable<Transaction> GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime fromDate, DateTime toDate, int districtId, int poId, int id)
         {
             return _transactionRepository.GetAllBy_Time_DistrictID_POID_MainGroupId(fromDate, toDate, districtId, poId, id);
+        }
+
+        public IEnumerable<Transaction> GetAllBy_UserName_7_Days(string userName)
+        {
+            var user = _userRepository.getByUserName(userName);
+            var date = DateTime.Now.Date;
+            var date1 = DateTime.Now.AddDays(-7);
+            return _transactionRepository.GetMulti(x => x.UserId == user.Id && x.Status == true && (DbFunctions.TruncateTime(x.TransactionDate) <= date && DbFunctions.TruncateTime(x.TransactionDate)>date1)).ToList();
         }
     }
 }
