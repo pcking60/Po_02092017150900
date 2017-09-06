@@ -448,7 +448,7 @@ namespace PostOffice.Common
                         
                         //Header Label PPTT
                         ws.Cells["A" + (noRowBCCP + noRowTCBC + 17) + ":I" + (noRowBCCP + noRowTCBC + 17)].Merge = true;
-                        ws.Cells["A" + (noRowBCCP + noRowTCBC + 17)].Value = "III. dddd";
+                        ws.Cells["A" + (noRowBCCP + noRowTCBC + 17)].Value = "III. Phân phối truyền thông";
                         ws.Cells["A" + (noRowBCCP + noRowTCBC + 17) + ":I" + (noRowBCCP + noRowTCBC + 17)].Style.Font.Bold = true;
                         ws.Row(noRowBCCP + noRowTCBC + 17).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
 
