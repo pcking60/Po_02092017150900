@@ -165,7 +165,7 @@ namespace PostOffice.Service
                 foreach (var item1 in listTransactionDetail)
                 {
                     decimal? percent = _propertyServiceRepository.GetSingleByID(item1.PropertyServiceId).Percent;
-                    earnTotal = (earnTotal + percent * item1.Money)/ decimal.Parse(vat.ToString());
+                    earnTotal = earnTotal + (percent * item1.Money)/ decimal.Parse(vat.ToString());
                 }                
             }
             return earnTotal;

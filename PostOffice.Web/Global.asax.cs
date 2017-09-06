@@ -1,9 +1,10 @@
-﻿using PostOffice.Web.Infrastructure.Core;
+﻿using PostOffice.Web.App_Start;
 using PostOffice.Web.Mappings;
 using System;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Routing;
 
 namespace PostOffice.Web
@@ -18,9 +19,7 @@ namespace PostOffice.Web
             AutoMapperConfiguration.Configure();
             //FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            //BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-           
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }
 }

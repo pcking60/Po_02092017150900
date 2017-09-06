@@ -8,13 +8,13 @@
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="shortcut icon" href="~/favicon.ico" />
     <!-- Bootstrap 3.3.5 -->
-    <link href="~/Assets/admin/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    @*<link href="~/Assets/admin/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />*@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-
-    <link href="~/Assets/admin/libs/angular-material/angular-material.min.css" rel="stylesheet" />
+    @Styles.Render("~/bundles/css")
+    @*<link href="~/Assets/admin/libs/angular-material/angular-material.min.css" rel="stylesheet" />
     <!-- Theme style -->
     <link href="~/Assets/admin/libs/toastr/toastr.css" rel="stylesheet" />
     <link href="~/Assets/admin/libs/angular-loading-bar/build/loading-bar.css" rel="stylesheet" />
@@ -28,7 +28,7 @@
     <link href="~/Assets/admin/libs/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="/Assets/admin/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="/Assets/admin/css/skins/_all-skins.min.css">*@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -38,9 +38,11 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini" ng-app="postoffice" ng-controller="rootController">
     <div ui-view></div>
+    @Scripts.Render("~/bundles/common");
+    @*@Styles.Render("~/bundles/action");*@
     <!-- Site wrapper -->
     <!-- jQuery 2.1.4 -->
-    <script src="~/Assets/admin/libs/jquery/dist/jquery.js"></script>
+    @*<script src="~/Assets/admin/libs/jquery/dist/jquery.js"></script>
     <!-- Bootstrap 3.3.5 -->
     <script src="~/Assets/admin/libs/bootstrap/dist/js/bootstrap.js"></script>
     <!-- SlimScroll -->
@@ -73,7 +75,7 @@
     <script src="~/Assets/admin/libs/angular-daterangepicker/js/angular-daterangepicker.min.js"></script>
    
     <script src="~/Assets/admin/libs/Chart.js/Chart.js"></script>
-    <script src="~/Assets/admin/libs/angular-chart.js/dist/angular-chart.min.js"></script>
+    <script src="~/Assets/admin/libs/angular-chart.js/dist/angular-chart.min.js"></script>*@
 
     <!-- Angular Masterial -->
     <script src="~/Assets/admin/libs/angular-material/angular-animate.min.js"></script>
@@ -178,7 +180,6 @@
 
     <script src="~/Assets/admin/js/app.js"></script>
     <script src="~/Assets/admin/js/demo.js"></script>
-
     
 </body>
 </html>
