@@ -94,8 +94,7 @@ namespace PostOffice.Web.Api
                 var response = request.CreateResponse(HttpStatusCode.OK, responseData);
                 return response;
             });
-        }
-        [CacheOutput(ServerTimeSpan =)]
+        }       
         [Route("getallbyuserid/{id}")]
         [HttpGet]
         public HttpResponseMessage GetAllByUserId(HttpRequestMessage request, string id)
@@ -166,7 +165,7 @@ namespace PostOffice.Web.Api
                 return response;
             });
         }
-
+        [CacheOutput(ClientTimeSpan =3600)]
         [Route("getallparents")]        
         [HttpGet]
         public HttpResponseMessage GetAllParentID(HttpRequestMessage request)
