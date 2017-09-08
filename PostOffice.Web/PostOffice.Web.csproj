@@ -194,6 +194,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="app\app.js" />
+    <Content Include="app\app.min.js">
+      <DependentUpon>app.js</DependentUpon>
+    </Content>
     <Content Include="app\components\application_groups\applicationGroupAddController.js" />
     <Content Include="app\components\application_groups\applicationGroupAddView.html" />
     <Content Include="app\components\application_groups\applicationGroupEditController.js" />
@@ -219,27 +222,69 @@
     <Content Include="app\components\application_users\settings.html" />
     <Content Include="app\components\application_users\userProfileView.html" />
     <Content Include="app\components\application_users\userProfileViewController.js" />
+    <Content Include="app\components\login\loginController.min.js">
+      <DependentUpon>loginController.js</DependentUpon>
+    </Content>
+    <Content Include="app\components\login\loginView.min.html">
+      <DependentUpon>loginView.html</DependentUpon>
+    </Content>
     <Content Include="app\components\statistic\reportsController.js" />
+    <Content Include="app\components\statistic\reportsController.min.js">
+      <DependentUpon>reportsController.js</DependentUpon>
+    </Content>
     <Content Include="app\components\statistic\reportsView.html" />
     <Content Include="app\components\statistic\revenueStatisticController.js" />
+    <Content Include="app\components\statistic\revenueStatisticController.min.js">
+      <DependentUpon>revenueStatisticController.js</DependentUpon>
+    </Content>
     <Content Include="app\components\statistic\revenueStatisticView.html" />
     <Content Include="app\components\statistic\statistic.module.js" />
     <Content Include="app\components\statistic\timeStatisticController.js" />
+    <Content Include="app\components\statistic\timeStatisticController.min.js">
+      <DependentUpon>timeStatisticController.js</DependentUpon>
+    </Content>
     <Content Include="app\components\statistic\timeStatisticView.html" />
     <Content Include="app\components\statistic\unitStatisticController.js" />
+    <Content Include="app\components\statistic\unitStatisticController.min.js">
+      <DependentUpon>unitStatisticController.js</DependentUpon>
+    </Content>
     <Content Include="app\components\tkbd\tkbd.module.js" />
+    <Content Include="app\components\tkbd\tkbd.module.min.js">
+      <DependentUpon>tkbd.module.js</DependentUpon>
+    </Content>
     <Content Include="app\components\tkbd\TKBDHistory.html" />
     <Content Include="app\components\tkbd\TKBDHistoryController.js" />
+    <Content Include="app\components\tkbd\TKBDHistoryController.min.js">
+      <DependentUpon>TKBDHistoryController.js</DependentUpon>
+    </Content>
     <Content Include="app\components\tkbd\tkbdImportListController.js" />
+    <Content Include="app\components\tkbd\tkbdImportListController.min.js">
+      <DependentUpon>tkbdImportListController.js</DependentUpon>
+    </Content>
     <Content Include="app\components\tkbd\tkbdImportListView.html" />
     <Content Include="app\components\tkbd\tkbdListController.js" />
+    <Content Include="app\components\tkbd\tkbdListController.min.js">
+      <DependentUpon>tkbdListController.js</DependentUpon>
+    </Content>
     <Content Include="app\components\tkbd\tkbdListView.html" />
     <Content Include="app\components\transactions\transactionAddController.js" />
+    <Content Include="app\components\transactions\transactionAddController.min.js">
+      <DependentUpon>transactionAddController.js</DependentUpon>
+    </Content>
     <Content Include="app\components\transactions\transactionAddView.html" />
     <Content Include="app\components\transactions\transactionEditController.js" />
+    <Content Include="app\components\transactions\transactionEditController.min.js">
+      <DependentUpon>transactionEditController.js</DependentUpon>
+    </Content>
     <Content Include="app\components\transactions\transactionEditView.html" />
     <Content Include="app\components\transactions\transactions.module.js" />
+    <Content Include="app\components\transactions\transactions.module.min.js">
+      <DependentUpon>transactions.module.js</DependentUpon>
+    </Content>
     <Content Include="app\components\transactions\transactionsListController.js" />
+    <Content Include="app\components\transactions\transactionsListController.min.js">
+      <DependentUpon>transactionsListController.js</DependentUpon>
+    </Content>
     <Content Include="app\components\transactions\transactionsListView.html" />
     <Content Include="app\components\property_services\propertyServiceAddController.js" />
     <Content Include="app\components\property_services\propertyServiceAddView.html" />
@@ -363,9 +408,17 @@
     <Content Include="Assets\admin\img\user7-128x128.jpg" />
     <Content Include="Assets\admin\img\user8-128x128.jpg" />
     <Content Include="Assets\admin\js\angular-ui-router.js" />
+    <Content Include="Assets\admin\js\angular-ui-router.min.js">
+      <DependentUpon>angular-ui-router.js</DependentUpon>
+    </Content>
     <Content Include="Assets\admin\js\app.js" />
-    <Content Include="Assets\admin\js\app.min.js" />
+    <Content Include="Assets\admin\js\app.min.js">
+      <DependentUpon>app.js</DependentUpon>
+    </Content>
     <Content Include="Assets\admin\js\demo.js" />
+    <Content Include="Assets\admin\js\demo.min.js">
+      <DependentUpon>demo.js</DependentUpon>
+    </Content>
     <Content Include="Assets\admin\js\pages\dashboard.js" />
     <Content Include="Assets\admin\js\pages\dashboard2.js" />
     <Content Include="Assets\admin\libs\angular-bootstrap\.gitignore" />
@@ -470,6 +523,9 @@
     <Content Include="Assets\admin\libs\bootbox\bootbox.js" />
     <Content Include="Assets\admin\libs\bootstrap-daterangepicker\daterangepicker.css" />
     <Content Include="Assets\admin\libs\bootstrap-daterangepicker\daterangepicker.js" />
+    <Content Include="Assets\admin\libs\bootstrap-daterangepicker\daterangepicker.min.js">
+      <DependentUpon>daterangepicker.js</DependentUpon>
+    </Content>
     <Content Include="Assets\admin\libs\bootstrap-daterangepicker\demo.html" />
     <Content Include="Assets\admin\libs\bootstrap-daterangepicker\drp.png" />
     <Content Include="Assets\admin\libs\bootstrap-daterangepicker\example\amd\index.html" />
@@ -3158,6 +3214,9 @@
     <Content Include="Assets\admin\libs\ckfinder\changelog.txt" />
     <Content Include="Assets\admin\libs\ckfinder\ckfinder.html" />
     <Content Include="Assets\admin\libs\ckfinder\ckfinder.js" />
+    <Content Include="Assets\admin\libs\ckfinder\ckfinder.min.js">
+      <DependentUpon>ckfinder.js</DependentUpon>
+    </Content>
     <Content Include="Assets\admin\libs\ckfinder\ckfinder_v1.js" />
     <Content Include="Assets\admin\libs\ckfinder\config.ascx" />
     <Content Include="Assets\admin\libs\ckfinder\config.js" />
@@ -4304,6 +4363,9 @@
     <Content Include="Assets\admin\libs\moment\min\moment.min.js" />
     <Content Include="Assets\admin\libs\moment\min\tests.js" />
     <Content Include="Assets\admin\libs\moment\moment.js" />
+    <Content Include="Assets\admin\libs\moment\moment.min.js">
+      <DependentUpon>moment.js</DependentUpon>
+    </Content>
     <Content Include="Assets\admin\libs\moment\src\lib\create\check-overflow.js" />
     <Content Include="Assets\admin\libs\moment\src\lib\create\date-from-array.js" />
     <Content Include="Assets\admin\libs\moment\src\lib\create\from-anything.js" />
@@ -5432,6 +5494,7 @@
     <Content Include="AppSettings.config" />
     <Content Include="app\shared\directives\fileUpload.directive.js" />
     <Content Include="Assets\admin\template\task %28Autosaved%29.xlsx" />
+    <None Include="bundleconfig.json" />
     <None Include="Properties\PublishProfiles\DTTL.pubxml" />
     <None Include="Properties\PublishProfiles\postoffice.pubxml" />
     <None Include="Properties\PublishProfiles\test-dttl.pubxml" />

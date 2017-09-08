@@ -15,7 +15,7 @@
 
         </div>-->
     
-        <div class="box-body">       
+        <div class="box-body" ng-init="getServices()">       
             <div class="row">
                 <div class="col-md-3">
                     <button class="btn btn-success" ui-sref="service_add">Thêm mới</button>
@@ -55,7 +55,7 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tr ng-repeat="item in services|filter: SmartSearch">
+                        <tr ng-repeat="item in services|filter: SmartSearch" >
                             <td style="vertical-align:middle" class="text-center">{{item.ID}}</td>
                             <td>{{item.Name}}</td>
                             <td>{{item.GroupName}}</td>

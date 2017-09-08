@@ -41,7 +41,7 @@ angular.module('postoffice',
             })
             .state('login', {
                 url: "/login",
-                templateUrl: "/app/components/login/loginView.html",
+                templateUrl: "/app/components/login/loginView.min.html",
                 controller: "loginController"
             })
             .state('user_dashboard', {

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using OfficeOpenXml;
 using PostOffice.Common;
 using PostOffice.Common.ViewModels;
 using PostOffice.Service;
@@ -15,6 +14,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using WebApi.OutputCache.V2;
 
 namespace PostOffice.Web.Api
 {
@@ -95,7 +95,7 @@ namespace PostOffice.Web.Api
                 return response;
             });
         }
-
+        [CacheOutput(ServerTimeSpan =)]
         [Route("getallbyuserid/{id}")]
         [HttpGet]
         public HttpResponseMessage GetAllByUserId(HttpRequestMessage request, string id)
@@ -167,7 +167,7 @@ namespace PostOffice.Web.Api
             });
         }
 
-        [Route("getallparents")]
+        [Route("getallparents")]        
         [HttpGet]
         public HttpResponseMessage GetAllParentID(HttpRequestMessage request)
         {

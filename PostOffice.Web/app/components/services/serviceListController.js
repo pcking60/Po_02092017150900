@@ -13,6 +13,7 @@
         $scope.deleteService = deleteService;
         $scope.loading = true;
         $scope.exportExcel = exportExcel;
+
         function exportExcel() {
             var config = {
                 params: {
@@ -28,6 +29,7 @@
 
             });
         }
+
         function deleteService(id) {
             $ngBootbox.confirm('Bạn có chắc xóa không?')
                 .then(
@@ -55,6 +57,7 @@
                 console.log('Command was cancel!');
             });
         }
+
         function search() {
             getServices();
         }
@@ -70,12 +73,12 @@
             apiService.get('/api/service/getall', config, function (result) {
                 if (result.data.TotalCount === 0) {
                     notificationService.displayWarning("Chưa có dữ liệu");
-                }
-                $scope.loading = false;
+                }                
                 $scope.services = result.data.Items;
                 $scope.page = result.data.Page;
                 $scope.pagesCount = result.data.TotalPages;
                 $scope.totalCount = result.data.TotalCount;
+                $scope.loading = false;
             },
             function () {
                 console.log('Load service failed');
@@ -92,7 +95,8 @@
                     console.log('Load service failed');
                 });
         };
-        $scope.getAllServices();
-        $scope.getServices();
+
+        //$scope.getAllServices();
+        //$scope.getServices();
     }
 })(angular.module('postoffice.services'));

@@ -81,8 +81,8 @@
                         <span class="pull-right" ng-if="item1.NoService>0"><i class="fa fa-hand-o-down"></i></span>
                     </a>
                     <!--List Service by ServiceGroupId-->
-                    <ul class="treeview-menu" ng-controller="serviceListController">
-                        <li ng-repeat="item2 in AllServices" ng-if="item2.GroupID==item1.ID">
+                    <ul class="treeview-menu" ng-controller="serviceListController" ng-init="getAllServices()">
+                        <li ng-repeat="item2 in AllServices track by item2.ID" ng-if="item2.GroupID==item1.ID">
                             <a ui-sref="add_transaction({id:item2.ID})">
                                 <i class="fa fa-angle-double-right text-aqua"></i>
                                 <span>{{item2.Name}}</span>

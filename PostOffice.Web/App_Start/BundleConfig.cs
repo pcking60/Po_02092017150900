@@ -7,48 +7,38 @@ namespace PostOffice.Web.App_Start
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/bundles/css").Include(
-                "~/Assets/admin/libs/bootstrap/dist/css/bootstrap.min.css",
-                "~/Assets/admin/libs/angular-material/angular-material.min.css",
                 "~/Assets/admin/libs/toastr/toastr.css",
                 "~/Assets/admin/libs/angular-loading-bar/build/loading-bar.css",
-                "~/Assets/admin/css/AdminLTE.min.css",
                 "~/Assets/admin/css/custom.css",
                 "~/Assets/admin/libs/iCheck/all.css",
                 "~/Assets/admin/libs/ngprogress/ngProgress.css",
-                "~/Assets/admin/libs/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css",
                 "~/Assets/admin/libs/angular-ui-select/dist/select.css",
-                "~/Assets/admin/libs/angular-chart.js/dist/angular-chart.min.css",
-                "~/Assets/admin/libs/bootstrap-daterangepicker/daterangepicker.css",
-                "~/Assets/admin/css/skins/_all-skins.min.css"
+                "~/Assets/admin/libs/bootstrap-daterangepicker/daterangepicker.css"
                 ));
-            bundles.Add(new ScriptBundle("~/bundles/common").Include(
-                "~/Assets/admin/libs/jquery/dist/jquery.js",
-                "~/Assets/admin/libs/bootstrap/dist/js/bootstrap.js",
+
+            bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
+                "~/Assets/admin/libs/jquery/dist/jquery.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angularjs").Include(
+                "~/Assets/admin/libs/angular/angular.js"));           
+
+            bundles.Add(new ScriptBundle("~/bundles/ckfinder").Include(                
+                "~/Assets/admin/libs/ckfinder/ckfinder.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                "~/Assets/admin/libs/bootstrap/dist/js/bootstrap.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/common").Include(                
                 "~/Assets/admin/libs/slimScroll/jquery.slimscroll.js",
                 "~/Assets/admin/libs/fastclick/lib/fastclick.js",
-                "~/Assets/admin/libs/angular/angular.js",
-                "~/Assets/admin/js/angular-ui-router.js",
-                "~/Assets/admin/libs/angular-cookies/angular-cookies.js",
                 "~/Assets/admin/libs/ngprogress/build/ngprogress.js",
                 "~/Assets/admin/libs/toastr/toastr.js",
-                "~/Assets/admin/libs/bootbox/bootbox.js",
-                "~/Assets/admin/libs/ckeditor/ckeditor.js",
-                "~/Assets/admin/libs/ckfinder/ckfinder.js",
-                "~/Assets/admin/libs/ngBootbox/ngBootbox.js",
+                "~/Assets/admin/libs/bootbox/bootbox.js", 
                 "~/Assets/admin/libs/ng-ckeditor/ng-ckeditor.js",
                 "~/Assets/admin/libs/angular-local-storage/dist/angular-local-storage.js",
                 "~/Assets/admin/libs/angular-loading-bar/build/loading-bar.js",
                 "~/Assets/admin/libs/checklist-model/checklist-model.js",
-                "~/Assets/admin/libs/iCheck/icheck.js",
-                "~/Assets/admin/libs/ng-bs-daterangepicker/dist/ng-bs-daterangepicker.min.js",
-                "~/Assets/admin/libs/moment/moment.js",
-                "~/Assets/admin/libs/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js",
-                "~/Assets/admin/libs/angular-sanitize/angular-sanitize.min.js",
-                "~/Assets/admin/libs/angular-ui-select/dist/select.min.js",
-                "~/Assets/admin/libs/bootstrap-daterangepicker/daterangepicker.js",
-                "~/Assets/admin/libs/angular-daterangepicker/js/angular-daterangepicker.min.js",
-                "~/Assets/admin/libs/Chart.js/Chart.js",
-                "~/Assets/admin/libs/angular-chart.js/dist/angular-chart.min.js"
+                "~/Assets/admin/libs/iCheck/icheck.js"
                 ));
             bundles.Add(new ScriptBundle("~/bundles/action").Include(
                     "~/app/shared/modules/postoffice.common.js",

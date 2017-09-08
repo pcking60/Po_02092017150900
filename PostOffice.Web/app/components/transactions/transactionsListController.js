@@ -93,8 +93,9 @@
          }
 
         function search() {
-            getTransactionsIn7Days();            
+            getTransactions();
         }
+
         $scope.getTransactions =
         function getTransactions(page) {
             page = page || 0;

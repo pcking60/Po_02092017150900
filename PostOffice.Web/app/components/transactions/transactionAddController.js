@@ -41,6 +41,8 @@
                         notificationService.displaySuccess('Giao dịch thành công');
                         $timeout(function () {
                             $ngBootbox.confirm('Bạn có muốn tiếp tục nhập?').then(function () {
+                                $scope.transaction.TransactionDetails = [];
+                                $state.go($state.current, {}, { reload: true });
                             }
                             , function () {
                                 $state.go('transactions', {}, { reload: true });
