@@ -163,7 +163,7 @@ namespace PostOffice.Web.Api
         }
 
         [Route("getall30days")]
-        public HttpResponseMessage GetAll30Days(HttpRequestMessage request, int page, int pageSize = 40)
+        public HttpResponseMessage GetAll30Days(HttpRequestMessage request, int page, int pageSize = 20)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -171,7 +171,7 @@ namespace PostOffice.Web.Api
                 var userName = User.Identity.Name;
                 var model = _transactionService.GetAllBy_UserName_30_Days(userName);
                 totalRow = model.Count();
-                var query = model.OrderByDescending(x => x.Status).ThenBy(x => x.ID).Skip(page * pageSize).Take(pageSize);
+                var query = model.OrderByDescending(x => x.TransactionDate).ThenBy(x => x.ID).Skip(page * pageSize).Take(pageSize);
 
                 var responseData = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(query);
 

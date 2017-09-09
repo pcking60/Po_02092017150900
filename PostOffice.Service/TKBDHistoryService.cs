@@ -4,6 +4,7 @@ using PostOfiice.DAta.Repositories;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Data.Entity;
 
 namespace PostOffice.Service
 {
@@ -26,6 +27,8 @@ namespace PostOffice.Service
         TKBDHistory GetById(int id);
         IEnumerable<TKBDHistory> GetByAccount(string acc);
         IEnumerable<TKBDHistory> GetAllByUserName(string userName);
+        IEnumerable<TKBDHistory> GetAllByUserName7Day(string userName);
+        IEnumerable<TKBDHistory> GetAllByUserName30Day(string userName);
 
         void Save();
     }
@@ -109,39 +112,27 @@ namespace PostOffice.Service
         public IEnumerable<TKBDHistory> GetAllByUserName(string userName)
         {
             var user = _userRepository.getByUserName(userName);
-            var listGroup = _groupRepository.GetListGroupByUserId(user.Id);
+            var date = DateTime.Now.Date;
 
-            bool IsManager = false;
-            bool IsAdministrator = false;
+            return _tkbdRepository.GetMulti(x => x.UserId == user.Id && x.Status == true && DbFunctions.TruncateTime(x.TransactionDate) == date).ToList();
+        }
 
-            foreach (var item in listGroup)
-            {
-                string name = item.Name;
-                if (name == "Manager")
-                {
-                    IsManager = true;
-                }
-                if (name == "Administrator")
-                {
-                    IsAdministrator = true;
-                }
-            }
-            if (IsAdministrator)
-            {
-                return _tkbdRepository.GetAll();
-            }
-            else
-            {
-                if (IsManager)
-                {
-                    return _tkbdRepository.GetAllByUserName(userName);
+        public IEnumerable<TKBDHistory> GetAllByUserName7Day(string userName)
+        {
+            var user = _userRepository.getByUserName(userName);
+            var date = DateTime.Now.Date;
+            var date1 = DateTime.Now.AddDays(-7);
 
-                }
-                else
-                {
-                    return _tkbdRepository.GetMulti(x => x.UserId == user.Id).ToList();
-                }
-            }
+            return _tkbdRepository.GetMulti(x => x.UserId == user.Id && x.Status == true && (DbFunctions.TruncateTime(x.TransactionDate) <= date && DbFunctions.TruncateTime(x.TransactionDate) >= date1)).ToList();
+        }
+
+        public IEnumerable<TKBDHistory> GetAllByUserName30Day(string userName)
+        {
+            var user = _userRepository.getByUserName(userName);
+            var date = DateTime.Now.Date;
+            var date1 = DateTime.Now.AddDays(-30);
+
+            return _tkbdRepository.GetMulti(x => x.UserId == user.Id && x.Status == true && (DbFunctions.TruncateTime(x.TransactionDate) <= date && DbFunctions.TruncateTime(x.TransactionDate) >= date1)).ToList();
         }
     }
 }

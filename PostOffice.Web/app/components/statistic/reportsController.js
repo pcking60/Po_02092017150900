@@ -42,7 +42,7 @@
 
         // câp nhật danh sách bưu cục của đơn vị được chọn
         $scope.updatePos = function (item) {
-            if (item != 0 && item != null) {
+            if (item !== 0 && item !== null) {
                 $stateParams.id = item;
                 getPos();
             }
@@ -89,19 +89,6 @@
                 });
         }
 
-        // lấy danh sách bưu cục
-        $scope.getPos = getPos;
-        function getPos() {
-            apiService.get('/api/po/getbydistrictid/' + $stateParams.id,
-                null,
-                function (response) {
-                    $scope.report.pos = response.data;
-                }, function (response) {
-                    notificationService.displayError('Không tải được danh sách đơn vị.');
-                }
-            );
-        }
-
         // lấy danh sách dịch vụ
         $scope.getService = getService;
         function getService() {
@@ -123,8 +110,7 @@
 
        
         $scope.Report = Report;
-        function Report() {
-            $scope.loading = false;
+        function Report() {            
             var fromDate = $scope.report.date.startDate.format('MM/DD/YYYY');
             var toDate = $scope.report.date.endDate.format('MM/DD/YYYY');
             var config = {
@@ -144,14 +130,17 @@
                     $scope.loading = true;
                     if (response.status = 200) {
                         window.location.href = response.data.Message;
+                        $scope.loading = false;
                     }
                 },
                 function (response) {
                     if (response.status == 500) {
                         notificationService.displayError('Không có dữ liệu');
+                        $scope.loading = false;
                     }
                     else {
                         notificationService.displayError('Không thể tải dữ liệu');
+                        $scope.loading = false;
                     }
                 }
             )

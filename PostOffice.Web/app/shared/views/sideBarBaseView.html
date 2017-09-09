@@ -14,7 +14,8 @@
     <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu"  ng-hide="!isAdmin && !isManager">
-        <li class="header">MANAGER</li>
+
+        <li class="header" style="color: #fff024 !important;"><i class="fa fa-cogs" aria-hidden="true"></i> Quản lý hệ thống</li>
         <li class="treeview" >
             <a href="javascript:void(0);">
                 <i class="fa fa-files-o"></i>
@@ -65,10 +66,10 @@
     </ul>   
     
     <ul class="sidebar-menu" ng-controller="mainServiceGroupsListController">
-        <li class="header">TRANSACTIONS</li>
+        <li class="header" style="color: #fff024 !important;"><i class="fa fa-line-chart" aria-hidden="true"></i> Giao dịch khách hàng</li>
         <li class="treeview" ng-repeat="item in mainServiceGroups">
             <a href="">
-                <i class="fa fa-files-o"></i>
+                <i class="fa fa-check-square-o" aria-hidden="true"></i>
                 <span>{{item.Name}}</span>
                 <span class="pull-right"><i class="fa fa-chevron-down text-aqua"></i></span>
             </a>
@@ -97,15 +98,15 @@
     </ul>
     
     <ul class="sidebar-menu">
-        <li class="header">STATISTIC</li>
+        <li class="header" style="color: #fff024 !important;"><i class="fa fa-bar-chart" aria-hidden="true"></i> Thống kê && Báo cáo</li>
         <li class="treeview">
             <a href="">
-                <i class="fa fa-files-o"></i>
+                <i class="fa fa-check-square-o" aria-hidden="true"></i>
                 <span>Danh mục thống kê</span>
                 <span class="pull-right"><i class="fa fa-chevron-down text-aqua"></i></span>
             </a>
 
-            <ul class="treeview-menu">               
+            <ul class="treeview-menu">
                 <li>
                     <a ui-sref="timeStatistic">
                         <i class="fa fa-circle-o text-red"></i>
@@ -120,31 +121,22 @@
                 </li>
             </ul>
         </li>
+    </ul>
+
+    <ul class="sidebar-menu">
+        <li class="header" style="color: #fff024 !important;"><i class="fa fa-money" aria-hidden="true"></i> Tiết kiệm bưu điện</li>
         <li class="treeview">
-            <a href="">
-                <i class="fa fa-files-o"></i>
-                <span>Tiết kiệm bưu điện</span>
-                <span class="pull-right"><i class="fa fa-chevron-down text-aqua"></i></span>
+            <a ui-sref="tkbdhistory">
+                <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                <span>Lịch sử giao dịch TKBD</span>
             </a>
-
-            <ul class="treeview-menu">
-                <li>
-                    <a ui-sref="tkbdhistory">
-                        <i class="fa fa-angle-double-right text-aqua"></i>
-                        <span>Lịch sử giao dịch TKBD</span>
-                    </a>
-                </li>
-            </ul>
-
-            <ul class="treeview-menu">                
-                <li>
-                    <a ui-sref="tkbds">
-                        <i class="fa fa-angle-double-right text-aqua"></i>
-                        <span>Doanh thu tính lương TKBD</span>
-                    </a>
-                </li>                
-            </ul>
-        </li>
-    </ul>   
+         </li>
+        <li>
+            <a ui-sref="tkbds">
+                <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                <span>Doanh thu tính lương TKBD</span>
+            </a>
+        </li>        
+    </ul>
 </section>
 <!-- /.sidebar -->

@@ -2,8 +2,8 @@
 angular.module('postoffice.tkbd')
 
     .controller('tkbdListController',
-        ['$scope', 'apiService', 'notificationService', '$ngBootbox', '$filter', '$state',
-            function ($scope, apiService, notificationService, $ngBootbox, $filter, $state) {
+        ['$scope', 'apiService', 'notificationService', '$ngBootbox', '$filter', '$state', '$stateParams', 'authService',
+            function ($scope, apiService, notificationService, $ngBootbox, $filter, $state, $stateParams, authService) {
                 $scope.page = 0;
                 $scope.pagesCount = 0;
                 $scope.tkbds = [];
@@ -12,83 +12,122 @@ angular.module('postoffice.tkbd')
                 $scope.search = search;
                 $scope.loading = true;
                 $scope.update = update;
-                //function deleteMulti() {
-                //    var listId = [];
-                //    $.each($scope.selected, function (i, item) {
-                //        listId.push(item.ID);
-                //    });
-                //    var config = {
-                //        params: {
-                //            checkedDistricts: JSON.stringify(listId)
-                //        }
-                //    }
-                //    $ngBootbox.confirm('Bạn có chắc xóa không?').then(
-                //        function () {
-                //            apiService.del('/api/district/deletemulti', config, function (result) {
-                //                notificationService.displaySuccess('Xóa thành công ' + result.data + ' bản ghi.');
-                //                search();
-                //            }, function (error) {
-                //                notificationService.displayError('Xóa không thành công');
-                //            });
-                //        }, function () {
-                //            console.log('Command was cancel');
-                //        });
 
-                //}
-                //$scope.isAll = false;
-                //function selectAll() {
-                //    if ($scope.isAll === false) {
-                //        angular.forEach($scope.districts, function (item) {
-                //            item.checked = true;
-                //        });
-                //        $scope.isAll = true;
-                //    } else {
-                //        angular.forEach($scope.districts, function (item) {
-                //            item.checked = false;
-                //        });
-                //        $scope.isAll = false;
-                //    }
-                //}
+                $scope.tkbd = {
+                    functionId: 0,
+                    date: { startDate: null, endDate: null },
+                    districts: [],
+                    pos: [],
+                    users: [],
+                    districtId: 0,
+                    posId: 0,
+                    userId: '',
+                    serviceId: 0,
+                };
 
-                //$scope.$watch("districts", function (n, o) {
-                //    var checked = $filter("filter")(n, { checked: true });
-                //    if (checked.length) {
-                //        $scope.selected = checked;
-                //        $('#btnDelete').removeAttr('disabled');
-                //    } else {
-                //        $('#btnDelete').attr('disabled', 'disabled');
-                //    }
-                //}, true);
+
+                $scope.functions =
+                [
+                    { Id: 1, Name: 'Thống kê tổng hợp giao dịch phát sinh' },
+                    { Id: 2, Name: 'Thống kê chi tiết giao dịch phát sinh' }
+                ]
+
+                $stateParams = 0;
+
+                //check role 
+                $scope.isManager = authService.haveRole('Manager');
+                $scope.isAdmin = authService.haveRole('Administrator');
+
+                if ($scope.isManager) {
+                    $stateParams.id = authService.authentication.userName;
+                    apiService.get('/api/applicationUser/userinfo',
+                        null,
+                        function (response) {
+                            $stateParams.id = response.data.POID;
+                            $scope.tkbd.districtId = response.data.POID;
+                            getPos();
+                        },
+                        function (response) {
+                            notificationService.displayError('Không tải được danh sách huyện/ thành phố.');
+                        });
+                }
+                else {
+                    if ($scope.isAdmin) {
+                        getDistricts();
+                    }                    
+                }      
+
+                //lấy danh sách huyện / đơn vị
+                $scope.getDistricts = getDistricts;
+                function getDistricts() {
+                    apiService.get('/api/district/getallparents',
+                        null,
+                        function (response) {
+                            $scope.tkbd.districts = response.data;
+                        }, function (response) {
+                            notificationService.displayError('Không tải được danh sách huyện.');
+                        }
+                    );
+                }
+
+                // câp nhật danh sách bưu cục của đơn vị được chọn
+                $scope.updatePos = function (item) {
+                    if (item != 0 && item != null) {
+                        $stateParams.id = item;
+                        getPos();
+                    }
+                    else {
+                        $scope.tkbd.pos = [];
+                        $scope.tkbd.posId = 0;
+                    }
+                };
+
+                // lấy danh sách bưu cục 
+                $scope.getPos = getPos;
+                function getPos() {
+                    apiService.get('/api/po/getbydistrictid/ ' + $stateParams.id,
+                        null,
+                        function (response) {
+                            $scope.tkbd.units = response.data;
+                        }, function (response) {
+                            notificationService.displayError('Không tải được danh sách đơn vị.');
+                        }
+                    );
+                }
+
+                // lấy danh sách users của bưu cục được chọn
+                $scope.updateUser = function (item) {
+                    if (item != 0 && item != null) {
+                        $stateParams.id = item;
+                        getListUser();
+                    }
+                    else {
+                        $scope.tkbd.users = [];
+                        $scope.tkbd.userId = 0;
+                    }
+                };
+
+                // lấy danh sách người dùng
+                $scope.getListUser = getListUser;
+                function getListUser() {
+                    apiService.get('/api/applicationUser/getuserbypoid/' + $stateParams.id,
+                        null,
+                        function (response) {
+                            $scope.tkbd.users = response.data;
+                        }, function (response) {
+                            notificationService.displayError('Không tải được danh sách nhân viên.');
+                        });
+                }
+            
                 function search() {
                     getTkbds();
                 }
-                //$scope.deleteDistrict = deleteDistrict;
-                //function deleteDistrict(id) {
-                //    $ngBootbox.confirm('Bạn có chắc muốn xóa?').then(function () {
-                //        var config = {
-                //            params: {
-                //                id: id
-                //            }
-                //        }
-                //        apiService.del('/api/district/delete', config,
-                //        function () {
-                //            notificationService.displaySuccess('Xóa dữ liệu thành công');
-                //            search();
-                //        }
-                //        , function () {
-                //            notificationService.displayError('Xóa dữ liệu thất bại');
-                //        });
-                //    },
-                //    function () {
-                //        console.log('Command was cancel');
-                //    });
-                //}
-
+                
                 function update() {
                     apiService.get('/api/tkbd/update', null, function (result) {
                         console.log(result.data.TotalCount);
                         $scope.loading = false;
-                        $scope.tkbds = result.data.Items;
+                        $scope.tkbd = result.data.Items;
                         $scope.page = result.data.Page;
                         $scope.pagesCount = result.data.TotalPages;
                         $scope.totalCount = result.data.TotalCount;
@@ -100,28 +139,40 @@ angular.module('postoffice.tkbd')
                     });
                 }
 
-                function getTkbds(page) {
-                    page = page || 0;
+                function Export() {
+                    var fromDate = $scope.tkbd.date.startDate.format('MM/DD/YYYY');
+                    var toDate = $scope.tkbd.date.endDate.format('MM/DD/YYYY');
                     var config = {
                         params: {
-                            page: page,
-                            pageSize: 20
+                            //mm/dd/yyyy
+                            fromDate: fromDate,
+                            toDate: toDate,
+                            districtId: $scope.tkbd.districtId || 0,
+                            functionId: $scope.tkbd.functionId || 0,
+                            poId: $scope.tkbd.poId || 0,
+                            userId: $scope.tkbd.userId || '',
+                            serviceId: $scope.tkbd.serviceId || 0
                         }
-                    }
-                    apiService.get('/api/tkbd/getall', config, function (result) {
-                        if (result.data.TotalCount == 0) {
-                            notificationService.displayWarning("Không tìm thấy bản ghi nào!");
+                    };
+                    apiService.get('/api/tkbd/export', config,
+                        function (response) {
+                            $scope.loading = true;
+                            if (response.status = 200) {
+                                window.location.href = response.data.Message;
+                                $scope.loading = false;
+                            }
+                        },
+                        function (response) {
+                            if (response.status == 500) {
+                                notificationService.displayError('Không có dữ liệu');
+                                $scope.loading = false;
+                            }
+                            else {
+                                notificationService.displayError('Không thể tải dữ liệu');
+                                $scope.loading = false;
+                            }
                         }
-                        $scope.loading = false;
-                        $scope.tkbds = result.data.Items;
-                        $scope.page = result.data.Page;
-                        $scope.pagesCount = result.data.TotalPages;
-                        $scope.totalCount = result.data.TotalCount;
-                    },
-                    function () {
-                        $scope.loading = false;
-                        console.log('Load list TKBD failed');
-                    });
-                }
-                $scope.getTkbds();
+                    );
+                };
+                
             }]);

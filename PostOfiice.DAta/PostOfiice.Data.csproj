@@ -211,6 +211,22 @@
     <Compile Include="Migrations\201709040323344_Export_By_Service_Group_And_Time_District_Po_User_PPTT.Designer.cs">
       <DependentUpon>201709040323344_Export_By_Service_Group_And_Time_District_Po_User_PPTT.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709091538593_Export_TKBD_By_Condition.cs" />
+    <Compile Include="Migrations\201709091538593_Export_TKBD_By_Condition.Designer.cs">
+      <DependentUpon>201709091538593_Export_TKBD_By_Condition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709091546081_Export_TKBD_By_Time_District.cs" />
+    <Compile Include="Migrations\201709091546081_Export_TKBD_By_Time_District.Designer.cs">
+      <DependentUpon>201709091546081_Export_TKBD_By_Time_District.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709091551317_Export_TKBD_By_Time_District_PO.cs" />
+    <Compile Include="Migrations\201709091551317_Export_TKBD_By_Time_District_PO.Designer.cs">
+      <DependentUpon>201709091551317_Export_TKBD_By_Time_District_PO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709091553204_Export_TKBD_By_Time_District_PO_User.cs" />
+    <Compile Include="Migrations\201709091553204_Export_TKBD_By_Time_District_PO_User.Designer.cs">
+      <DependentUpon>201709091553204_Export_TKBD_By_Time_District_PO_User.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PostOfficeDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -336,6 +352,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709040323344_Export_By_Service_Group_And_Time_District_Po_User_PPTT.resx">
       <DependentUpon>201709040323344_Export_By_Service_Group_And_Time_District_Po_User_PPTT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709091538593_Export_TKBD_By_Condition.resx">
+      <DependentUpon>201709091538593_Export_TKBD_By_Condition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709091546081_Export_TKBD_By_Time_District.resx">
+      <DependentUpon>201709091546081_Export_TKBD_By_Time_District.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709091551317_Export_TKBD_By_Time_District_PO.resx">
+      <DependentUpon>201709091551317_Export_TKBD_By_Time_District_PO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709091553204_Export_TKBD_By_Time_District_PO_User.resx">
+      <DependentUpon>201709091553204_Export_TKBD_By_Time_District_PO_User.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

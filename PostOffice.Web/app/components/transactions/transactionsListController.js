@@ -10,14 +10,15 @@
         $scope.keyword = '';
         $scope.search = search;
         $scope.deleteTransaction = deleteTransaction;
-
+        $scope.function = 0;
         $scope.getTransactionsIn30Days =
         function getTransactionsIn30Days(page) {
+            $scope.function = 30;
             page = page || 0;
             var config = {
                 params: {
                     page: page,
-                    pageSize: 40
+                    pageSize: 20
                 }
             };
             $scope.loading = true;
@@ -41,11 +42,12 @@
 
         $scope.getTransactionsIn7Days = 
         function getTransactionsIn7Days(page) {
+            $scope.function = 7;
             page = page || 0;
             var config = {
                 params: {
                     page: page,
-                    pageSize: 40
+                    pageSize: 20
                 }
             };
             $scope.loading = true;
@@ -93,7 +95,7 @@
          }
 
         function search() {
-            getTransactions();
+            getTransactionsIn30Days();
         }
 
         $scope.getTransactions =
@@ -102,7 +104,7 @@
             var config = {
                 params: {
                     page: page,
-                    pageSize: 40
+                    pageSize: 20
                 }
             };
             $scope.loading = true;
