@@ -5514,7 +5514,7 @@
     <Content Include="Assets\admin\libs\mustache\wrappers\yui3\mustache.js.pre" />
     <Content Include="AppSettings.config" />
     <Content Include="app\shared\directives\fileUpload.directive.js" />
-    <Content Include="Assets\admin\template\task %28Autosaved%29.xlsx" />
+    <Content Include="Assets\admin\template\TKBD_Template_Sample.xlsx" />
     <None Include="bundleconfig.json" />
     <None Include="Properties\PublishProfiles\DTTL.pubxml" />
     <None Include="Properties\PublishProfiles\postoffice.pubxml" />
