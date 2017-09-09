@@ -412,9 +412,7 @@
       <DependentUpon>angular-ui-router.js</DependentUpon>
     </Content>
     <Content Include="Assets\admin\js\app.js" />
-    <Content Include="Assets\admin\js\app.min.js">
-      <DependentUpon>app.js</DependentUpon>
-    </Content>
+    <Content Include="Assets\admin\js\app.min.js" />
     <Content Include="Assets\admin\js\demo.js" />
     <Content Include="Assets\admin\js\demo.min.js">
       <DependentUpon>demo.js</DependentUpon>
