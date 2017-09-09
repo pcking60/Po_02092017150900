@@ -113,7 +113,7 @@
         loadServiceDetail();
         getPropertyServices();
         getListUser();
-        loadServices();
+        //loadServices();
        
     }
 })(angular.module('postoffice.transactions'));

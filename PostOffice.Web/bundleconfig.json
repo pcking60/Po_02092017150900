@@ -130,5 +130,47 @@
     "inputFiles": [
       "Assets/admin/libs/bootstrap-daterangepicker/daterangepicker.js"
     ]
+  },
+  {
+    "outputFileName": "Assets/admin/libs/iCheck/minimal/_all.min.css",
+    "inputFiles": [
+      "Assets/admin/libs/iCheck/minimal/_all.css"
+    ]
+  },
+  {
+    "outputFileName": "Assets/admin/libs/iCheck/square/_all.min.css",
+    "inputFiles": [
+      "Assets/admin/libs/iCheck/square/_all.css"
+    ]
+  },
+  {
+    "outputFileName": "Assets/admin/libs/iCheck/flat/_all.min.css",
+    "inputFiles": [
+      "Assets/admin/libs/iCheck/flat/_all.css"
+    ]
+  },
+  {
+    "outputFileName": "Assets/admin/libs/iCheck/line/_all.min.css",
+    "inputFiles": [
+      "Assets/admin/libs/iCheck/line/_all.css"
+    ]
+  },
+  {
+    "outputFileName": "Assets/admin/libs/iCheck/all.min.css",
+    "inputFiles": [
+      "Assets/admin/libs/iCheck/all.css"
+    ]
+  },
+  {
+    "outputFileName": "Assets/admin/libs/iCheck/polaris/polaris.min.css",
+    "inputFiles": [
+      "Assets/admin/libs/iCheck/polaris/polaris.css"
+    ]
+  },
+  {
+    "outputFileName": "Assets/admin/libs/iCheck/futurico/futurico.min.css",
+    "inputFiles": [
+      "Assets/admin/libs/iCheck/futurico/futurico.css"
+    ]
   }
 ]

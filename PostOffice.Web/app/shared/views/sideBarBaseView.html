@@ -81,8 +81,8 @@
                         <span class="pull-right" ng-if="item1.NoService>0"><i class="fa fa-hand-o-down"></i></span>
                     </a>
                     <!--List Service by ServiceGroupId-->
-                    <ul class="treeview-menu" ng-controller="serviceListController" ng-init="getAllServices()">
-                        <li ng-repeat="item2 in AllServices track by item2.ID" ng-if="item2.GroupID==item1.ID">
+                    <ul class="treeview-menu">
+                        <li ng-repeat="item2 in Services track by item2.ID" ng-if="item2.GroupID==item1.ID">
                             <a ui-sref="add_transaction({id:item2.ID})">
                                 <i class="fa fa-angle-double-right text-aqua"></i>
                                 <span>{{item2.Name}}</span>
@@ -91,26 +91,7 @@
                     </ul>
 
                 </li>
-            </ul>
-            <!--<ul class="treeview-menu">
-                <li  ng-repeat="item1 in serviceGroups" >
-                    <a href="javascript:void(0);" ng-if="item1.ParentID==item.ID">
-                        <i class="fa fa-angle-right text-aqua"></i>
-                        <span>{{item1.Name}}</span>
-                        <span class="pull-right"><i class="fa fa-hand-o-down"></i></span>
-                    </a>
-                    <ul class="treeview-menu" ng-controller="serviceListController">
-                        <li ng-repeat="item2 in services" ng-if="item2.GroupID==item1.ID">
-                            <a href="javascript:void(0);">
-                                <i class="fa fa-angle-double-right text-aqua"></i>
-                                <span>{{item2.Name}}</span>
-                                <span class="pull-right"><i class="fa fa-hand-o-down"></i></span>
-                            </a>
-
-                        </li>
-                    </ul>
-                </li>
-            </ul>-->
+            </ul>            
         </li>
 
     </ul>
@@ -124,26 +105,14 @@
                 <span class="pull-right"><i class="fa fa-chevron-down text-aqua"></i></span>
             </a>
 
-            <ul class="treeview-menu">
-                <!--<li>
-                    <a ui-sref="" >
-                        <i class="fa fa-angle-double-right text-aqua"></i>
-                        <span>Thống kê theo đơn vị</span>
-                    </a>
-                </li>
-                <li>
-                    <a ui-sref="">
-                        <i class="fa fa-angle-double-right text-aqua"></i>
-                        <span>Thống kê theo nhân viên</span>
-                    </a>
-                </li>-->
+            <ul class="treeview-menu">               
                 <li>
                     <a ui-sref="timeStatistic">
                         <i class="fa fa-circle-o text-red"></i>
                         <span>Thống kê tổng hợp</span>
                     </a>
                 </li>
-                <li  ng-controller="rootController" ng-hide="!isAdmin && !isManager && !isCounter">
+                <li ng-hide="!isAdmin && !isManager && !isCounter">
                     <a ui-sref="reports">
                         <i class="fa fa-circle-o text-yellow"></i>
                         <span>Xuất báo cáo</span>

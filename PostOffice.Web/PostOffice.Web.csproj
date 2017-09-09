@@ -3894,6 +3894,9 @@
     <Content Include="Assets\admin\libs\eonasdan-bootstrap-datetimepicker\tasks\bump_version.js" />
     <Content Include="Assets\admin\libs\fastclick\lib\fastclick.js" />
     <Content Include="Assets\admin\libs\iCheck\all.css" />
+    <Content Include="Assets\admin\libs\iCheck\all.min.css">
+      <DependentUpon>all.css</DependentUpon>
+    </Content>
     <Content Include="Assets\admin\libs\iCheck\flat\aero%402x.png" />
     <Content Include="Assets\admin\libs\iCheck\flat\aero.css" />
     <Content Include="Assets\admin\libs\iCheck\flat\aero.png" />
@@ -3925,8 +3928,14 @@
     <Content Include="Assets\admin\libs\iCheck\flat\yellow.css" />
     <Content Include="Assets\admin\libs\iCheck\flat\yellow.png" />
     <Content Include="Assets\admin\libs\iCheck\flat\_all.css" />
+    <Content Include="Assets\admin\libs\iCheck\flat\_all.min.css">
+      <DependentUpon>_all.css</DependentUpon>
+    </Content>
     <Content Include="Assets\admin\libs\iCheck\futurico\futurico%402x.png" />
     <Content Include="Assets\admin\libs\iCheck\futurico\futurico.css" />
+    <Content Include="Assets\admin\libs\iCheck\futurico\futurico.min.css">
+      <DependentUpon>futurico.css</DependentUpon>
+    </Content>
     <Content Include="Assets\admin\libs\iCheck\futurico\futurico.png" />
     <Content Include="Assets\admin\libs\iCheck\icheck.js" />
     <Content Include="Assets\admin\libs\iCheck\icheck.min.js" />
@@ -3943,6 +3952,9 @@
     <Content Include="Assets\admin\libs\iCheck\line\red.css" />
     <Content Include="Assets\admin\libs\iCheck\line\yellow.css" />
     <Content Include="Assets\admin\libs\iCheck\line\_all.css" />
+    <Content Include="Assets\admin\libs\iCheck\line\_all.min.css">
+      <DependentUpon>_all.css</DependentUpon>
+    </Content>
     <Content Include="Assets\admin\libs\iCheck\minimal\aero%402x.png" />
     <Content Include="Assets\admin\libs\iCheck\minimal\aero.css" />
     <Content Include="Assets\admin\libs\iCheck\minimal\aero.png" />
@@ -3974,8 +3986,14 @@
     <Content Include="Assets\admin\libs\iCheck\minimal\yellow.css" />
     <Content Include="Assets\admin\libs\iCheck\minimal\yellow.png" />
     <Content Include="Assets\admin\libs\iCheck\minimal\_all.css" />
+    <Content Include="Assets\admin\libs\iCheck\minimal\_all.min.css">
+      <DependentUpon>_all.css</DependentUpon>
+    </Content>
     <Content Include="Assets\admin\libs\iCheck\polaris\polaris%402x.png" />
     <Content Include="Assets\admin\libs\iCheck\polaris\polaris.css" />
+    <Content Include="Assets\admin\libs\iCheck\polaris\polaris.min.css">
+      <DependentUpon>polaris.css</DependentUpon>
+    </Content>
     <Content Include="Assets\admin\libs\iCheck\polaris\polaris.png" />
     <Content Include="Assets\admin\libs\iCheck\square\aero%402x.png" />
     <Content Include="Assets\admin\libs\iCheck\square\aero.css" />
@@ -4008,6 +4026,9 @@
     <Content Include="Assets\admin\libs\iCheck\square\yellow.css" />
     <Content Include="Assets\admin\libs\iCheck\square\yellow.png" />
     <Content Include="Assets\admin\libs\iCheck\square\_all.css" />
+    <Content Include="Assets\admin\libs\iCheck\square\_all.min.css">
+      <DependentUpon>_all.css</DependentUpon>
+    </Content>
     <Content Include="Assets\admin\libs\jquery-validation\build\release.js" />
     <Content Include="Assets\admin\libs\jquery-validation\dist\additional-methods.js" />
     <Content Include="Assets\admin\libs\jquery-validation\dist\additional-methods.min.js" />

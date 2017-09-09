@@ -32,7 +32,7 @@
                                        on-select="onSelectCallback($item, $model)"
                                        title="Chọn dịch vụ">
                                 <ui-select-match placeholder="chọn or tìm kiếm dịch vụ trong nhóm..">{{$select.selected.Name}}</ui-select-match>
-                                <ui-select-choices repeat="item.ID as item in transaction.Services | filter: $select.search">
+                                <ui-select-choices repeat="item.ID as item in Services | filter: $select.search">
                                     <small>
                                         {{item.Name}}
                                     </small>

@@ -19,6 +19,7 @@
             $scope.isCounter = authService.haveRole('Counter');
             
             getUserInfo();
+            getAllServices();
         }
         
         function getUserInfo() {
@@ -31,10 +32,18 @@
                 });
         }
 
+        $scope.sideBarBaseView = 'app/shared/views/sideBarBaseView.html';       
 
-        $scope.sideBarBaseView = 'app/shared/views/sideBarBaseView.html';
+        $scope.Services = [];
+        function getAllServices() 
+        {
+            apiService.get('/api/service/getallparents', null, function (result) {
+                $scope.Services = result.data;
+            }, function (error) {
+                notificationService.displayError(error.data);
+            });
+        }
         
-      
         //authenticationService.validateRequest();
     }
 })(angular.module('postoffice'));
