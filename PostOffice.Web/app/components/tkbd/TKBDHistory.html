@@ -1,5 +1,6 @@
 ﻿<section class="content-header">
-    <h1>Danh sách giao dịch TKBD</h1>
+    <h1><i class="fa fa-area-chart" aria-hidden="true"></i>  Giao dịch Tiết kiệm bưu diện</h1>
+    <small>Cung cấp mẫu, import giao dịch, tra cứu giao dịch</small>
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Trang chủ</a></li>
         <li class="active"><a ui-sref="districts">Danh sách giao dịch TKBD</a></li>
@@ -17,14 +18,78 @@
                 </div>
             </div>
             <div><br /></div>
-            <div class="row">
-                <div class="col-md-6">
-                    <button class="btn btn-small btn-flat btn-primary" ng-click="getTKBD1Day()">1</button>
-                    <button class="btn btn-small btn-flat btn-primary" ng-click="getTKBD7Day()">7</button>
-                    <button class="btn btn-small btn-flat btn-primary" ng-click="getTKBD30Day()">30</button>
-                </div>                
-            </div>
+            
             <br />
+            <div class="row">
+                <form class="form-horizontal" novalidate name="frmReportTKBD" role="form" ng-submit="Export()">
+                     
+                    <div class="box-body">
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Chọn chức năng </label>
+                                <div class="col-sm-6">
+                                    <select name="staff" class="form-control" ng-model="tkbd.functionId" required ng-options="option.Id as option.Name for option in functions">
+                                        <option value="">Tất cả</option>
+                                    </select>
+                                    <span ng-show="frmReportTKBD.staff.$invalid" class="text-danger">Cần nhập thông tin vào đây</span>
+                                    <input type="hidden" name="parentId" ng-model="tkbd.functionId" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEmail3" class="col-sm-3 control-label">Chọn thời gian</label>
+                                <div class="col-sm-6">
+                                    <input date-range-picker required class="form-control date-picker" type="text" ng-model="tkbd.date" name="name"
+                                           options="{locale: {separator: ' to ', format: 'DD-MM-YYYY', ranges: {
+                                            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                                            'Last 30 Days': [moment().subtract(29, 'days'), moment()]
+                                }}}" />
+                                    <span ng-show="frmReportTKBD.name.$invalid" class="text-danger">Cần nhập thông tin vào đây</span>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-hide="!isAdmin">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Chọn đơn vị</label>
+                                <div class="col-sm-6">
+                                    <select name="districtId" class="form-control" ng-change="updatePos(tkbd.districtId)" ng-model="tkbd.districtId" ng-options="option.ID as option.Name for option in tkbd.districts">
+                                        <option value="">Tất cả</option>
+                                    </select>
+                                    <input type="hidden" name="districtId" ng-model="tkbd.districtId" />
+                                </div>
+                            </div>
+                            <div class="form-group" ng-hide="!isManager && !isAdmin">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Chọn bưu cục</label>
+                                <div class="col-sm-6">
+                                    <select name="poId" class="form-control" ng-change="updateUser(tkbd.poId)" ng-model="tkbd.poId" ng-options="option.ID as option.Name for option in tkbd.pos">
+                                        <option value="">Tất cả</option>
+                                    </select>
+                                    <input type="hidden" name="poId" ng-model="tkbd.poId" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-3 control-label">Chọn nhân viên</label>
+                                <div class="col-sm-6">
+                                    <select name="staff" class="form-control" ng-change="updateService(tkbd.userId)" ng-model="tkbd.userId" ng-options="option.Id as option.FullName for option in tkbd.users">
+                                        <option value="">Tất cả</option>
+                                    </select>
+                                    <input type="hidden" name="parentId" ng-model="tkbd.userId" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-8">
+                                <div class="col-sm-8 col-sm-offset-4">
+                                    <span class="col-sm-4"><button type="submit" class="btn bg-orange btn-flat" ng-disabled="frmReportTKBD.$invalid" style="opacity:1">Xuất báo cáo</button></span>
+                                    <span class="col-sm-4"><button type="reset" class="btn  btn-flat bg-olive " ng-click="Reset()">Làm mới</button></span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <!--<div class="box-footer">
+            <button type="submit" class="btn btn-info " ng-disabled="frmTimeStatistic.$invalid">Lưu</button>
+        </div>-->
+                        <!-- /.box-footer -->
+                  
+                </form>
+
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-bordered">

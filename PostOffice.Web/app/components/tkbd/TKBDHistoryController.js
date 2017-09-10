@@ -90,4 +90,5 @@ angular.module('postoffice.tkbd')
                         console.log('Load list TKBD History failed');
                     });
                 }
+
             }]);
