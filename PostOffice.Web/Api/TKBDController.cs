@@ -172,11 +172,11 @@ namespace PostOffice.Web.Api
                         vm.FunctionName = "Thống kê chi tiết giao dịch phát sinh";
 
                         var responseTKBD_Detail = _tkbdService.Export_TKBD_Detail_By_Condition(fromDate, toDate, districtId, poId, currentUser, userId);
-                        var dataSource_Detail = Mapper.Map<IEnumerable<TKBDAmount>, IEnumerable<TKBDAmountViewModel>>(responseTKBD_Detail);
+                        var dataSource_Detail = Mapper.Map<IEnumerable<TKBD_Export_Detail_Template>, IEnumerable<TKBD_Export_Detail_Template_ViewModel>>(responseTKBD_Detail);
                         foreach (var item in dataSource_Detail)
                         {
                             var fullName = _userService.getByUserName(item.CreatedBy).FullName;
-                            item.Name = fullName;
+                            item.FullName = fullName;
                         }
                         await ReportHelper.TKBD_Export_Detail(dataSource_Detail.ToList(), fullPath, vm);
                         break;

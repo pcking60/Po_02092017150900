@@ -21,8 +21,7 @@ namespace PostOfiice.DAta.Migrations
                     t.Month,
                     t.Account,
                     convert(decimal(16,2),t.Amount) as Amount,
-                    t.CreatedBy,
-                    t.CreatedDate
+                    t.CreatedBy
                 from
                     TKBDAmounts t
                     inner join ApplicationUsers u

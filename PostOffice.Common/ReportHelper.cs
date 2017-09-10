@@ -943,14 +943,15 @@ namespace PostOffice.Common
                         ws.Cells["D11:F" + (noRowTKBD + 11)].Style.Numberformat.Format = "#,##0.00";
 
                         //sum group 1
-                        ws.Cells[noRowTKBD + 11, 2].Value = "Tổng cộng";
+                        ws.Cells["A:" + (noRowTKBD + 11) + "C:" + (noRowTKBD + 11)].Merge = true;
+                        ws.Cells[noRowTKBD + 11, 2].Value = "Tổng cộng:   ";
                         ws.Cells[noRowTKBD + 11, 2].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                         ws.Row(noRowTKBD + 11).Style.Font.Bold = true;
                         ws.Cells[noRowTKBD + 11, 3].Formula = "sum(c11:c" + (noRowTKBD + 10) + ")";
                         ws.Cells[noRowTKBD + 11, 5].Formula = "sum(D11:D" + (noRowTKBD + 10) + ")";
                     }
 
-                    #endregion BCCP
+                    #endregion TKBD
              
                     #region templateInfo
 

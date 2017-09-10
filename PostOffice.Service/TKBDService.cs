@@ -25,7 +25,7 @@ namespace PostOffice.Service
 
         IEnumerable<TKBDAmount> Search(string keyword, int page, int pageSize, string sort, out int totalRow);
         IEnumerable<TKBD_Export_Template> Export_TKBD_By_Condition(string fromDate, string toDate, int districtId, int poId, string currentUser, string userSelected);
-        IEnumerable<TKBDAmount> Export_TKBD_Detail_By_Condition(string fromDate, string toDate, int districtId, int poId, string currentUser, string userSelected);
+        IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Condition(string fromDate, string toDate, int districtId, int poId, string currentUser, string userSelected);
 
         TKBDAmount GetById(int id);
 
@@ -130,7 +130,7 @@ namespace PostOffice.Service
 
         }
 
-        public IEnumerable<TKBDAmount> Export_TKBD_Detail_By_Condition(string fromDate, string toDate, int districtId, int poId, string currentUser, string userSelected)
+        public IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Condition(string fromDate, string toDate, int districtId, int poId, string currentUser, string userSelected)
         {
             // define role of user
             bool isAdmin = _userRepository.CheckRole(currentUser, "Administrator");
