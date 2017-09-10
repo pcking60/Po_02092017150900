@@ -7,7 +7,7 @@ angular.module('postoffice.tkbd')
                 $scope.page = 0;
                 $scope.pagesCount = 0;
                 $scope.tkbds = [];
-                $scope.getTkbds = getTkbds;
+                //$scope.getTkbds = getTkbds;
                 $scope.keyword = '';
                 $scope.search = search;
                 $scope.loading = true;
@@ -25,14 +25,13 @@ angular.module('postoffice.tkbd')
                     serviceId: 0,
                 };
 
+                $stateParams.id = 0;
 
                 $scope.functions =
                 [
                     { Id: 1, Name: 'Thống kê tổng hợp giao dịch phát sinh' },
                     { Id: 2, Name: 'Thống kê chi tiết giao dịch phát sinh' }
-                ]
-
-                $stateParams = 0;
+                ]                
 
                 //check role 
                 $scope.isManager = authService.haveRole('Manager');
@@ -88,7 +87,7 @@ angular.module('postoffice.tkbd')
                     apiService.get('/api/po/getbydistrictid/ ' + $stateParams.id,
                         null,
                         function (response) {
-                            $scope.tkbd.units = response.data;
+                            $scope.tkbd.pos = response.data;
                         }, function (response) {
                             notificationService.displayError('Không tải được danh sách đơn vị.');
                         }
@@ -139,6 +138,7 @@ angular.module('postoffice.tkbd')
                     });
                 }
 
+                $scope.Export = Export;
                 function Export() {
                     var fromDate = $scope.tkbd.date.startDate.format('MM/DD/YYYY');
                     var toDate = $scope.tkbd.date.endDate.format('MM/DD/YYYY');

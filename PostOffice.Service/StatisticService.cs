@@ -184,7 +184,7 @@ namespace PostOffice.Service
                 }
                 else //is basic user
                 {
-                    return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_BCCP(fromDate, toDate, districtId, poId, userSelected);
+                    return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_BCCP(fromDate, toDate, districtId, poId, currentUser);
                 }
             }
         }
@@ -251,7 +251,7 @@ namespace PostOffice.Service
                 }
                 else //is basic user
                 {
-                    return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_TCBC(fromDate, toDate, districtId, poId, userSelected);
+                    return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_TCBC(fromDate, toDate, districtId, poId, currentUser);
                 }
             }
         }
@@ -319,7 +319,7 @@ namespace PostOffice.Service
                 }
                 else //is basic user
                 {
-                    return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_PPTT(fromDate, toDate, districtId, poId, userId);
+                    return _statisticRepository.Export_By_Service_Group_And_Time_District_Po_User_PPTT(fromDate, toDate, districtId, poId, currentUser);
                 }
             }
         }

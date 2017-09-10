@@ -25,6 +25,7 @@ namespace PostOffice.Service
 
         IEnumerable<TKBDAmount> Search(string keyword, int page, int pageSize, string sort, out int totalRow);
         IEnumerable<TKBD_Export_Template> Export_TKBD_By_Condition(string fromDate, string toDate, int districtId, int poId, string currentUser, string userSelected);
+        IEnumerable<TKBDAmount> Export_TKBD_Detail_By_Condition(string fromDate, string toDate, int districtId, int poId, string currentUser, string userSelected);
 
         TKBDAmount GetById(int id);
 
@@ -127,7 +128,72 @@ namespace PostOffice.Service
                 }
             }
 
+        }
 
+        public IEnumerable<TKBDAmount> Export_TKBD_Detail_By_Condition(string fromDate, string toDate, int districtId, int poId, string currentUser, string userSelected)
+        {
+            // define role of user
+            bool isAdmin = _userRepository.CheckRole(currentUser, "Administrator");
+            bool isManager = _userRepository.CheckRole(currentUser, "Manager");
+
+            //get user info
+            var user = _userRepository.getByUserId(userSelected);
+            string userId = null;
+            if (user != null)
+            {
+                userId = user.Id;
+            }
+
+            if (isAdmin) //is admin
+            {
+                if (districtId == 0)
+                {
+                    return _tKBDRepository.Export_TKBD_Detail_By_Time(fromDate, toDate);
+                }
+                else
+                {
+                    if (poId == 0)
+                    {
+                        return _tKBDRepository.Export_TKBD_Detail_By_Time_District(fromDate, toDate, districtId);
+                    }
+                    else // po id and district id not null
+                    {
+                        if (user == null) //po && district are not null && user null
+                        {
+                            return _tKBDRepository.Export_TKBD_Detail_By_Time_District_Po(fromDate, toDate, districtId, poId);
+                        }
+                        else // po && district && user are not null
+                        {
+                            return _tKBDRepository.Export_TKBD_Detail_By_Time_District_Po_User(fromDate, toDate, districtId, poId, userSelected);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (isManager) // is manager
+                {
+                    if (poId == 0)
+                    {
+                        return _tKBDRepository.Export_TKBD_Detail_By_Time_District(fromDate, toDate, districtId);
+                    }
+                    else // po id and district id not null
+                    {
+                        if (userId == null) //po && district are not null && user null
+                        {
+                            return _tKBDRepository.Export_TKBD_Detail_By_Time_District_Po(fromDate, toDate, districtId, poId);
+                        }
+                        else // po && district && user are not null
+                        {
+                            return _tKBDRepository.Export_TKBD_Detail_By_Time_District_Po_User(fromDate, toDate, districtId, poId, userSelected);
+                        }
+                    }
+                }
+                else //is basic user
+                {
+                    return _tKBDRepository.Export_TKBD_Detail_By_Time_District_Po_User(fromDate, toDate, districtId, poId, currentUser);
+                }
+            }
         }
 
         public IEnumerable<TKBDAmount> GetAll()

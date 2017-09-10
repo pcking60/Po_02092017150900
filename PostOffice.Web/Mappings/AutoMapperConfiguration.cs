@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PostOffice.Common.ViewModels;
+using PostOffice.Common.ViewModels.ExportModel;
 using PostOffice.Model.Models;
 using PostOffice.Web.Models;
 
@@ -27,6 +28,8 @@ namespace PostOffice.Web.Mappings
             Mapper.CreateMap<TransactionViewModel, RP2_1>();
             Mapper.CreateMap<TransactionViewModel, MainGroup1>();
             Mapper.CreateMap<TransactionViewModel, MainGroup3>();
+            Mapper.CreateMap<TKBD_Export_Template, TKBD_Export_Template_ViewModel>();
+        
         }
     }
 }

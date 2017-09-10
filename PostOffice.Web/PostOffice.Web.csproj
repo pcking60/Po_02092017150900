@@ -5095,6 +5095,7 @@
     <Compile Include="Models\ServiceViewModel.cs" />
     <Compile Include="Models\TKBDAmountViewModel.cs" />
     <Compile Include="Models\TKBDHistoryViewModel.cs" />
+    <Compile Include="Models\TKBD_Export_Template_ViewModel.cs" />
     <Compile Include="Models\TransactionDetailViewModel.cs" />
     <Compile Include="Models\TransactionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
