@@ -54,7 +54,7 @@ namespace PostOfiice.DAta.Repositories
                 new SqlParameter("@districtId", districtId),
                 new SqlParameter("@poId", poId)
             };
-            return DbContext.Database.SqlQuery<TKBD_History_Statistic>("Get_TKBD_By_Time_District @fromDate,@toDate,@districtId,@poId", parameters3);
+            return DbContext.Database.SqlQuery<TKBD_History_Statistic>("Get_TKBD_By_Time_District_Po @fromDate,@toDate,@districtId,@poId", parameters3);
         }
 
         public IEnumerable<TKBD_History_Statistic> Get_By_Time_District_Po_User(string fromDate, string toDate, int districtId, int poId, string selectedUser)
@@ -66,7 +66,7 @@ namespace PostOfiice.DAta.Repositories
                 new SqlParameter("@poId", poId),
                 new SqlParameter("@selectedUser", selectedUser)
             };
-            return DbContext.Database.SqlQuery<TKBD_History_Statistic>("Get_TKBD_By_Time_District @fromDate,@toDate,@districtId,@poId,@selectedUser", parameters4);
+            return DbContext.Database.SqlQuery<TKBD_History_Statistic>("Get_TKBD_By_Time_District_Po_User @fromDate,@toDate,@districtId,@poId,@selectedUser", parameters4);
         }
 
         public IEnumerable<TKBDHistory> GetAllByUserName(string userName)

@@ -943,12 +943,16 @@ namespace PostOffice.Common
                         ws.Cells["D11:F" + (noRowTKBD + 11)].Style.Numberformat.Format = "#,##0.00";
 
                         //sum group 1
-                        ws.Cells["A:" + (noRowTKBD + 11) + "C:" + (noRowTKBD + 11)].Merge = true;
-                        ws.Cells[noRowTKBD + 11, 2].Value = "Tổng cộng:   ";
-                        ws.Cells[noRowTKBD + 11, 2].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        ws.Row(noRowTKBD + 11).Style.Font.Bold = true;
-                        ws.Cells[noRowTKBD + 11, 3].Formula = "sum(c11:c" + (noRowTKBD + 10) + ")";
-                        ws.Cells[noRowTKBD + 11, 5].Formula = "sum(D11:D" + (noRowTKBD + 10) + ")";
+                        if (noRowTKBD > 0)
+                        {
+                            ws.Cells["A" + (noRowTKBD + 11) + ":B" + (noRowTKBD + 11)].Merge = true;
+                            ws.Cells[noRowTKBD + 11, 1].Value = "Tổng cộng:   ";
+                            ws.Cells[noRowTKBD + 11, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            ws.Row(noRowTKBD + 11).Style.Font.Bold = true;
+                            ws.Cells[noRowTKBD + 11, 3].Formula = "sum(c11:c" + (noRowTKBD + 10) + ")";
+                            ws.Cells[noRowTKBD + 11, 4].Formula = "sum(D11:D" + (noRowTKBD + 10) + ")";
+                        }
+                        
                     }
 
                     #endregion TKBD
@@ -1012,6 +1016,13 @@ namespace PostOffice.Common
                     ws.Cells["C7:I7"].Style.Indent = 2;
                     ws.Cells["C7:I7"].Value = "Từ " + vm.FromDate.ToString("dd/MM/yyyy") + " đến " + vm.ToDate.ToString("dd/MM/yyyy");
 
+                    // service
+                    ws.Cells["C8:I8"].Merge = true;
+                    ws.Cells["C8:I8"].Style.Font.Bold = true;
+                    ws.Cells["C8:I8"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    ws.Cells["C8:I8"].Style.Indent = 2;
+                    ws.Cells["C8:I8"].Value = "Tiết kiệm bưu điện";
+
                     //info
                     ws.Cells["A4:B4"].Merge = true;
                     ws.Cells["A4:B4"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
@@ -1037,6 +1048,12 @@ namespace PostOffice.Common
                     ws.Cells["A7:B7"].Value = "Thời gian:";
                     ws.Cells["A7:B7"].Style.Indent = 1;
 
+                    ws.Cells["A8:B8"].Merge = true;
+                    ws.Cells["A8:B8"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
+                    ws.Row(8).Style.Font.Bold = true;
+                    ws.Cells["A8:B8"].Value = "Dịch vụ:";
+                    ws.Cells["A8:B8"].Style.Indent = 1;
+
                     #endregion templateInfo
 
                     if (noRowTKBD == 0)
@@ -1051,7 +1068,7 @@ namespace PostOffice.Common
 
         /*
            code:
-           name: Export Bảng kê TKBD - tổng hợp
+           name: Export Bảng kê TKBD - Chi tiết
        */
 
         public static Task TKBD_Export_Detail<T1>(List<T1> dataSource, string filePath, ReportTemplate vm)
@@ -1171,6 +1188,13 @@ namespace PostOffice.Common
                     ws.Cells["C7:I7"].Style.Indent = 2;
                     ws.Cells["C7:I7"].Value = "Từ " + vm.FromDate.ToString("dd/MM/yyyy") + " đến " + vm.ToDate.ToString("dd/MM/yyyy");
 
+                    // service
+                    ws.Cells["C8:I8"].Merge = true;
+                    ws.Cells["C8:I8"].Style.Font.Bold = true;
+                    ws.Cells["C8:I8"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    ws.Cells["C8:I8"].Style.Indent = 2;
+                    ws.Cells["C8:I8"].Value = "Tiết kiệm bưu điện";
+
                     //info
                     ws.Cells["A4:B4"].Merge = true;
                     ws.Cells["A4:B4"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
@@ -1195,6 +1219,12 @@ namespace PostOffice.Common
                     ws.Row(7).Style.Font.Bold = true;
                     ws.Cells["A7:B7"].Value = "Thời gian:";
                     ws.Cells["A7:B7"].Style.Indent = 1;
+
+                    ws.Cells["A8:B8"].Merge = true;
+                    ws.Cells["A8:B8"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
+                    ws.Row(8).Style.Font.Bold = true;
+                    ws.Cells["A8:B8"].Value = "Dịch vụ:";
+                    ws.Cells["A8:B8"].Style.Indent = 1;
 
                     #endregion templateInfo
 

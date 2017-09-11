@@ -24,6 +24,17 @@ angular.module('postoffice.tkbd')
                     serviceId: 0,
                 };
 
+                //reset các tham số
+                $scope.Reset = Reset;
+                function Reset() {
+                    $scope.tkbd.districtId = 0;
+                    $scope.tkbd.date.startDate = null;
+                    $scope.tkbd.date.toDate = null;
+                    $scope.tkbd.poId = 0;
+                    $scope.tkbd.userId = '';
+                    $scope.show = false;
+                }
+
                 $stateParams.id = 0;
 
                 //check role 
