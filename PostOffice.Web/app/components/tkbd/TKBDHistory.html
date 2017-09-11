@@ -94,7 +94,7 @@
                                 <th><input type="text" class="form-control input-sm" ng-model="SmartSearch.Money" placeholder="auto search"></th>
                                 <th><input type="text" class="form-control input-sm" ng-model="SmartSearch.Amount" placeholder="auto search"></th>
                                 <th><input type="text" class="form-control input-sm" ng-model="SmartSearch.CreatedBy" placeholder="auto search"></th>
-                                <th><input type="text" class="form-control input-sm" ng-model="SmartSearch.TransactionUser" placeholder="auto search"></th>
+                                <th><input type="text" class="form-control input-sm" ng-model="SmartSearch.FullName" placeholder="auto search"></th>
                             </tr>
                         </thead>
                         <tr ng-repeat="item in tkbds|filter: SmartSearch">
@@ -106,7 +106,7 @@
                             <td class="text-center">{{item.Money | currency}}</td>
                             <td class="text-center">{{item.Rate  | number}}</td>
                             <td class="text-center">{{item.CreatedBy }}</td>
-                            <td class="text-center">{{item.TransactionUser}}</td>
+                            <td class="text-center">{{item.FullName}}</td>
                         </tr>
                         <tfoot>
                             <tr>

@@ -15,7 +15,7 @@ namespace PostOfiice.DAta.Migrations
                     toDate = p.String(),
                     districtId = p.Int(),
                     poId = p.Int(),
-                    userId = p.String()
+                    selectedUser = p.String()
                 },
                 @"select 
 	                h.Id,
@@ -32,7 +32,8 @@ namespace PostOfiice.DAta.Migrations
 					h.MetaKeyWord,
 					h.Status,
 					h.UpdatedBy,
-					h.UpdatedDate
+					h.UpdatedDate,
+                    u.FullName
                 from 
 	                TKBDHistories h
 	                inner join ApplicationUsers u
@@ -42,7 +43,7 @@ namespace PostOfiice.DAta.Migrations
 	                inner join Districts d
 	                on p.DistrictID = d.ID
                 where 
-	                h.Status=1 and h.UserId=@userId and (h.TransactionDate>=CAST(@fromDate as date) and h.TransactionDate<=cast(@toDate as date)) and d.ID=@districtID and p.ID=@poId");
+	                h.Status=1 and h.UserId=@selectedUser and (h.TransactionDate>=CAST(@fromDate as date) and h.TransactionDate<=cast(@toDate as date)) and d.ID=@districtID and p.ID=@poId");
         }
         
         public override void Down()

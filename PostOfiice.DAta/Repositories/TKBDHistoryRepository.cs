@@ -1,4 +1,5 @@
-﻿using PostOffice.Model.Models;
+﻿using PostOffice.Common.ViewModels.StatisticModel;
+using PostOffice.Model.Models;
 using PostOfiice.DAta.Infrastructure;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -10,13 +11,13 @@ namespace PostOfiice.DAta.Repositories
     {
         IEnumerable<TKBDHistory> GetAllByUserName(string userName);
 
-        IEnumerable<TKBDHistory> Get_By_Time(string fromDate, string toDate);
+        IEnumerable<TKBD_History_Statistic> Get_By_Time(string fromDate, string toDate);
 
-        IEnumerable<TKBDHistory> Get_By_Time_District(string fromDate, string toDate, int districtId);
+        IEnumerable<TKBD_History_Statistic> Get_By_Time_District(string fromDate, string toDate, int districtId);
 
-        IEnumerable<TKBDHistory> Get_By_Time_District_Po(string fromDate, string toDate, int districtId, int poId);
+        IEnumerable<TKBD_History_Statistic> Get_By_Time_District_Po(string fromDate, string toDate, int districtId, int poId);
 
-        IEnumerable<TKBDHistory> Get_By_Time_District_Po_User(string fromDate, string toDate, int districtId, int poId, string selectedUser);
+        IEnumerable<TKBD_History_Statistic> Get_By_Time_District_Po_User(string fromDate, string toDate, int districtId, int poId, string selectedUser);
     }
 
     public class TKBDHistoryRepository : RepositoryBase<TKBDHistory>, ITKBDHistoryRepository
@@ -25,46 +26,47 @@ namespace PostOfiice.DAta.Repositories
         {
         }
 
-        public IEnumerable<TKBDHistory> Get_By_Time(string fromDate, string toDate)
+        public IEnumerable<TKBD_History_Statistic> Get_By_Time(string fromDate, string toDate)
         {
-            var parameters = new SqlParameter[] {
+            
+            var parameters1 = new SqlParameter[] {
                 new SqlParameter("@fromDate", fromDate),
                 new SqlParameter("@toDate", toDate)
             };
-            return DbContext.Database.SqlQuery<TKBDHistory>("Get_TKBD_By_Time @fromDate,@toDate", parameters);
+            return DbContext.Database.SqlQuery<TKBD_History_Statistic>("Get_TKBD_By_Time @fromDate,@toDate", parameters1);
         }
 
-        public IEnumerable<TKBDHistory> Get_By_Time_District(string fromDate, string toDate, int districtId)
+        public IEnumerable<TKBD_History_Statistic> Get_By_Time_District(string fromDate, string toDate, int districtId)
         {
-            var parameters = new SqlParameter[] {
+            var parameters2 = new SqlParameter[] {
                 new SqlParameter("@fromDate", fromDate),
                 new SqlParameter("@toDate", toDate),
                 new SqlParameter("@districtId", districtId)
             };
-            return DbContext.Database.SqlQuery<TKBDHistory>("Get_TKBD_By_Time_District @fromDate,@toDate,@districtId", parameters);
+            return DbContext.Database.SqlQuery<TKBD_History_Statistic>("Get_TKBD_By_Time_District @fromDate,@toDate,@districtId", parameters2);
         }
 
-        public IEnumerable<TKBDHistory> Get_By_Time_District_Po(string fromDate, string toDate, int districtId, int poId)
+        public IEnumerable<TKBD_History_Statistic> Get_By_Time_District_Po(string fromDate, string toDate, int districtId, int poId)
         {
-            var parameters = new SqlParameter[] {
+            var parameters3 = new SqlParameter[] {
                 new SqlParameter("@fromDate", fromDate),
                 new SqlParameter("@toDate", toDate),
                 new SqlParameter("@districtId", districtId),
                 new SqlParameter("@poId", poId)
             };
-            return DbContext.Database.SqlQuery<TKBDHistory>("Get_TKBD_By_Time_District @fromDate,@toDate,@districtId,@poId", parameters);
+            return DbContext.Database.SqlQuery<TKBD_History_Statistic>("Get_TKBD_By_Time_District @fromDate,@toDate,@districtId,@poId", parameters3);
         }
 
-        public IEnumerable<TKBDHistory> Get_By_Time_District_Po_User(string fromDate, string toDate, int districtId, int poId, string selectedUser)
+        public IEnumerable<TKBD_History_Statistic> Get_By_Time_District_Po_User(string fromDate, string toDate, int districtId, int poId, string selectedUser)
         {
-            var parameters = new SqlParameter[] {
+            var parameters4 = new SqlParameter[] {
                 new SqlParameter("@fromDate", fromDate),
                 new SqlParameter("@toDate", toDate),
                 new SqlParameter("@districtId", districtId),
                 new SqlParameter("@poId", poId),
                 new SqlParameter("@selectedUser", selectedUser)
             };
-            return DbContext.Database.SqlQuery<TKBDHistory>("Get_TKBD_By_Time_District @fromDate,@toDate,@districtId,@poId,@selectedUser", parameters);
+            return DbContext.Database.SqlQuery<TKBD_History_Statistic>("Get_TKBD_By_Time_District @fromDate,@toDate,@districtId,@poId,@selectedUser", parameters4);
         }
 
         public IEnumerable<TKBDHistory> GetAllByUserName(string userName)

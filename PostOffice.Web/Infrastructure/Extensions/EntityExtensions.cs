@@ -72,15 +72,11 @@ namespace PostOffice.Web.Infrastructure.Extensions
             tkbd.CustomerId = vm.CustomerId;
             tkbd.CreatedBy = vm.CreatedBy;
             tkbd.CreatedDate = vm.CreatedDate;
-            tkbd.MetaDescription = vm.MetaDescription;
-            tkbd.MetaKeyWord = vm.MetaKeyWord;
             tkbd.Money = vm.Money;
             tkbd.Name = vm.Name;
             tkbd.Rate = vm.Rate;
             tkbd.Status = vm.Status;
             tkbd.TransactionDate = vm.TransactionDate;
-            tkbd.UpdatedBy = vm.UpdatedBy;
-            tkbd.UpdatedDate = vm.UpdatedDate;
             tkbd.UserId = vm.UserId;
         }
 

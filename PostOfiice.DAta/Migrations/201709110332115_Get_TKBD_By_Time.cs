@@ -28,8 +28,11 @@ namespace PostOfiice.DAta.Migrations
 					h.MetaKeyWord,
 					h.Status,
 					h.UpdatedBy,
-					h.UpdatedDate
+					h.UpdatedDate,
+                    u.FullName
                 from TKBDHistories h
+                inner join ApplicationUsers u
+                on h.UserId = u.Id
                 where
 	                h.Status=1 and (h.TransactionDate>=CAST(@fromDate as date) and h.TransactionDate<=cast(@toDate as date))");
         }

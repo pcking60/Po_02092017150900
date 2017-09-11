@@ -29,7 +29,8 @@ namespace PostOfiice.DAta.Migrations
 					h.MetaKeyWord,
 					h.Status,
 					h.UpdatedBy,
-					h.UpdatedDate
+					h.UpdatedDate,
+                    u.FullName
                 from
 	                TKBDHistories h
 	                inner join ApplicationUsers u

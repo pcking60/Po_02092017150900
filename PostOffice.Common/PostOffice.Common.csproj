@@ -64,12 +64,15 @@
     <Compile Include="ViewModels\RevenueStatisticViewModel.cs" />
     <Compile Include="ViewModels\RP1Advance.cs" />
     <Compile Include="ViewModels\RP2-1.cs" />
+    <Compile Include="ViewModels\StatisticModel\TKBD_History.cs" />
+    <Compile Include="ViewModels\StatisticModel\TKBD_History_Statistic.cs" />
     <Compile Include="ViewModels\statisticReportViewModel.cs" />
     <Compile Include="ViewModels\UnitStatisticViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

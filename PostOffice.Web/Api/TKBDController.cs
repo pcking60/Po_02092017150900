@@ -3,6 +3,7 @@ using OfficeOpenXml;
 using PostOffice.Common;
 using PostOffice.Common.ViewModels;
 using PostOffice.Common.ViewModels.ExportModel;
+using PostOffice.Common.ViewModels.StatisticModel;
 using PostOffice.Model.Models;
 using PostOffice.Service;
 using PostOffice.Web.Infrastructure.Core;
@@ -21,7 +22,7 @@ using System.Web.Http;
 namespace PostOffice.Web.Api
 {
     [RoutePrefix("api/tkbd")]
-    [Authorize]
+    [AllowAnonymous]
     public class TKBDController : ApiControllerBase
     {
         private ITKBDService _tkbdService;
@@ -210,21 +211,15 @@ namespace PostOffice.Web.Api
                 int totalRow = 0;
 
                 // get data by condition
-                var model = _tkbdHistoryService.Get_By_Condition(fromDate, toDate, districtId, poId, currentUser, userId);
+                var model = _tkbdHistoryService.Get_By_Condition(fromDate, toDate, districtId, poId, currentUser, userId).ToList<TKBD_History_Statistic>();
 
                 totalRow = model.Count();
+
                 var query = model.OrderByDescending(x => x.Id).Skip(page * pageSize).Take(pageSize);
 
-                var responseData = Mapper.Map<IEnumerable<TKBDHistory>, IEnumerable<TKBDHistoryViewModel>>(query);
-
-                foreach (var item in responseData)
+                var paginationSet = new PaginationSet<TKBD_History_Statistic>
                 {
-                    item.FullName = _applicationUserService.getByUserId(item.UserId).FullName;
-                }
-
-                var paginationSet = new PaginationSet<TKBDHistoryViewModel>
-                {
-                    Items = responseData,
+                    Items = query,
                     Page = page,
                     TotalCount = totalRow,
                     TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)

@@ -1,4 +1,5 @@
-﻿using PostOffice.Model.Models;
+﻿using PostOffice.Common.ViewModels.StatisticModel;
+using PostOffice.Model.Models;
 using PostOfiice.DAta.Infrastructure;
 using PostOfiice.DAta.Repositories;
 using System;
@@ -34,7 +35,7 @@ namespace PostOffice.Service
 
         IEnumerable<TKBDHistory> GetAllByUserName30Day(string userName);
 
-        IEnumerable<TKBDHistory> Get_By_Condition(string fromDate, string toDate, int districtId, int poId, string currentUser, string userSelected);
+        IEnumerable<TKBD_History_Statistic> Get_By_Condition(string fromDate, string toDate, int districtId, int poId, string currentUser, string userSelected);
 
         void Save();
     }
@@ -141,7 +142,7 @@ namespace PostOffice.Service
             return _tkbdRepository.GetMulti(x => x.UserId == user.Id && x.Status == true && (DbFunctions.TruncateTime(x.TransactionDate) <= date && DbFunctions.TruncateTime(x.TransactionDate) >= date1)).ToList();
         }
 
-        public IEnumerable<TKBDHistory> Get_By_Condition(string fromDate, string toDate, int districtId, int poId, string currentUser, string userSelected)
+        public IEnumerable<TKBD_History_Statistic> Get_By_Condition(string fromDate, string toDate, int districtId, int poId, string currentUser, string userSelected)
         {
             // define role of user
             bool isAdmin = _userRepository.CheckRole(currentUser, "Administrator");
@@ -202,7 +203,7 @@ namespace PostOffice.Service
                 }
                 else //is basic user
                 {
-                    return _tkbdRepository.Get_By_Time_District_Po_User(fromDate, toDate, districtId, poId, currentUser);
+                    return _tkbdRepository.Get_By_Time_District_Po_User(fromDate, toDate, districtId, poId, userId);
                 }
             }
         }
