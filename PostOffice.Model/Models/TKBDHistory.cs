@@ -18,7 +18,7 @@ namespace PostOffice.Model.Models
         [Key]
         [Column(Order = 2)]
         public string Account { get; set; }
-        public DateTimeOffset? TransactionDate { get; set; }
+        public DateTime? TransactionDate { get; set; }
         public decimal? Money { get; set; }
         public decimal? Rate { get; set; }
 

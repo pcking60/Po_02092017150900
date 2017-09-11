@@ -6,7 +6,7 @@ namespace PostOfiice.DAta.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(PostOfiice.DAta.PostOfficeDbContext context)

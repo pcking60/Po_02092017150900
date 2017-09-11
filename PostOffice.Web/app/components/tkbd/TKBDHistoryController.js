@@ -19,7 +19,7 @@ angular.module('postoffice.tkbd')
                     pos: [],
                     users: [],
                     districtId: 0,
-                    posId: 0,
+                    poId: 0,
                     userId: '',
                     serviceId: 0,
                 };
@@ -70,7 +70,7 @@ angular.module('postoffice.tkbd')
                     }
                     else {
                         $scope.tkbd.pos = [];
-                        $scope.tkbd.posId = 0;
+                        $scope.tkbd.poId = 0;
                     }
                 };
 
@@ -117,7 +117,8 @@ angular.module('postoffice.tkbd')
                 }                
 
                 $scope.getTkbdHistory = getTkbdHistory;
-                function getTkbdHistory() {
+                function getTkbdHistory(page) {
+                    page = page || 0;
                     var fromDate = $scope.tkbd.date.startDate.format('MM-DD-YYYY');
                     var toDate = $scope.tkbd.date.endDate.format('MM-DD-YYYY');
                     var config = {
@@ -126,24 +127,27 @@ angular.module('postoffice.tkbd')
                             fromDate: fromDate,
                             toDate: toDate,
                             districtId: $scope.tkbd.districtId || 0,
-                            posId: $scope.tkbd.posId || 0,
+                            poId: $scope.tkbd.poId || 0,
                             userId: $scope.tkbd.userId || '',
-                            serviceId: $scope.tkbd.serviceId || 0,
                             page: page,
                             pageSize: 20
                         }
-                    }
+                    };
                     apiService.get('api/tkbd/gethistorybycondition', config,
                         function (result) {
                             if (result.data.TotalCount == 0) {
                                 notificationService.displayWarning("Không tìm thấy bản ghi nào!");
+                                $scope.loading = false;
                             }
-
-                            $scope.tkbds = result.data.Items;
-                            $scope.page = result.data.Page;
-                            $scope.pagesCount = result.data.TotalPages;
-                            $scope.totalCount = result.data.TotalCount;
-                            $scope.loading = false;
+                            else {
+                                $scope.tkbds = result.data.Items;
+                                $scope.page = result.data.Page;
+                                $scope.pagesCount = result.data.TotalPages;
+                                $scope.totalCount = result.data.TotalCount;
+                                $scope.show = true;
+                                $scope.loading = false;                                
+                            }
+                            
                         },
                     function () {
                         $scope.loading = false;

@@ -18,14 +18,20 @@ namespace PostOfiice.DAta.Migrations
                 },
                 @"select 
 	                h.Id,
-	                h.Account,
-	                h.CustomerId,
-	                h.Name,
-	                convert(datetime,h.TransactionDate) as TransactionDate,
-	                convert(decimal(16,2), h.Money) as Money,
-	                convert(decimal(16,2), h.Rate) as Rate,
-	                h.CreatedBy as ApplicationUser,
-	                h.UserId
+    	            h.Account,
+    	            h.CustomerId,
+    	            h.Name,
+    	            convert(datetime,h.TransactionDate) as TransactionDate,
+    	            convert(decimal(16,2), h.Money) as Money,
+    	            convert(decimal(16,2), h.Rate) as Rate,
+    	            h.CreatedBy,
+    	            h.UserId,
+					h.CreatedDate,
+					h.MetaDescription,
+					h.MetaKeyWord,
+					h.Status,
+					h.UpdatedBy,
+					h.UpdatedDate
                 from 
 	                TKBDHistories h
 	                inner join ApplicationUsers u

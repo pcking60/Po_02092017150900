@@ -259,6 +259,10 @@
     <Compile Include="Migrations\201709110342300_Get_TKBD_By_Time_District_Po_User.Designer.cs">
       <DependentUpon>201709110342300_Get_TKBD_By_Time_District_Po_User.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709110839000_change-tkbd-history.cs" />
+    <Compile Include="Migrations\201709110839000_change-tkbd-history.Designer.cs">
+      <DependentUpon>201709110839000_change-tkbd-history.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PostOfficeDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -420,6 +424,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709110342300_Get_TKBD_By_Time_District_Po_User.resx">
       <DependentUpon>201709110342300_Get_TKBD_By_Time_District_Po_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709110839000_change-tkbd-history.resx">
+      <DependentUpon>201709110839000_change-tkbd-history.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

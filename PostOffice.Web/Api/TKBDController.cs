@@ -199,7 +199,8 @@ namespace PostOffice.Web.Api
 
         }
         [Route("gethistorybycondition")]
-        public HttpResponseMessage GetByCondtion(HttpRequestMessage request, string fromDate, string toDate, int districtId, int poId, string userSelected, int page, int pageSize = 20)
+        [HttpGet]
+        public HttpResponseMessage GetByCondtion(HttpRequestMessage request, string fromDate, string toDate, int districtId, int poId, string userId, int page, int pageSize = 20)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -209,7 +210,7 @@ namespace PostOffice.Web.Api
                 int totalRow = 0;
 
                 // get data by condition
-                var model = _tkbdHistoryService.Get_By_Condition(fromDate, toDate, districtId, poId, currentUser,userSelected);
+                var model = _tkbdHistoryService.Get_By_Condition(fromDate, toDate, districtId, poId, currentUser, userId);
 
                 totalRow = model.Count();
                 var query = model.OrderByDescending(x => x.Id).Skip(page * pageSize).Take(pageSize);
@@ -218,7 +219,7 @@ namespace PostOffice.Web.Api
 
                 foreach (var item in responseData)
                 {
-                    item.TransactionUser = _applicationUserService.getByUserId(item.UserId).FullName;
+                    item.FullName = _applicationUserService.getByUserId(item.UserId).FullName;
                 }
 
                 var paginationSet = new PaginationSet<TKBDHistoryViewModel>
@@ -249,7 +250,7 @@ namespace PostOffice.Web.Api
 
                 foreach (var item in responseData)
                 {
-                    item.TransactionUser = _applicationUserService.getByUserId(item.UserId).FullName;
+                    item.FullName = _applicationUserService.getByUserId(item.UserId).FullName;
                 }
                              
                 var paginationSet = new PaginationSet<TKBDHistoryViewModel>
@@ -280,7 +281,7 @@ namespace PostOffice.Web.Api
 
                 foreach (var item in responseData)
                 {
-                    item.TransactionUser = _applicationUserService.getByUserId(item.UserId).FullName;
+                    item.FullName = _applicationUserService.getByUserId(item.UserId).FullName;
                 }
 
                 var paginationSet = new PaginationSet<TKBDHistoryViewModel>
@@ -311,7 +312,7 @@ namespace PostOffice.Web.Api
 
                 foreach (var item in responseData)
                 {
-                    item.TransactionUser = _applicationUserService.getByUserId(item.UserId).FullName;
+                    item.FullName = _applicationUserService.getByUserId(item.UserId).FullName;
                 }
 
                 var paginationSet = new PaginationSet<TKBDHistoryViewModel>
@@ -342,7 +343,7 @@ namespace PostOffice.Web.Api
 
                 foreach (var item in responseData)
                 {
-                    item.TransactionUser = _applicationUserService.getByUserId(item.UserId).FullName;
+                    item.FullName = _applicationUserService.getByUserId(item.UserId).FullName;
                 }
 
                 var paginationSet = new PaginationSet<TKBDHistoryViewModel>
@@ -447,8 +448,8 @@ namespace PostOffice.Web.Api
                 TKBDHistoryViewModel tkbdViewModel;
                 TKBDHistory tkbdHistory;
 
-                DateTimeOffset transactionDate;
-                DateTimeOffset tranDate;
+                DateTime transactionDate;
+                DateTime tranDate;
                 decimal money;
                 decimal rate;  
 
@@ -460,10 +461,10 @@ namespace PostOffice.Web.Api
                     tkbdViewModel.Name = workSheet.Cells[i, 1].Value.ToString();
                     tkbdViewModel.CustomerId = workSheet.Cells[i, 2].Value.ToString();
                     tkbdViewModel.Account = workSheet.Cells[i, 3].Value.ToString();
-                    if (DateTimeOffset.TryParse(workSheet.Cells[i, 4].Value.ToString(), out transactionDate))
+                    if (DateTime.TryParse(workSheet.Cells[i, 4].Value.ToString(), out transactionDate))
                     {
                         string temp = transactionDate.ToString("yyyy-MM-dd");
-                        DateTimeOffset.TryParse(temp, out tranDate);
+                        DateTime.TryParse(temp, out tranDate);
                         tkbdViewModel.TransactionDate = tranDate;
 
                     }
