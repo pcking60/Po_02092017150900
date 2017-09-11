@@ -203,7 +203,7 @@ namespace PostOffice.Service
                 }
                 else //is basic user
                 {
-                    return _tkbdRepository.Get_By_Time_District_Po_User(fromDate, toDate, districtId, poId, userId);
+                    return _tkbdRepository.Get_By_Time_District_Po_User(fromDate, toDate, districtId, poId, currentUser);
                 }
             }
         }
