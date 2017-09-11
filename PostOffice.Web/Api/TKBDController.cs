@@ -198,6 +198,40 @@ namespace PostOffice.Web.Api
             }
 
         }
+        [Route("gethistorybycondition")]
+        public HttpResponseMessage GetByCondtion(HttpRequestMessage request, string fromDate, string toDate, int districtId, int poId, string userSelected, int page, int pageSize = 20)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                //get current user
+                string currentUser = User.Identity.Name;
+
+                int totalRow = 0;
+
+                // get data by condition
+                var model = _tkbdHistoryService.Get_By_Condition(fromDate, toDate, districtId, poId, currentUser,userSelected);
+
+                totalRow = model.Count();
+                var query = model.OrderByDescending(x => x.Id).Skip(page * pageSize).Take(pageSize);
+
+                var responseData = Mapper.Map<IEnumerable<TKBDHistory>, IEnumerable<TKBDHistoryViewModel>>(query);
+
+                foreach (var item in responseData)
+                {
+                    item.TransactionUser = _applicationUserService.getByUserId(item.UserId).FullName;
+                }
+
+                var paginationSet = new PaginationSet<TKBDHistoryViewModel>
+                {
+                    Items = responseData,
+                    Page = page,
+                    TotalCount = totalRow,
+                    TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)
+                };
+                var response = request.CreateResponse(HttpStatusCode.OK, paginationSet);
+                return response;
+            });
+        }
 
         [Route("getallhistory")]
         [HttpGet]

@@ -2,8 +2,8 @@
 angular.module('postoffice.tkbd')
 
     .controller('TKBDHistoryController',
-        ['$scope', 'apiService', 'notificationService', '$ngBootbox', '$filter', '$state','authService',
-            function ($scope, apiService, notificationService, $ngBootbox, $filter, $state, authService) {
+        ['$scope', 'apiService', 'notificationService', '$ngBootbox', '$filter', '$state','authService', '$stateParams',
+            function ($scope, apiService, notificationService, $ngBootbox, $filter, $state, authService, $stateParams) {
                 $scope.page = 0;
                 $scope.pagesCount = 0;
                 $scope.tkbds = [];
@@ -12,6 +12,20 @@ angular.module('postoffice.tkbd')
                 $scope.search = search;
                 $scope.loading = true;
                 
+                $scope.tkbd = {
+                    functionId: 0,
+                    date: { startDate: null, endDate: null },
+                    districts: [],
+                    pos: [],
+                    users: [],
+                    districtId: 0,
+                    posId: 0,
+                    userId: '',
+                    serviceId: 0,
+                };
+
+                $stateParams.id = 0;
+
                 //check role 
                 $scope.isManager = authService.haveRole('Manager');
                 $scope.isAdmin = authService.haveRole('Administrator');
@@ -34,6 +48,7 @@ angular.module('postoffice.tkbd')
                         getDistricts();
                     }
                 }
+
                 //lấy danh sách huyện / đơn vị
                 $scope.getDistricts = getDistricts;
                 function getDistricts() {
@@ -101,8 +116,8 @@ angular.module('postoffice.tkbd')
                     getTkbds();
                 }                
 
-                $scope.getTkbds = getTkbds;
-                function getTkbds() {
+                $scope.getTkbdHistory = getTkbdHistory;
+                function getTkbdHistory() {
                     var fromDate = $scope.tkbd.date.startDate.format('MM-DD-YYYY');
                     var toDate = $scope.tkbd.date.endDate.format('MM-DD-YYYY');
                     var config = {
@@ -113,10 +128,12 @@ angular.module('postoffice.tkbd')
                             districtId: $scope.tkbd.districtId || 0,
                             posId: $scope.tkbd.posId || 0,
                             userId: $scope.tkbd.userId || '',
-                            serviceId: $scope.tkbd.serviceId || 0
+                            serviceId: $scope.tkbd.serviceId || 0,
+                            page: page,
+                            pageSize: 20
                         }
                     }
-                    apiService.get('api/transactions/stattistic', config,
+                    apiService.get('api/tkbd/gethistorybycondition', config,
                         function (result) {
                             if (result.data.TotalCount == 0) {
                                 notificationService.displayWarning("Không tìm thấy bản ghi nào!");
