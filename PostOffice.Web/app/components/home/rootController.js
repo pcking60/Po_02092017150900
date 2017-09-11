@@ -1,9 +1,9 @@
 ﻿(function (app) {
     app.controller('rootController', rootController);
 
-    rootController.$inject = ['$state', '$scope', 'authService', 'apiService'];
+    rootController.$inject = ['$state', '$scope', 'authService', 'apiService', '$rootScope'];
 
-    function rootController($state, $scope, authService, apiService) {
+    function rootController($state, $scope, authService, apiService, $rootScope) {
 
         $scope.logOut = function () {
             authService.logOut();
@@ -32,13 +32,12 @@
                 });
         }
 
-        $scope.sideBarBaseView = 'app/shared/views/sideBarBaseView.html';       
-
-        $scope.Services = [];
+        $scope.sideBarBaseView = 'app/shared/views/sideBarBaseView.html'; 
+       
         function getAllServices() 
         {
             apiService.get('/api/service/getallparents', null, function (result) {
-                $scope.Services = result.data;
+                $rootScope.Services = result.data;
             }, function (error) {
                 notificationService.displayError(error.data);
             });
