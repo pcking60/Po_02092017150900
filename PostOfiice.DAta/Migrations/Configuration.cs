@@ -1,12 +1,17 @@
 namespace PostOfiice.DAta.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using PostOffice.Model.Models;
+    using System;
     using System.Data.Entity.Migrations;
+    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<PostOfiice.DAta.PostOfficeDbContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = false;            
         }
 
         protected override void Seed(PostOfiice.DAta.PostOfficeDbContext context)

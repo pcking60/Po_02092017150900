@@ -1,5 +1,7 @@
-﻿using System;
+﻿using OfficeOpenXml.FormulaParsing.ExpressionGraph;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PostOffice.Web.Models
 {
@@ -10,7 +12,8 @@ namespace PostOffice.Web.Models
         public DateTimeOffset? BirthDay { set; get; }
         public string Bio { set; get; }
         public string Email { set; get; }
-        public string Password { set; get; }
+        [DataType(System.ComponentModel.DataAnnotations.DataType.Password)]
+        public string PasswordHash { set; get; }
         public string UserName { set; get; }
         public int POID { get; set; }        
         public string PhoneNumber { set; get; }

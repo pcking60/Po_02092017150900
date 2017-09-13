@@ -1,9 +1,9 @@
 ﻿(function (app) {
     app.controller('rootController', rootController);
 
-    rootController.$inject = ['$state', '$scope', 'authService', 'apiService', '$rootScope'];
+    rootController.$inject = ['$state', '$scope', 'authService', 'apiService', '$rootScope', 'notificationService', '$http'];
 
-    function rootController($state, $scope, authService, apiService, $rootScope) {
+    function rootController($state, $scope, authService, apiService, $rootScope, notificationService, $http) {
 
         $scope.logOut = function () {
             authService.logOut();
@@ -23,12 +23,12 @@
         }
         
         function getUserInfo() {
-            apiService.get('/api/applicationUser/getuserinfo/' + userName, null,
+            apiService.get('/api/applicationUser/getuserinfo/' + encodeURIComponent(userName), null,
                 function (result) {
                     $scope.userInfo = result.data;
                 },
-                function () {
-                    console.log('Can not load user info');
+                function (error) {
+                    //notificationService.displayError(error.data);
                 });
         }
 

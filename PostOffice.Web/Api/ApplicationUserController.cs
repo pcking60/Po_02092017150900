@@ -148,6 +148,7 @@ namespace PostOffice.Web.Api
                 var pwd = _userManager.PasswordHasher.ToString();
                 
                 var applicationUserViewModel = Mapper.Map<ApplicationUser, ApplicationUserViewModel>(user.Result);
+                
                 var listGroup = _appGroupService.GetListGroupByUserId(applicationUserViewModel.Id);
                 applicationUserViewModel.Groups = Mapper.Map<IEnumerable<ApplicationGroup>, IEnumerable<ApplicationGroupViewModel>>(listGroup);
                 return request.CreateResponse(HttpStatusCode.OK, applicationUserViewModel);
