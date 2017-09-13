@@ -101,8 +101,7 @@ namespace PostOffice.Web.App_Start
                 catch
                 {
                     // Could not retrieve the user due to error.
-                    context.SetError("server_error");
-                    context.Rejected();
+                   
                     return;
                 }
                 if (user != null)
@@ -130,8 +129,25 @@ namespace PostOffice.Web.App_Start
                 }
                 else
                 {
-                    context.SetError("invalid_grant", "Tài khoản hoặc mật khẩu không đúng.'");
-                    context.Rejected();
+                    try
+                    {
+                        user = await userManager.FindByNameAsync(context.UserName);
+                        if (user == null)
+                        {
+                            context.SetError("invalid_grant", "Tài khoản không tồn tại");
+                        }
+                        else
+                        {
+                            context.SetError("invalid_grant", "Sai mật khẩu");
+                        }
+                        //context.Rejected();
+                    }
+                    catch
+                    {
+                        context.SetError("server_error");
+                        context.Rejected();
+                    }    
+                    
                 }
             }
             public override Task TokenEndpoint(OAuthTokenEndpointContext context)

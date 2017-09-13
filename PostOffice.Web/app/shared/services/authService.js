@@ -53,7 +53,7 @@ angular.module('postoffice.common')
 
             }).catch(function (err, status) {
                 _logOut();
-                notificationService.displayError("Sai mã nhân viên or mật khẩu!");
+                notificationService.displayError(err.data.error_description);
                 deferred.reject(err);
             });
 

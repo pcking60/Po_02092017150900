@@ -25,11 +25,17 @@
             templateUrl: "/app/components/application_users/userProfileView.html",
             controller: "userProfileViewController"
         })
+        .state('changePassword', {
+            url: "/change-password",
+            parent: 'base',
+            templateUrl: "/app/components/application_users/changePassword.html",
+            controller: "changePasswordController"
+        })
         .state('edit_application_user', {
             url: "/edit_application_user/:id",
             templateUrl: "/app/components/application_users/applicationUserEditView.html",
             controller: "applicationUserEditController",
-            parent: 'base',
+            parent: 'base'
         });
     }
 })();

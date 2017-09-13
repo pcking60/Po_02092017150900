@@ -7,6 +7,7 @@
             'ui.select',
             'ngSanitize',
             'chart.js',
-            'daterangepicker'
+            'daterangepicker',
+            'base64'
     ])
 })();

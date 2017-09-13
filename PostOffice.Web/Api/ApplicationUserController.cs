@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNet.Identity;
 using PostOffice.Common;
 using PostOffice.Model.Models;
 using PostOffice.Service;
@@ -11,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -106,6 +108,8 @@ namespace PostOffice.Web.Api
         {
             return CreateHttpResponse(request, () =>
             {
+                var base64EncodedBytes = System.Convert.FromBase64String(userName);
+                userName = System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
                 ApplicationUser user = _userService.getByUserName(userName);
                 decimal? totalEarn = _transactionDetailService.GetTotalEarnMoneyByUsername(userName);
                 var response = Mapper.Map<ApplicationUser, ApplicationUserViewModel>(user);
@@ -134,10 +138,11 @@ namespace PostOffice.Web.Api
         [Authorize(Roles = "ViewUser")]
         public HttpResponseMessage Details(HttpRequestMessage request, string id)
         {
-            if (string.IsNullOrEmpty(id))
+            if (String.IsNullOrEmpty(id) || id == "undefined")
             {
-                return request.CreateErrorResponse(HttpStatusCode.BadRequest, nameof(id) + " không có giá trị.");
+                id = User.Identity.GetUserId();
             }
+
             var user = _userManager.FindByIdAsync(id);
             if (user == null)
             {
@@ -145,7 +150,7 @@ namespace PostOffice.Web.Api
             }
             else
             {
-                var pwd = _userManager.PasswordHasher.ToString();
+                var pwd = _userManager.PasswordHasher.ToString();               
                 
                 var applicationUserViewModel = Mapper.Map<ApplicationUser, ApplicationUserViewModel>(user.Result);
                 
@@ -194,7 +199,7 @@ namespace PostOffice.Web.Api
                 try
                 {
                     newAppUser.Id = Guid.NewGuid().ToString();
-                    var result = await _userManager.CreateAsync(newAppUser, applicationUserViewModel.Password);
+                    var result = await _userManager.CreateAsync(newAppUser, applicationUserViewModel.PasswordHash);
                     if (result.Succeeded)
                     {
                         var listAppUserGroup = new List<ApplicationUserGroup>();
@@ -243,9 +248,9 @@ namespace PostOffice.Web.Api
         {
             if (ModelState.IsValid)
             {
-                if (applicationUserViewModel.Password != null)
+                if (applicationUserViewModel.PasswordHash != null)
                 {
-                    applicationUserViewModel.Password = _userManager.PasswordHasher.HashPassword(applicationUserViewModel.Password);
+                    applicationUserViewModel.PasswordHash = _userManager.PasswordHasher.HashPassword(applicationUserViewModel.PasswordHash);
                 }                
                 var appUser = await _userManager.FindByIdAsync(applicationUserViewModel.Id);
                 try
@@ -295,9 +300,9 @@ namespace PostOffice.Web.Api
         {
             if (ModelState.IsValid)
             {
-                if(!string.IsNullOrEmpty(applicationUserViewModel.Password))
+                if(!string.IsNullOrEmpty(applicationUserViewModel.PasswordHash))
                 {
-                    applicationUserViewModel.Password = _userManager.PasswordHasher.HashPassword(applicationUserViewModel.Password);
+                    applicationUserViewModel.PasswordHash = _userManager.PasswordHasher.HashPassword(applicationUserViewModel.PasswordHash);
                 }                
                 var appUser = await _userManager.FindByIdAsync(applicationUserViewModel.Id);
                 try
@@ -316,6 +321,38 @@ namespace PostOffice.Web.Api
                 return request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
         }
+
+        [HttpPut]
+        [Route("ChangePassword")]
+        [AllowAnonymous]
+        public async Task<HttpResponseMessage> ChangePassword(HttpRequestMessage request, ChangePasswordBindingModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                foreach (var item in ModelState.Values)
+                {
+                    foreach (var item1 in item.Errors)
+                    {
+                        if(item1.ErrorMessage.Like("%6 characters%"))
+                        return request.CreateErrorResponse(HttpStatusCode.BadRequest,"Mật khẩu ít nhất 6 ký tự");
+                    }
+                }
+               
+            }
+
+            IdentityResult result = await _userManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    if(error.Like("Incorrect%"))
+                    return request.CreateErrorResponse(HttpStatusCode.BadRequest, "Mật khẩu cũ không đúng!");
+                }                                
+            }
+
+            return request.CreateErrorResponse(HttpStatusCode.OK, result.Succeeded.ToString());            
+        }        
 
         [HttpDelete]
         [Route("delete")]

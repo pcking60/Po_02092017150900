@@ -33,7 +33,7 @@ namespace PostOffice.Web.Infrastructure.Extensions
             appUser.PhoneNumber = appUserViewModel.PhoneNumber;
             appUser.POID = appUserViewModel.POID;
             appUser.Status = appUserViewModel.Status;
-            appUser.PasswordHash = appUserViewModel.Password;
+            appUser.PasswordHash = appUserViewModel.PasswordHash;
             appUser.Address = appUserViewModel.Address;
         }
 

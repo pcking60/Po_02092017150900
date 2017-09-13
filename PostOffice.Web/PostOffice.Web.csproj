@@ -219,6 +219,8 @@
     <Content Include="app\components\application_users\applicationUserListController.js" />
     <Content Include="app\components\application_users\applicationUserListView.html" />
     <Content Include="app\components\application_users\applicationUsers.module.js" />
+    <Content Include="app\components\application_users\changePassword.html" />
+    <Content Include="app\components\application_users\changePasswordController.js" />
     <Content Include="app\components\application_users\settings.html" />
     <Content Include="app\components\application_users\userProfileView.html" />
     <Content Include="app\components\application_users\userProfileViewController.js" />
@@ -419,6 +421,8 @@
     </Content>
     <Content Include="Assets\admin\js\pages\dashboard.js" />
     <Content Include="Assets\admin\js\pages\dashboard2.js" />
+    <Content Include="Assets\admin\libs\angular-base64\angular-base64.js" />
+    <Content Include="Assets\admin\libs\angular-base64\angular-base64.min.js" />
     <Content Include="Assets\admin\libs\angular-bootstrap\.gitignore" />
     <Content Include="Assets\admin\libs\angular-bootstrap\index.js" />
     <Content Include="Assets\admin\libs\angular-bootstrap\ui-bootstrap-csp.css" />
@@ -5086,6 +5090,7 @@
     <Compile Include="Models\ApplicationGroupViewModel.cs" />
     <Compile Include="Models\ApplicationRoleViewModel.cs" />
     <Compile Include="Models\ApplicationUserViewModel.cs" />
+    <Compile Include="Models\ChangePasswordBindingModel.cs" />
     <Compile Include="Models\DistrictViewModel.cs" />
     <Compile Include="Models\MainServiceGroupViewModel.cs" />
     <Compile Include="Models\PaymentMethodViewModel.cs" />
@@ -5515,6 +5520,10 @@
     <Content Include="AppSettings.config" />
     <Content Include="app\shared\directives\fileUpload.directive.js" />
     <Content Include="Assets\admin\template\TKBD_Template_Sample.xlsx" />
+    <Content Include="Assets\admin\libs\angular-base64\.bower.json" />
+    <Content Include="Assets\admin\libs\angular-base64\bower.json" />
+    <Content Include="Assets\admin\libs\angular-base64\LICENSE" />
+    <Content Include="Assets\admin\libs\angular-base64\README.md" />
     <None Include="bundleconfig.json" />
     <None Include="Properties\PublishProfiles\DTTL.pubxml" />
     <None Include="Properties\PublishProfiles\postoffice.pubxml" />
