@@ -7,7 +7,7 @@
       
         $scope.report = {
             functionId: 0,
-            date: { startDate: null, endDate: null },
+            date: { startDate: moment(), endDate: moment() },
             districts: [],
             pos: [],
             users: [],
@@ -41,7 +41,8 @@
         }
 
         // câp nhật danh sách bưu cục của đơn vị được chọn
-        $scope.updatePos = function (item) {
+        $scope.updatePos = 
+        function updatePos(item) {
             if (item !== 0 && item !== null) {
                 $stateParams.id = item;
                 getPos();
@@ -58,7 +59,7 @@
             apiService.get('/api/po/getbydistrictid/ ' + $stateParams.id,
                 null,
                 function (response) {
-                    $scope.report.units = response.data;
+                    $scope.report.pos = response.data;
                 }, function (response) {
                     notificationService.displayError('Không tải được danh sách đơn vị.');
                 }
@@ -167,9 +168,10 @@
                 apiService.get('/api/applicationUser/userinfo',
                     null,
                     function (response) {
-                        $stateParams.id = response.data.POID;
-                        $scope.report.districtId = response.data.POID;
-                        getPos();
+                        apiService.get('/api/po/getbyid/' + response.data.POID, null, function (result) {
+                            $stateParams.id = result.data.DistrictID;
+                            getPos();
+                        }, function (error) { })
                     },
                     function (response) {
                         notificationService.displayError('Không tải được danh sách dịch vụ.');

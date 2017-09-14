@@ -103,6 +103,14 @@
         }
        
         $scope.chartdata = [];
+        $scope.reset = reset;
+        function reset() {
+            $scope.report.districtId = 0;
+            $scope.report.posId = 0;
+            $scope.report.date = { startDate: moment(), endDate: moment() };
+            $scope.result = false;
+        }      
+
         $scope.TimeStatistic = TimeStatistic;
         function TimeStatistic() {
             var fromDate = $scope.report.date.startDate.format('MM-DD-YYYY');
@@ -125,13 +133,14 @@
                     $scope.report.totalCash = 0;
                     $scope.report.totalDebt = 0;
                     $scope.report.totalEarn = 0;
+                    $scope.report.totalVat = 0;
                     angular.forEach($scope.statisticResult, function (item) {
                         if (item.Status == true) {
                             $scope.report.totalQuantity += item.Quantity;
                             $scope.report.totalCash += item.TotalCash;
                             $scope.report.totalDebt += item.TotalDebt;
                             $scope.report.totalEarn += item.EarnMoney;
-                            $scope.report.totalVat += ((item.TotalMoney + item.TotalCash + item.TotalDebt) * item.VAT / 100);
+                            $scope.report.totalVat += (item.TotalCash + item.TotalDebt) -((item.TotalCash + item.TotalDebt) / item.VAT);
                         }                        
                     })
                     $scope.result = true;
@@ -168,8 +177,10 @@
                 apiService.get('/api/applicationUser/userinfo',
                     null,
                     function (response) {
-                        $stateParams.id = response.data.POID;
-                        getPos();
+                        apiService.get('/api/po/getbyid/' + response.data.POID, null, function (result) {
+                            $stateParams.id = result.data.DistrictID;
+                            getPos();
+                        }, function (error) { })                       
                     },
                     function (response) {
                         notificationService.displayError('Không tải được danh sách dịch vụ.');

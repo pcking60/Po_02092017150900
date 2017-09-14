@@ -8,18 +8,21 @@
 </section>
 <section class="content" style="min-height:500px">
     <div class="row">
-        <div class="box box-info">
+        
+    </div> <!-- /.row-->
+    <div class="box" >
+        <div class="box-header">
             <!-- /.box-header -->
             <!-- form start -->
-            <form class="form-horizontal" novalidate name="frmTimeStatistic" role="form" ng-submit="TimeStatistic()" >
-                <div class="box-body">                   
+            <form class="form-horizontal" novalidate name="frmTimeStatistic" role="form" ng-submit="TimeStatistic()">
+                <div class="box-body">
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-3 control-label">Chọn thời gian</label>
                         <div class="col-sm-6">
-                            <input date-range-picker required class="form-control date-picker" type="text" ng-model="report.date" name="name" options="{locale: {separator: ' đến ', format: 'DD/MM/YYYY'} }"/>
+                            <input date-range-picker required class="form-control date-picker" type="text" ng-model="report.date" name="name" options="{locale: {separator: ' đến ', format: 'DD/MM/YYYY'} }" />
                             <span ng-show="frmTimeStatistic.name.$invalid" class="text-danger">Cần nhập thông tin vào đây</span>
-                        </div>                            
-                    </div> 
+                        </div>
+                    </div>
                     <div class="form-group" ng-hide="!isAdmin">
                         <label for="inputPassword3" class="col-sm-3 control-label">Chọn đơn vị</label>
                         <div class="col-sm-6">
@@ -37,7 +40,7 @@
                             </select>
                             <input type="hidden" name="poId" ng-model="report.poId" />
                         </div>
-                    </div>          
+                    </div>
                     <div class="form-group" ng-hide="!isManager && !isAdmin">
                         <label for="inputPassword3" class="col-sm-3 control-label">Chọn nhân viên</label>
                         <div class="col-sm-6">
@@ -45,7 +48,7 @@
                                 <option value="">Tất cả</option>
                             </select>
                             <input type="hidden" name="parentId" ng-model="report.userId" />
-                        </div>                       
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="inputPassword3" class="col-sm-3 control-label">Chọn dịch vụ </label>
@@ -56,9 +59,9 @@
                             <input type="hidden" name="parentId" ng-model="report.serviceId" />
                         </div>
                     </div>
-                    <div class="col-sm-6 col-sm-offset-3">                      
+                    <div class="col-sm-6 col-sm-offset-3">
                         <span class="col-sm-3"><button type="submit" class="btn btn-success " ng-disabled="frmTimeStatistic.$invalid">Thống kê</button></span>
-                        <span class="col-sm-3"><button type="reset" class="btn btn-danger " ng-click="reset()">Làm mới</button></span>
+                        <span class="col-sm-3"><button type="button" class="btn btn-danger " ng-click="reset()">Làm mới</button></span>
                     </div>
                 </div>
                 <!-- /.box-body -->
@@ -68,9 +71,7 @@
                 <!-- /.box-footer -->
             </form>
         </div>
-    </div> <!-- /.row-->
-    <div class="box" ng-show="result">
-        <div class="box-body">
+        <div class="box-body table-responsive" ng-show="result">
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-bordered ">
@@ -99,7 +100,7 @@
                                 <td style="vertical-align:middle" class="text-right">{{item.TotalCash | currency}}</td>
                                 <td style="vertical-align:middle" class="text-right">{{item.TotalDebt | currency}}</td>
                                 <td style="vertical-align:middle" class="text-right">{{item.EarnMoney | currency}}</td>                                
-                                <td style="vertical-align:middle" class="text-right">{{(item.TotalCash + item.TotalDebt) * item.VAT / 100 | currency}}</td>  
+                                <td style="vertical-align:middle" class="text-right">{{(item.TotalCash + item.TotalDebt)-((item.TotalCash + item.TotalDebt) / item.VAT) | currency}}</td>  
                             </tr>
                         </tbody>
                         <tfoot>
