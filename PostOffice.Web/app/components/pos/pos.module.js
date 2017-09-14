@@ -8,17 +8,17 @@ angular.module('postoffice.pos', ['postoffice.common'])
 
         $stateProvider
             .state('pos', {
-                url: "/pos",
+                url: "/danh-sach-buu-cuc.html",
                 templateUrl: "/app/components/pos/poView.html",
                 parent: 'base',
                 controller: "poController"
             }).state('add_po', {
-                url: "/add_po",
+                url: "/them-moi-buu-cuc.html",
                 parent: 'base',
                 templateUrl: "/app/components/pos/poAddView.html",
                 controller: "poAddController"
             }).state('edit_po', {
-                url: "/edit_po/:id",
+                url: "/cap-nhat-buu-cuc/:id.html",
                 templateUrl: "/app/components/pos/poEditView.html",
                 parent: 'base',
                 controller: "poEditController"

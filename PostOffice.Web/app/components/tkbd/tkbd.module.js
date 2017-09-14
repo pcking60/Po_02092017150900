@@ -4,17 +4,17 @@ angular.module('postoffice.tkbd', ['postoffice.common'])
     .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('tkbds', {
-                url: "/tkbd",
+                url: "/doanh-thu-tinh-luong-tkbd",
                 templateUrl: "/app/components/tkbd/tkbdListView.html",
                 parent: 'base',
                 controller: "tkbdListController"
             }).state('tkbd_import', {
-                url: "/tkbd_import",
+                url: "/nhap-file-giao-dich-tkbd",
                 templateUrl: "/app/components/tkbd/tkbdImportListView.html",
                 parent: 'base',
                 controller: "tkbdImportListController"
             }).state('tkbdhistory', {
-                url: "/tkbdhistory",
+                url: "/lich-su-giao-dich-tkbd",
                 templateUrl: "/app/components/tkbd/TKBDHistory.html",
                 parent: 'base',
                 controller: "TKBDHistoryController"

@@ -8,31 +8,31 @@
     function config($stateProvider, $urlRouterProvider) {
 
         $stateProvider.state('application_users', {
-            url: "/application_users",
+            url: "/danh-sach-nguoi-dung.html",
             templateUrl: "/app/components/application_users/applicationUserListView.html",
             parent: 'base',
             controller: "applicationUserListController"
         })
         .state('add_application_user', {
-            url: "/add_application_user",
+            url: "/them-moi-nhan-vien.html",
             parent: 'base',
             templateUrl: "/app/components/application_users/applicationUserAddView.html",
             controller: "applicationUserAddController"
         })
         .state('user_profile', {
-            url: "/user_profile",
+            url: "/thong-tin-ca-nhan.html",
             parent: 'base',
             templateUrl: "/app/components/application_users/userProfileView.html",
             controller: "userProfileViewController"
         })
         .state('changePassword', {
-            url: "/change-password",
+            url: "/thay-doi-mat-khau.html",
             parent: 'base',
             templateUrl: "/app/components/application_users/changePassword.html",
             controller: "changePasswordController"
         })
         .state('edit_application_user', {
-            url: "/edit_application_user/:id",
+            url: "/cap-nhat-nguoi-dung/:id.html",
             templateUrl: "/app/components/application_users/applicationUserEditView.html",
             controller: "applicationUserEditController",
             parent: 'base'

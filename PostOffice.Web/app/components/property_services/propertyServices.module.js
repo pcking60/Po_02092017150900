@@ -5,19 +5,19 @@ angular.module('postoffice.property_services', ['postoffice.common'])
     
         $stateProvider
             .state('property_services', {
-                url: "/property_services",
+                url: "/danh-sach-thuoc-tinh.html",
                 templateUrl: "/app/components/property_services/propertyServicesListView.html",
                 parent: 'base',
                 controller: "propertyServicesListController"
             })
             .state('add_property_service', {
-                url: "/add_property_services",
+                url: "/them-moi-thuoc-tinh.html",
                 parent: 'base',
                 templateUrl: "/app/components/property_services/propertyServiceAddView.html",
                 controller: "propertyServiceAddController"
             })
             .state('edit_property_service', {
-                url: "/edit_property_services/:id",
+                url: "/cap-nhat-thong-tin-thuoc-tinh/:id.html",
                 templateUrl: "/app/components/property_services/propertyServiceEditView.html",
                 controller: "propertyServiceEditController",
                 parent: 'base',

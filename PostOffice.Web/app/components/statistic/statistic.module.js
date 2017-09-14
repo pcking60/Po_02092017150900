@@ -7,19 +7,19 @@
     function config($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('statistic_revenue', {
-                url: "/statistic_revenue",
+                url: "/thong-ke-doanh-thu.html",
                 parent: 'base',
                 templateUrl: "/app/components/statistic/revenueStatisticView.html",
                 controller: "revenueStatisticController"
             })
             .state('timeStatistic', {
-                url: "/timeStatistic",
+                url: "/thong-ke-doanh-thu-theo-thoi-gian.html",
                 parent: 'base',
                 templateUrl: "/app/components/statistic/timeStatisticView.html",
                 controller: "timeStatisticController"
             })
             .state('reports', {
-                url: "/reports",
+                url: "/bao-cao-doanh-thu.html",
                 parent: "base",
                 templateUrl: "app/components/statistic/reportsView.html",
                 controller: "reportsController"

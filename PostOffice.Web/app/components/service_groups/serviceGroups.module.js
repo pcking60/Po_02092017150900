@@ -11,17 +11,17 @@
         $stateProvider
             
             .state('service_groups', {
-                url: "/service_groups",
+                url: "/danh-sach-nhom-dich-vu.html",
                 parent: 'base',
                 templateUrl: "/app/components/service_groups/serviceGroupsListView.html",
                 controller: "serviceGroupsListController"
             }).state('add_service_groups', {
-                url: "/add_service_groups",
+                url: "/them-moi-nhom-dich-vu.html",
                 parent: 'base',
                 templateUrl: "/app/components/service_groups/serviceGroupAddView.html",
                 controller:"serviceGroupAddController"
             }).state('edit_service_groups', {
-                url: "/edit_service_groups/:id",
+                url: "/cap-nhat-thong-tin-nhom-dich-vu/:id.html",
                 parent: 'base',
                 templateUrl: "/app/components/service_groups/serviceGroupEditView.html",
                 controller: "serviceGroupEditController"

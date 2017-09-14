@@ -22,12 +22,7 @@ angular.module('postoffice',
             ])
 
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-        //$locationProvider.html5Mode({
-        //    enabled: true, 
-        //    requireBase: false,
-        //    hashPrefix: ''
-        //})
-
+        //$locationProvider.html5Mode(true);
         $stateProvider
             .state('base', {
                 url: '',
@@ -40,7 +35,7 @@ angular.module('postoffice',
                 abstract: true
             })
             .state('login', {
-                url: "/login",
+                url: "/dang-nhap.html",
                 templateUrl: "/app/components/login/loginView.min.html",
                 controller: "loginController"
             })
@@ -51,12 +46,12 @@ angular.module('postoffice',
                 controller: "userDashboardController"
             })
             .state('home', {
-                url: "/admin",
+                url: "/trang-chinh.html",
                 parent: 'base',
                 templateUrl: "/app/components/home/homeView.html",
                 controller: "homeController"
             });
-        $urlRouterProvider.otherwise('/login');
+        $urlRouterProvider.otherwise('/dang-nhap.html');
     })
 
     .config(function ($httpProvider) {
