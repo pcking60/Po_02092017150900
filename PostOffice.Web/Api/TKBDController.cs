@@ -216,10 +216,14 @@ namespace PostOffice.Web.Api
                 totalRow = model.Count();
 
                 var query = model.OrderByDescending(x => x.Id).Skip(page * pageSize).Take(pageSize);
-
-                var paginationSet = new PaginationSet<TKBD_History_Statistic>
+                var result = Mapper.Map<IEnumerable<TKBD_History_Statistic>, IEnumerable<TKBD_History_Statistic_ViewModel>>(query);
+                foreach (var item in result)
                 {
-                    Items = query,
+                    item.CreatedByName = _userService.getByUserName(item.CreatedBy).FullName;
+                }
+                var paginationSet = new PaginationSet<TKBD_History_Statistic_ViewModel>
+                {
+                    Items = result,
                     Page = page,
                     TotalCount = totalRow,
                     TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)

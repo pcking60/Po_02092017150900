@@ -93,7 +93,7 @@
                                 <th><input type="text" class="form-control input-sm" ng-model="SmartSearch.Account" placeholder="auto search"></th>
                                 <th><input type="text" class="form-control input-sm" ng-model="SmartSearch.Money" placeholder="auto search"></th>
                                 <th><input type="text" class="form-control input-sm" ng-model="SmartSearch.Amount" placeholder="auto search"></th>
-                                <th><input type="text" class="form-control input-sm" ng-model="SmartSearch.CreatedBy" placeholder="auto search"></th>
+                                <th><input type="text" class="form-control input-sm" ng-model="SmartSearch.CreatedByName" placeholder="auto search"></th>
                                 <th><input type="text" class="form-control input-sm" ng-model="SmartSearch.FullName" placeholder="auto search"></th>
                             </tr>
                         </thead>
@@ -105,7 +105,7 @@
                             <td class="text-center">{{item.TransactionDate | date: 'dd/MM/yyyy'}}</td>
                             <td class="text-center">{{item.Money | currency}}</td>
                             <td class="text-center">{{item.Rate  | number}}</td>
-                            <td class="text-center">{{item.CreatedBy }}</td>
+                            <td class="text-center">{{item.CreatedByName }}</td>
                             <td class="text-center">{{item.FullName}}</td>
                         </tr>
                         <tfoot>

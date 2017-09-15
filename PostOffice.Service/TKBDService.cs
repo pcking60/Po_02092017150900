@@ -69,6 +69,7 @@ namespace PostOffice.Service
             bool isManager = _userRepository.CheckRole(currentUser, "Manager");
 
             //get user info
+            var currentUserId = _userRepository.getByUserName(currentUser).Id;
             var user = _userRepository.getByUserId(userSelected);
             string userId = null;
             if (user != null)
@@ -124,7 +125,7 @@ namespace PostOffice.Service
                 }
                 else //is basic user
                 {
-                    return _tKBDRepository.Export_By_Time_District_Po_User(fromDate, toDate, districtId, poId, currentUser);
+                    return _tKBDRepository.Export_By_Time_User(fromDate, toDate, currentUserId);
                 }
             }
 
@@ -138,6 +139,7 @@ namespace PostOffice.Service
 
             //get user info
             var user = _userRepository.getByUserId(userSelected);
+            var currentUserId = _userRepository.getByUserName(currentUser).Id;
             string userId = null;
             if (user != null)
             {
@@ -191,7 +193,7 @@ namespace PostOffice.Service
                 }
                 else //is basic user
                 {
-                    return _tKBDRepository.Export_TKBD_Detail_By_Time_District_Po_User(fromDate, toDate, districtId, poId, currentUser);
+                    return _tKBDRepository.Export_TKBD_Detail_By_Time_User(fromDate, toDate, currentUserId);
                 }
             }
         }

@@ -8,5 +8,6 @@
         public decimal Amount { get; set; }
         public string CreatedBy { get; set; }
         public string FullName { get; set; }
+        public string CreatedByName { get; set; }
     }
 }

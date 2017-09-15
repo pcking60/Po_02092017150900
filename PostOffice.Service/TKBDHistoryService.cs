@@ -150,6 +150,7 @@ namespace PostOffice.Service
 
             //get user info
             var user = _userRepository.getByUserId(userSelected);
+            var currentUserId = _userRepository.getByUserName(currentUser).Id;
             string userId = null;
             if (user != null)
             {
@@ -176,7 +177,7 @@ namespace PostOffice.Service
                         }
                         else // po && district && user are not null
                         {
-                            return _tkbdRepository.Get_By_Time_District_Po_User(fromDate, toDate, districtId, poId, userSelected);
+                            return _tkbdRepository.Get_By_Time_District_Po_User(fromDate, toDate, districtId, poId, userId);
                         }
                     }
                 }
@@ -197,13 +198,13 @@ namespace PostOffice.Service
                         }
                         else // po && district && user are not null
                         {
-                            return _tkbdRepository.Get_By_Time_District_Po_User(fromDate, toDate, districtId, poId, userSelected);
+                            return _tkbdRepository.Get_By_Time_District_Po_User(fromDate, toDate, districtId, poId, userId);
                         }
                     }
                 }
                 else //is basic user
                 {
-                    return _tkbdRepository.Get_By_Time_District_Po_User(fromDate, toDate, districtId, poId, currentUser);
+                    return _tkbdRepository.Get_By_Time_User(fromDate, toDate, currentUserId);
                 }
             }
         }

@@ -263,6 +263,18 @@
     <Compile Include="Migrations\201709110839000_change-tkbd-history.Designer.cs">
       <DependentUpon>201709110839000_change-tkbd-history.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709150251109_Get_TKBD_By_Time_User.cs" />
+    <Compile Include="Migrations\201709150251109_Get_TKBD_By_Time_User.Designer.cs">
+      <DependentUpon>201709150251109_Get_TKBD_By_Time_User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709150333434_Export_TKBD_Detail_By_Time_User.cs" />
+    <Compile Include="Migrations\201709150333434_Export_TKBD_Detail_By_Time_User.Designer.cs">
+      <DependentUpon>201709150333434_Export_TKBD_Detail_By_Time_User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709150336227_Export_TKBD_By_Time_User.cs" />
+    <Compile Include="Migrations\201709150336227_Export_TKBD_By_Time_User.Designer.cs">
+      <DependentUpon>201709150336227_Export_TKBD_By_Time_User.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PostOfficeDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -427,6 +439,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709110839000_change-tkbd-history.resx">
       <DependentUpon>201709110839000_change-tkbd-history.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709150251109_Get_TKBD_By_Time_User.resx">
+      <DependentUpon>201709150251109_Get_TKBD_By_Time_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709150333434_Export_TKBD_Detail_By_Time_User.resx">
+      <DependentUpon>201709150333434_Export_TKBD_Detail_By_Time_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709150336227_Export_TKBD_By_Time_User.resx">
+      <DependentUpon>201709150336227_Export_TKBD_By_Time_User.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

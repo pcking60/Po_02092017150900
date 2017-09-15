@@ -10,11 +10,13 @@ namespace PostOfiice.DAta.Repositories
     public interface ITKBDRepository : IRepository<TKBDAmount>
     {
         IEnumerable<TKBD_Export_Template> Export_By_Time(string fromDate, string toDate);
+        IEnumerable<TKBD_Export_Template> Export_By_Time_User(string fromDate, string toDate, string currentUserId);
         IEnumerable<TKBD_Export_Template> Export_By_Time_District(string fromDate, string toDate, int districtId);
         IEnumerable<TKBD_Export_Template> Export_By_Time_District_Po(string fromDate, string toDate, int districtId, int poId);
         IEnumerable<TKBD_Export_Template> Export_By_Time_District_Po_User(string fromDate, string toDate, int districtId, int poId, string userId);
 
         IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time(string fromDate, string toDate);
+        IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_User(string fromDate, string toDate, string currentUserId);
         IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_District(string fromDate, string toDate, int districtId);
         IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_District_Po(string fromDate, string toDate, int districtId, int poId);
         IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_District_Po_User(string fromDate, string toDate, int districtId, int poId, string userId);
@@ -74,6 +76,17 @@ namespace PostOfiice.DAta.Repositories
             return DbContext.Database.SqlQuery<TKBD_Export_Template>("Export_TKBD_By_Time_District_PO_User @fromDate,@toDate,@districtId,@poId,@userId", parameters);
         }
 
+        public IEnumerable<TKBD_Export_Template> Export_By_Time_User(string fromDate, string toDate, string currentUserId)
+        {
+            var parameters = new SqlParameter[]
+             {
+                new SqlParameter("@fromDate", fromDate),
+                new SqlParameter("@toDate", toDate),
+                new SqlParameter("@currentUserId", currentUserId)
+             };
+            return DbContext.Database.SqlQuery<TKBD_Export_Template>("Export_TKBD_By_Time_User @fromDate,@toDate,@currentUserId", parameters);
+        }
+
         public IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time(string fromDate, string toDate)
         {
             var parameters = new SqlParameter[]
@@ -118,6 +131,17 @@ namespace PostOfiice.DAta.Repositories
                 new SqlParameter("@userId", userId)
            };
             return DbContext.Database.SqlQuery<TKBD_Export_Detail_Template>("Export_TKBD_Detail_By_Time_District_Po_User @fromDate,@toDate,@districtId,@poId,@userId", parameters);
+        }
+
+        public IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_User(string fromDate, string toDate, string currentUserId)
+        {
+            var parameters = new SqlParameter[]
+            {
+                new SqlParameter("@fromDate", fromDate),
+                new SqlParameter("@toDate", toDate),
+                new SqlParameter("@currentUserId", currentUserId)
+            };
+            return DbContext.Database.SqlQuery<TKBD_Export_Detail_Template>("Export_TKBD_Detail_By_Time_User @fromDate,@toDate,@currentUserId", parameters);
         }
 
         public override void Update(TKBDAmount entity)

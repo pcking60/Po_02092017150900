@@ -4,6 +4,7 @@ using PostOfiice.DAta.Infrastructure;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System;
 
 namespace PostOfiice.DAta.Repositories
 {
@@ -12,6 +13,8 @@ namespace PostOfiice.DAta.Repositories
         IEnumerable<TKBDHistory> GetAllByUserName(string userName);
 
         IEnumerable<TKBD_History_Statistic> Get_By_Time(string fromDate, string toDate);
+
+        IEnumerable<TKBD_History_Statistic> Get_By_Time_User(string fromDate, string toDate, string currentUserId);
 
         IEnumerable<TKBD_History_Statistic> Get_By_Time_District(string fromDate, string toDate, int districtId);
 
@@ -87,6 +90,16 @@ namespace PostOfiice.DAta.Repositories
                                      select h).AsEnumerable();
 
             return listTKBDHistories;
+        }
+
+        public IEnumerable<TKBD_History_Statistic> Get_By_Time_User(string fromDate, string toDate, string currentUserId)
+        {
+            var parameters1 = new SqlParameter[] {
+                new SqlParameter("@fromDate", fromDate),
+                new SqlParameter("@toDate", toDate),
+                new SqlParameter("@currentUserId", currentUserId)
+            };
+            return DbContext.Database.SqlQuery<TKBD_History_Statistic>("Get_TKBD_By_Time_User @fromDate,@toDate,@currentUserId", parameters1);
         }
     }
 }
