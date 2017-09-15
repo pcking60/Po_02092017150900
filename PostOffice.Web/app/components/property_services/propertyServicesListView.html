@@ -68,7 +68,7 @@
                                
                             </tr>
                             </thead>
-                        <tr ng-repeat="item in propertyServices | filter: SmartSearch">
+                        <tr ng-repeat="item in propertyServices | filter: SmartSearch | orderBy: 'ServiceName'">
                             <td style="vertical-align:middle" class="text-center"><input type="checkbox" name="all" ng-model="item.checked" /></td>
                             <td style="vertical-align:middle" class="text-center">{{item.ID}}</td>
                             <td>{{item.Name}}</td>

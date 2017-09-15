@@ -63,7 +63,7 @@
                         <div class="col-md-8">
                             <div class="col-sm-8 col-sm-offset-4">
                                 <span class="col-sm-4"><button type="submit" class="btn bg-orange btn-flat" ng-disabled="frmReportTKBD.$invalid" style="opacity:1">Tra cứu</button></span>
-                                <span class="col-sm-4"><button type="reset" class="btn  btn-flat bg-olive " ng-click="Reset()">Làm mới</button></span>
+                                <span class="col-sm-4"><button type="button" class="btn  btn-flat bg-olive " ng-click="Reset()">Làm mới</button></span>
 
                             </div>
                         </div>
@@ -103,8 +103,8 @@
                             <td class="text-center">{{item.Account}}</td>
                             <td class="text-center">{{item.Name}}</td>
                             <td class="text-center">{{item.TransactionDate | date: 'dd/MM/yyyy'}}</td>
-                            <td class="text-center">{{item.Money | currency}}</td>
-                            <td class="text-center">{{item.Rate  | number}}</td>
+                            <td class="text-center">{{item.Money | number}}</td>
+                            <td class="text-center">{{item.Rate  | number : 4 }}</td>
                             <td class="text-center">{{item.CreatedByName }}</td>
                             <td class="text-center">{{item.FullName}}</td>
                         </tr>

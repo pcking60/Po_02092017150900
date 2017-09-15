@@ -14,7 +14,7 @@ angular.module('postoffice.tkbd')
                 
                 $scope.tkbd = {
                     functionId: 0,
-                    date: { startDate: null, endDate: null },
+                    date: { startDate: moment(), endDate: moment() },
                     districts: [],
                     pos: [],
                     users: [],
@@ -28,8 +28,6 @@ angular.module('postoffice.tkbd')
                 $scope.Reset = Reset;
                 function Reset() {
                     $scope.tkbd.districtId = 0;
-                    $scope.tkbd.date.startDate = null;
-                    $scope.tkbd.date.toDate = null;
                     $scope.tkbd.poId = 0;
                     $scope.tkbd.userId = '';
                     $scope.show = false;
@@ -144,6 +142,7 @@ angular.module('postoffice.tkbd')
                             pageSize: 20
                         }
                     };
+                    $scope.tkbds = [];
                     apiService.get('api/tkbd/gethistorybycondition', config,
                         function (result) {
                             if (result.data.TotalCount == 0) {

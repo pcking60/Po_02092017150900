@@ -5,7 +5,7 @@ angular.module('postoffice.common')
         var authServiceFactory = {};
 
         var _authentication = {
-            isAuth: false,
+            
             userName: "",
             fullName: "",
             roles: [],
@@ -33,6 +33,7 @@ angular.module('postoffice.common')
             var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
 
             var deferred = $q.defer();
+            var isLog = false;
 
             $http.post('/oauth/token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }).then(function (response) {
 
@@ -42,11 +43,13 @@ angular.module('postoffice.common')
                     fullName: response.data.fullName,
                     roles : JSON.parse(response.data.permissions)                    
                 });
+                isLog = true;
                 _authentication.roles = JSON.parse(response.data.permissions);
                 _authentication.isAuth = true;
                 _authentication.userName = loginData.userName;                
                 _authentication.fullName = response.data.fullName;
-                _authentication.createdBy = response.data.createdBy;
+                _authentication.createdBy = response.data.createdBy;               
+                
                 var cd = response.data.createdDate;
                 _authentication.createdDate = new Date(cd);
                 deferred.resolve(response);
@@ -56,6 +59,10 @@ angular.module('postoffice.common')
                 notificationService.displayError(err.data.error_description);
                 deferred.reject(err);
             });
+
+            this.getIsAuth = function () {
+                return isLog;
+            };
 
             return deferred.promise;
 

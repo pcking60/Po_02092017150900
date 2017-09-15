@@ -11,6 +11,7 @@ using PostOffice.Web.Infrastructure.Extensions;
 using PostOffice.Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -112,10 +113,16 @@ namespace PostOffice.Web.Api
                 District district = new District();
                 PO po = new PO();
                 ApplicationUser user = new ApplicationUser();
-
+                DateTime test;
+                if(DateTime.TryParseExact(fromDate, "MM/dd/yyyy", null, DateTimeStyles.None, out test))
+                {
+                    vm.FromDate = test;
+                }
                 // Thời gian để xuất dữ liệu
-                vm.FromDate = DateTime.Parse(fromDate);
-                vm.ToDate = DateTime.Parse(toDate);
+                if (DateTime.TryParseExact(toDate, "MM/dd/yyyy", null, DateTimeStyles.None, out test))
+                {
+                    vm.ToDate = test;
+                }
                 vm.CreatedBy = User.Identity.Name;
 
                 //check param đầu vào
@@ -460,7 +467,7 @@ namespace PostOffice.Web.Api
                     tkbdViewModel.Name = workSheet.Cells[i, 1].Value.ToString();
                     tkbdViewModel.CustomerId = workSheet.Cells[i, 2].Value.ToString();
                     tkbdViewModel.Account = workSheet.Cells[i, 3].Value.ToString();
-                    if (DateTime.TryParse(workSheet.Cells[i, 4].Value.ToString(), out transactionDate))
+                    if (DateTime.TryParseExact(workSheet.Cells[i, 4].Value.ToString(),"dd/MM/yyyy", null, DateTimeStyles.None, out transactionDate))
                     {
                         string temp = transactionDate.ToString("yyyy-MM-dd");
                         DateTime.TryParse(temp, out tranDate);
