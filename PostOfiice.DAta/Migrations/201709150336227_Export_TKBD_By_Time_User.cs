@@ -10,8 +10,8 @@ namespace PostOfiice.DAta.Migrations
                "Export_TKBD_By_Time_User",
                p => new
                {
-                   fromDate = p.String(),
-                   toDate = p.String(),
+                   month = p.Int(),
+                   year = p.Int(),
                    currentUserId = p.String()
                },
                @"select
@@ -23,8 +23,8 @@ namespace PostOfiice.DAta.Migrations
                 from TKBDAmounts t
                     inner join ApplicationUsers u
 	                on t.CreatedBy = u.UserName
-                where t.Status=1 and u.Id=@currentUserId and (t.CreatedDate>=CAST(@fromDate as date) and t.CreatedDate<=cast(@toDate as date))
-                group by t.Month, t.CreatedBy");
+                where t.Status=1 and u.Id=@currentUserId and t.Month=@month and t.Year=@year
+                group by t.Month, t.CreatedBy, t.Year");
         }
 
         public override void Down()

@@ -10,8 +10,8 @@ namespace PostOfiice.DAta.Migrations
                 "Export_TKBD_Detail_By_Time",
                 p => new
                 {
-                    fromDate = p.String(),
-                    toDate = p.String()
+                    month = p.Int(),
+                    year = p.Int(),
                 },
                 @"select
                     t.Month,
@@ -26,7 +26,7 @@ namespace PostOfiice.DAta.Migrations
 	                on u.POID = p.ID
 	                inner join Districts d
 	                on p.DistrictID = d.ID
-                where t.Status=1 and (t.CreatedDate>=CAST(@fromDate as date) and t.CreatedDate<=cast(@toDate as date))
+                where t.Status=1 and t.Month=@month and t.Year=@year
                 ");
         }
 

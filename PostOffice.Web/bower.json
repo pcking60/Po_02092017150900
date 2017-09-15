@@ -11,7 +11,8 @@
     "jquery": "~3.2.1",
     "moment": "~2.18.1",
     "mustache": "~2.3.0",
-    "angular-base64": "~2.0.5"
+    "angular-base64": "~2.0.5",
+    "angular-bootstrap-datetimepicker": "~1.1.4"
   },
   "resolutions": {
     "moment": ">=2.10.5",

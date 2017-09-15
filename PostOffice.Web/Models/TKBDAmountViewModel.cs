@@ -6,6 +6,7 @@ namespace PostOffice.Web.Models
     {
         public int Id { get; set; }
         public int Month { get; set; }
+        public int Year { get; set; }
         public string Account { get; set; }
         public decimal Amount { get; set; }
         public decimal? Money { get; set; }

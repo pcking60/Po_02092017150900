@@ -10,8 +10,8 @@ namespace PostOfiice.DAta.Migrations
                 "Export_TKBD_By_Time",
                 p => new
                 {
-                    fromDate = p.String(),
-                    toDate = p.String()
+                    month = p.Int(),
+                    year = p.Int(),
                 },
                 @"select
 	                t.Month,
@@ -20,8 +20,8 @@ namespace PostOfiice.DAta.Migrations
 	                sum(t.Amount)) as DTTL,
 	                t.CreatedBy
                 from TKBDAmounts t
-                where t.Status=1 and (t.CreatedDate>=CAST(@fromDate as date) and t.CreatedDate<=cast(@toDate as date))
-                group by t.Month, t.CreatedBy");
+               where t.Status=1 and t.Month=@month and t.Year=@year
+                group by t.Month, t.CreatedBy, t.Year");
         }
 
         public override void Down()

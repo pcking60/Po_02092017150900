@@ -88,7 +88,7 @@ namespace PostOffice.Web.Api
 
         [Route("export")]
         [HttpGet]
-        public async Task<HttpResponseMessage> Export(HttpRequestMessage request, string fromDate, string toDate, int districtId, int functionId, int poId, string userId)
+        public async Task<HttpResponseMessage> Export(HttpRequestMessage request, int month, int year, int districtId, int functionId, int poId, string userId)
         {
             #region Config Export file
 
@@ -113,16 +113,16 @@ namespace PostOffice.Web.Api
                 District district = new District();
                 PO po = new PO();
                 ApplicationUser user = new ApplicationUser();
-                DateTime test;
-                if(DateTime.TryParseExact(fromDate, "MM/dd/yyyy", null, DateTimeStyles.None, out test))
-                {
-                    vm.FromDate = test;
-                }
-                // Thời gian để xuất dữ liệu
-                if (DateTime.TryParseExact(toDate, "MM/dd/yyyy", null, DateTimeStyles.None, out test))
-                {
-                    vm.ToDate = test;
-                }
+                //DateTime test;
+                //if(DateTime.TryParseExact(fromDate, "MM/dd/yyyy", null, DateTimeStyles.None, out test))
+                //{
+                //vm.FromDate = month.ToString("mm/yyyy/dd");
+                //}
+                //// Thời gian để xuất dữ liệu
+                //if (DateTime.TryParseExact(toDate, "MM/dd/yyyy", null, DateTimeStyles.None, out test))
+                //{
+                //vm.ToDate = test;
+                //}
                 vm.CreatedBy = User.Identity.Name;
 
                 //check param đầu vào
@@ -158,7 +158,7 @@ namespace PostOffice.Web.Api
                     case 1:
                         vm.FunctionName = "Thống kê tổng hợp giao dịch phát sinh";
 
-                        var responseTKBD = _tkbdService.Export_TKBD_By_Condition(fromDate, toDate, districtId, poId, currentUser, userId);
+                        var responseTKBD = _tkbdService.Export_TKBD_By_Condition(month, year, districtId, poId, currentUser, userId);
                         var dataSource = Mapper.Map<IEnumerable<TKBD_Export_Template>, IEnumerable<TKBD_Export_Template_ViewModel>>(responseTKBD);
                         foreach (var item in dataSource)
                         {
@@ -179,7 +179,7 @@ namespace PostOffice.Web.Api
                     case 2:
                         vm.FunctionName = "Thống kê chi tiết giao dịch phát sinh";
 
-                        var responseTKBD_Detail = _tkbdService.Export_TKBD_Detail_By_Condition(fromDate, toDate, districtId, poId, currentUser, userId);
+                        var responseTKBD_Detail = _tkbdService.Export_TKBD_Detail_By_Condition(month, year, districtId, poId, currentUser, userId);
                         var dataSource_Detail = Mapper.Map<IEnumerable<TKBD_Export_Detail_Template>, IEnumerable<TKBD_Export_Detail_Template_ViewModel>>(responseTKBD_Detail);
                         foreach (var item in dataSource_Detail)
                         {
@@ -552,10 +552,11 @@ namespace PostOffice.Web.Api
                             vm.CreatedBy = User.Identity.Name;
                             vm.UserId = item.UserId;
                             vm.Month = DateTime.Now.Month-1;
+                            vm.Year = DateTime.Now.Year;
                             vm.Amount = money * item.Rate * 20 * days / 1200 / 30 ?? 0;
                             TKBDAmount tkbd = new TKBDAmount();
                             tkbd.UpdateTKBD(vm);
-                            if (_tkbdService.CheckExist(vm.Account, vm.Month))
+                            if (_tkbdService.CheckExist(vm.Account, vm.Month, vm.Year))
                             {
                                 continue;
                             }

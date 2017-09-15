@@ -8,6 +8,7 @@
             'ngSanitize',
             'chart.js',
             'daterangepicker',
-            'base64'
-    ])
+            'base64',
+            'ui.bootstrap.datetimepicker'
+    ]);
 })();

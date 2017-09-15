@@ -1014,7 +1014,7 @@ namespace PostOffice.Common
                     ws.Cells["C7:I7"].Style.Font.Bold = true;
                     ws.Cells["C7:I7"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                     ws.Cells["C7:I7"].Style.Indent = 2;
-                    ws.Cells["C7:I7"].Value = "Từ " + vm.FromDate.ToString("dd/MM/yyyy") + " đến " + vm.ToDate.ToString("dd/MM/yyyy");
+                    ws.Cells["C7:I7"].Value = "Tháng  " + vm.FromDate + "/ " + vm.ToDate;
 
                     // service
                     ws.Cells["C8:I8"].Merge = true;

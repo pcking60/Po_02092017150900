@@ -275,6 +275,10 @@
     <Compile Include="Migrations\201709150336227_Export_TKBD_By_Time_User.Designer.cs">
       <DependentUpon>201709150336227_Export_TKBD_By_Time_User.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709151630491_change-tkbd-Amount.cs" />
+    <Compile Include="Migrations\201709151630491_change-tkbd-Amount.Designer.cs">
+      <DependentUpon>201709151630491_change-tkbd-Amount.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PostOfficeDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -448,6 +452,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709150336227_Export_TKBD_By_Time_User.resx">
       <DependentUpon>201709150336227_Export_TKBD_By_Time_User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709151630491_change-tkbd-Amount.resx">
+      <DependentUpon>201709151630491_change-tkbd-Amount.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

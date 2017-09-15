@@ -11,8 +11,8 @@ namespace PostOfiice.DAta.Migrations
                "Export_TKBD_By_Time_District_PO_User",
                p => new
                {
-                   fromDate = p.String(),
-                   toDate = p.String(),
+                   month = p.Int(),
+                   year = p.Int(),
                    districtId = p.Int(),
                    PoId = p.Int(),
                    UserId = p.String()
@@ -31,8 +31,8 @@ namespace PostOfiice.DAta.Migrations
 	                on u.POID = p.ID
 	                inner join Districts d
 	                on p.DistrictID = d.ID
-                where t.Status=1 and (t.CreatedDate>=CAST(@fromDate as date) and t.CreatedDate<=cast(@toDate as date)) and d.ID = @districtId and p.ID = @PoId and u.Id = @UserId
-                group by t.Month, t.CreatedBy");
+                where t.Status=1 and t.Month=@month and t.Year=@year and d.ID = @districtId and p.ID = @poId and u.Id = @userId
+                group by t.Month, t.CreatedBy, t.Year");
         }
         
         public override void Down()

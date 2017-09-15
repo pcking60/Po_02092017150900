@@ -22,7 +22,7 @@ angular.module('postoffice.tkbd')
                     districtId: 0,
                     posId: 0,
                     userId: '',
-                    serviceId: 0,
+                    serviceId: 0
                 };
 
                 $stateParams.id = 0;
@@ -31,7 +31,7 @@ angular.module('postoffice.tkbd')
                 [
                     { Id: 1, Name: 'Thống kê tổng hợp giao dịch phát sinh' },
                     { Id: 2, Name: 'Thống kê chi tiết giao dịch phát sinh' }
-                ]                
+                ];
 
                 //check role 
                 $scope.isManager = authService.haveRole('Manager');
@@ -71,7 +71,7 @@ angular.module('postoffice.tkbd')
 
                 // câp nhật danh sách bưu cục của đơn vị được chọn
                 $scope.updatePos = function (item) {
-                    if (item != 0 && item != null) {
+                    if (item !== 0 && item !== null) {
                         $stateParams.id = item;
                         getPos();
                     }
@@ -96,7 +96,7 @@ angular.module('postoffice.tkbd')
 
                 // lấy danh sách users của bưu cục được chọn
                 $scope.updateUser = function (item) {
-                    if (item != 0 && item != null) {
+                    if (item !== 0 && item !== null) {
                         $stateParams.id = item;
                         getListUser();
                     }
@@ -140,13 +140,14 @@ angular.module('postoffice.tkbd')
 
                 $scope.Export = Export;
                 function Export() {
-                    var fromDate = $scope.tkbd.date.startDate.format('MM/DD/YYYY');
-                    var toDate = $scope.tkbd.date.endDate.format('MM/DD/YYYY');
+                    var month = $scope.tkbd.dates.getMonth()+1;
+                    var year = $scope.tkbd.dates.getFullYear();
+                    console.log($scope.tkbd.dates);
                     var config = {
                         params: {
                             //mm/dd/yyyy
-                            fromDate: fromDate,
-                            toDate: toDate,
+                            month: month,
+                            year: year,
                             districtId: $scope.tkbd.districtId || 0,
                             functionId: $scope.tkbd.functionId || 0,
                             poId: $scope.tkbd.poId || 0,
@@ -157,13 +158,14 @@ angular.module('postoffice.tkbd')
                     apiService.get('/api/tkbd/export', config,
                         function (response) {
                             $scope.loading = true;
-                            if (response.status = 200) {
+                            const st = 200;
+                            if (response.status === st) {
                                 window.location.href = response.data.Message;
                                 $scope.loading = false;
                             }
                         },
                         function (response) {
-                            if (response.status == 500) {
+                            if (response.status === 500) {
                                 notificationService.displayError('Không có dữ liệu');
                                 $scope.loading = false;
                             }
@@ -173,6 +175,6 @@ angular.module('postoffice.tkbd')
                             }
                         }
                     );
-                };
+                }
                 
             }]);

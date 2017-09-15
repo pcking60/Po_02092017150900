@@ -63,6 +63,7 @@ namespace PostOffice.Web.Infrastructure.Extensions
             tkbd.Status = vm.Status;
             tkbd.UpdatedBy = vm.UpdatedBy;
             tkbd.UpdatedDate = vm.UpdatedDate;
+            tkbd.Year = vm.Year;
         }
 
         public static void UpdateTKBDHistory(this TKBDHistory tkbd, TKBDHistoryViewModel vm)

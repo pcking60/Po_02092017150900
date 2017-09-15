@@ -9,17 +9,17 @@ namespace PostOfiice.DAta.Repositories
 {
     public interface ITKBDRepository : IRepository<TKBDAmount>
     {
-        IEnumerable<TKBD_Export_Template> Export_By_Time(string fromDate, string toDate);
-        IEnumerable<TKBD_Export_Template> Export_By_Time_User(string fromDate, string toDate, string currentUserId);
-        IEnumerable<TKBD_Export_Template> Export_By_Time_District(string fromDate, string toDate, int districtId);
-        IEnumerable<TKBD_Export_Template> Export_By_Time_District_Po(string fromDate, string toDate, int districtId, int poId);
-        IEnumerable<TKBD_Export_Template> Export_By_Time_District_Po_User(string fromDate, string toDate, int districtId, int poId, string userId);
+        IEnumerable<TKBD_Export_Template> Export_By_Time(int month, int year);
+        IEnumerable<TKBD_Export_Template> Export_By_Time_User(int month, int year, string currentUserId);
+        IEnumerable<TKBD_Export_Template> Export_By_Time_District(int month, int year, int districtId);
+        IEnumerable<TKBD_Export_Template> Export_By_Time_District_Po(int month, int year, int districtId, int poId);
+        IEnumerable<TKBD_Export_Template> Export_By_Time_District_Po_User(int month, int year, int districtId, int poId, string userId);
 
-        IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time(string fromDate, string toDate);
-        IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_User(string fromDate, string toDate, string currentUserId);
-        IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_District(string fromDate, string toDate, int districtId);
-        IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_District_Po(string fromDate, string toDate, int districtId, int poId);
-        IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_District_Po_User(string fromDate, string toDate, int districtId, int poId, string userId);
+        IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time(int month, int year);
+        IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_User(int month, int year, string currentUserId);
+        IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_District(int month, int year, int districtId);
+        IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_District_Po(int month, int year, int districtId, int poId);
+        IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_District_Po_User(int month, int year, int districtId, int poId, string userId);
     }
 
     public class TKBDRepository : RepositoryBase<TKBDAmount>, ITKBDRepository
@@ -34,114 +34,114 @@ namespace PostOfiice.DAta.Repositories
             return base.Add(entity);
         }
 
-        public IEnumerable<TKBD_Export_Template> Export_By_Time(string fromDate, string toDate)
+        public IEnumerable<TKBD_Export_Template> Export_By_Time(int month, int year)
         {
             var parameters = new SqlParameter[] {
-                new SqlParameter("@fromDate", fromDate),
-                new SqlParameter("@toDate", toDate)
+                new SqlParameter("@month", month),
+                new SqlParameter("@year", year)
             };
-            return DbContext.Database.SqlQuery<TKBD_Export_Template>("Export_TKBD_By_Time @fromDate,@toDate", parameters);
+            return DbContext.Database.SqlQuery<TKBD_Export_Template>("Export_TKBD_By_Time @month,@year", parameters);
         }
 
-        public IEnumerable<TKBD_Export_Template> Export_By_Time_District(string fromDate, string toDate, int districtId)
+        public IEnumerable<TKBD_Export_Template> Export_By_Time_District(int month, int year, int districtId)
         {
             var parameters = new SqlParameter[] {
-                new SqlParameter("@fromDate", fromDate),
-                new SqlParameter("@toDate", toDate),
+                new SqlParameter("@month", month),
+                new SqlParameter("@year", year),
                 new SqlParameter("@districtId", districtId)
             };
-            return DbContext.Database.SqlQuery<TKBD_Export_Template>("Export_TKBD_By_Time_District @fromDate,@toDate,@districtId", parameters);
+            return DbContext.Database.SqlQuery<TKBD_Export_Template>("Export_TKBD_By_Time_District @month,@year,@districtId", parameters);
         }
 
-        public IEnumerable<TKBD_Export_Template> Export_By_Time_District_Po(string fromDate, string toDate, int districtId, int poId)
+        public IEnumerable<TKBD_Export_Template> Export_By_Time_District_Po(int month, int year, int districtId, int poId)
         {
             var parameters = new SqlParameter[] {
-                new SqlParameter("@fromDate", fromDate),
-                new SqlParameter("@toDate", toDate),
+                new SqlParameter("@month", month),
+                new SqlParameter("@year", year),
                 new SqlParameter("@districtId", districtId),
                 new SqlParameter("@poId", poId)
             };
-            return DbContext.Database.SqlQuery<TKBD_Export_Template>("Export_TKBD_By_Time_District_PO @fromDate,@toDate,@districtId,@poId", parameters);
+            return DbContext.Database.SqlQuery<TKBD_Export_Template>("Export_TKBD_By_Time_District_PO @month,@year,@districtId,@poId", parameters);
         }
 
-        public IEnumerable<TKBD_Export_Template> Export_By_Time_District_Po_User(string fromDate, string toDate, int districtId, int poId, string userId)
+        public IEnumerable<TKBD_Export_Template> Export_By_Time_District_Po_User(int month, int year, int districtId, int poId, string userId)
         {
             var parameters = new SqlParameter[] {
-                new SqlParameter("@fromDate", fromDate),
-                new SqlParameter("@toDate", toDate),
+                new SqlParameter("@month", month),
+                new SqlParameter("@year", year),
                 new SqlParameter("@districtId", districtId),
                 new SqlParameter("@poId", poId),
                 new SqlParameter("@userId", userId)
             };
-            return DbContext.Database.SqlQuery<TKBD_Export_Template>("Export_TKBD_By_Time_District_PO_User @fromDate,@toDate,@districtId,@poId,@userId", parameters);
+            return DbContext.Database.SqlQuery<TKBD_Export_Template>("Export_TKBD_By_Time_District_PO_User @month,@year,@districtId,@poId,@userId", parameters);
         }
 
-        public IEnumerable<TKBD_Export_Template> Export_By_Time_User(string fromDate, string toDate, string currentUserId)
+        public IEnumerable<TKBD_Export_Template> Export_By_Time_User(int month, int year, string currentUserId)
         {
             var parameters = new SqlParameter[]
              {
-                new SqlParameter("@fromDate", fromDate),
-                new SqlParameter("@toDate", toDate),
+                new SqlParameter("@month", month),
+                new SqlParameter("@year", year),
                 new SqlParameter("@currentUserId", currentUserId)
              };
-            return DbContext.Database.SqlQuery<TKBD_Export_Template>("Export_TKBD_By_Time_User @fromDate,@toDate,@currentUserId", parameters);
+            return DbContext.Database.SqlQuery<TKBD_Export_Template>("Export_TKBD_By_Time_User @month,@year,@currentUserId", parameters);
         }
 
-        public IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time(string fromDate, string toDate)
+        public IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time(int month, int year)
         {
             var parameters = new SqlParameter[]
             {
-                new SqlParameter("@fromDate", fromDate),
-                new SqlParameter("@toDate", toDate)
+                new SqlParameter("@month", month),
+                new SqlParameter("@year", year)
             };
-            return DbContext.Database.SqlQuery<TKBD_Export_Detail_Template>("Export_TKBD_Detail_By_Time @fromDate,@toDate", parameters);
+            return DbContext.Database.SqlQuery<TKBD_Export_Detail_Template>("Export_TKBD_Detail_By_Time @month,@year", parameters);
         }
 
-        public IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_District(string fromDate, string toDate, int districtId)
+        public IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_District(int month, int year, int districtId)
         {
             var parameters = new SqlParameter[]
             {
-                new SqlParameter("@fromDate", fromDate),
-                new SqlParameter("@toDate", toDate),
+                new SqlParameter("@month", month),
+                new SqlParameter("@year", year),
                 new SqlParameter("@districtId", districtId)
             };
-            return DbContext.Database.SqlQuery<TKBD_Export_Detail_Template>("Export_TKBD_Detail_By_Time_District @fromDate,@toDate,@districtId", parameters);
+            return DbContext.Database.SqlQuery<TKBD_Export_Detail_Template>("Export_TKBD_Detail_By_Time_District @month,@year,@districtId", parameters);
         }
 
-        public IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_District_Po(string fromDate, string toDate, int districtId, int poId)
+        public IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_District_Po(int month, int year, int districtId, int poId)
         {
             var parameters = new SqlParameter[]
             {
-                new SqlParameter("@fromDate", fromDate),
-                new SqlParameter("@toDate", toDate),
+                new SqlParameter("@month", month),
+                new SqlParameter("@year", year),
                 new SqlParameter("@districtId", districtId),
                 new SqlParameter("@poId", poId)
             };
-            return DbContext.Database.SqlQuery<TKBD_Export_Detail_Template>("Export_TKBD_Detail_By_Time_District_Po @fromDate,@toDate,@districtId,@poId", parameters);
+            return DbContext.Database.SqlQuery<TKBD_Export_Detail_Template>("Export_TKBD_Detail_By_Time_District_Po @month,@year,@districtId,@poId", parameters);
         }
 
-        public IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_District_Po_User(string fromDate, string toDate, int districtId, int poId, string userId)
+        public IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_District_Po_User(int month, int year, int districtId, int poId, string userId)
         {
             var parameters = new SqlParameter[]
            {
-                new SqlParameter("@fromDate", fromDate),
-                new SqlParameter("@toDate", toDate),
+                new SqlParameter("@month", month),
+                new SqlParameter("@year", year),
                 new SqlParameter("@districtId", districtId),
                 new SqlParameter("@poId", poId),
                 new SqlParameter("@userId", userId)
            };
-            return DbContext.Database.SqlQuery<TKBD_Export_Detail_Template>("Export_TKBD_Detail_By_Time_District_Po_User @fromDate,@toDate,@districtId,@poId,@userId", parameters);
+            return DbContext.Database.SqlQuery<TKBD_Export_Detail_Template>("Export_TKBD_Detail_By_Time_District_Po_User @month,@year,@districtId,@poId,@userId", parameters);
         }
 
-        public IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_User(string fromDate, string toDate, string currentUserId)
+        public IEnumerable<TKBD_Export_Detail_Template> Export_TKBD_Detail_By_Time_User(int month, int year, string currentUserId)
         {
             var parameters = new SqlParameter[]
             {
-                new SqlParameter("@fromDate", fromDate),
-                new SqlParameter("@toDate", toDate),
+                new SqlParameter("@month", month),
+                new SqlParameter("@year", year),
                 new SqlParameter("@currentUserId", currentUserId)
             };
-            return DbContext.Database.SqlQuery<TKBD_Export_Detail_Template>("Export_TKBD_Detail_By_Time_User @fromDate,@toDate,@currentUserId", parameters);
+            return DbContext.Database.SqlQuery<TKBD_Export_Detail_Template>("Export_TKBD_Detail_By_Time_User @month,@year,@currentUserId", parameters);
         }
 
         public override void Update(TKBDAmount entity)
