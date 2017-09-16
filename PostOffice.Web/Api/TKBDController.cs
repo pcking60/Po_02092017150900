@@ -103,9 +103,7 @@ namespace PostOffice.Web.Api
 
             #endregion Config Export file
 
-            ReportTemplate vm = new ReportTemplate();
-
-
+            Export_Info_Template vm = new Export_Info_Template();
             try
             {
                 #region customFill Test
@@ -113,16 +111,8 @@ namespace PostOffice.Web.Api
                 District district = new District();
                 PO po = new PO();
                 ApplicationUser user = new ApplicationUser();
-                //DateTime test;
-                //if(DateTime.TryParseExact(fromDate, "MM/dd/yyyy", null, DateTimeStyles.None, out test))
-                //{
-                //vm.FromDate = month.ToString("mm/yyyy/dd");
-                //}
-                //// Thời gian để xuất dữ liệu
-                //if (DateTime.TryParseExact(toDate, "MM/dd/yyyy", null, DateTimeStyles.None, out test))
-                //{
-                //vm.ToDate = test;
-                //}
+                vm.Month = month;
+                vm.Year = year;
                 vm.CreatedBy = User.Identity.Name;
 
                 //check param đầu vào

@@ -894,7 +894,7 @@ namespace PostOffice.Common
             name: Export Bảng kê TKBD - tổng hợp
         */
 
-        public static Task TKBD_Export_General<T1>(List<T1> dataSource, string filePath, ReportTemplate vm)
+        public static Task TKBD_Export_General<T1>(List<T1> dataSource, string filePath, Export_Info_Template vm)
         {
             return Task.Run(() =>
             {
@@ -1014,7 +1014,7 @@ namespace PostOffice.Common
                     ws.Cells["C7:I7"].Style.Font.Bold = true;
                     ws.Cells["C7:I7"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
                     ws.Cells["C7:I7"].Style.Indent = 2;
-                    ws.Cells["C7:I7"].Value = "Tháng  " + vm.FromDate + "/ " + vm.ToDate;
+                    ws.Cells["C7:I7"].Value = "Tháng  " + vm.Month + "/ " + vm.Year;
 
                     // service
                     ws.Cells["C8:I8"].Merge = true;
