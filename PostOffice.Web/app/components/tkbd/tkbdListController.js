@@ -14,7 +14,7 @@ angular.module('postoffice.tkbd')
                 $scope.update = update;
 
                 $scope.tkbd = {
-                    functionId: 0,
+                    functionId: null,
                     date: { startDate: null, endDate: null },
                     districts: [],
                     pos: [],
@@ -24,6 +24,7 @@ angular.module('postoffice.tkbd')
                     userId: '',
                     serviceId: 0
                 };
+                $scope.tkbd.dates = null;
 
                 $stateParams.id = 0;
 
