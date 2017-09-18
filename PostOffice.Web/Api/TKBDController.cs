@@ -59,7 +59,7 @@ namespace PostOffice.Web.Api
                 foreach (var item in responseData)
                 {
                     item.Name = _tkbdHistoryService.GetByAccount(item.Account).FirstOrDefault().Name;
-                    item.Money = _tkbdHistoryService.GetByAccount(item.Account).Where(x=>x.TransactionDate.Value.Month<=item.Month).Sum(x => x.Money);
+                    item.TotalMoney = _tkbdHistoryService.GetByAccount(item.Account).Where(x=>x.TransactionDate.Value.Month<=item.Month).Sum(x => x.Money);
                     var s =_tkbdHistoryService.GetByAccount(item.Account).Where(x => x.TransactionDate.Value.Month == item.Month).FirstOrDefault();
                     if (s == null)
                     {
@@ -567,6 +567,7 @@ namespace PostOffice.Web.Api
                             vm.UserId = item.UserId;
                             vm.Month = DateTime.Now.Month-1;
                             vm.Year = DateTime.Now.Year;
+                            vm.TotalMoney = money;
                             vm.Amount = money * item.Rate * 20 * days / 1200 / 30 ?? 0;
                             TKBDAmount tkbd = new TKBDAmount();
                             tkbd.UpdateTKBD(vm);

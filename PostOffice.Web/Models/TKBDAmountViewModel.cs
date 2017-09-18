@@ -9,7 +9,7 @@ namespace PostOffice.Web.Models
         public int Year { get; set; }
         public string Account { get; set; }
         public decimal Amount { get; set; }
-        public decimal? Money { get; set; }
+        public decimal? TotalMoney { get; set; }
         public string UserId { get; set; }
 
         public string Name { get; set; }

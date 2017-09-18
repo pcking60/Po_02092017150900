@@ -13,6 +13,7 @@ namespace PostOffice.Model.Models
         public int Month { get; set; }       
         public int Year { get; set; }
         public string Account { get; set; }
+        public decimal TotalMoney { get; set; }
         public decimal Amount { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace PostOfiice.DAta.Migrations
                     t.Month,
                     t.Account,
                     convert(decimal(16,2),t.Amount) as Amount,
+convert(decimal(16,2),t.TotalMoney) as TotalMoney,
                     t.CreatedBy
                 from
                     TKBDAmounts t
