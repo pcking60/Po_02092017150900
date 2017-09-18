@@ -232,7 +232,7 @@ namespace PostOffice.Web.Api
 
         [Route("getallhistory")]
         [HttpGet]
-        public HttpResponseMessage GetAllHistory(HttpRequestMessage request, int page, int pageSize = 20)
+        public HttpResponseMessage GetAllHistory(HttpRequestMessage request, int page, int pageSize = 40)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -457,11 +457,35 @@ namespace PostOffice.Web.Api
                     tkbdViewModel.Name = workSheet.Cells[i, 1].Value.ToString();
                     tkbdViewModel.CustomerId = workSheet.Cells[i, 2].Value.ToString();
                     tkbdViewModel.Account = workSheet.Cells[i, 3].Value.ToString();
-                    if (DateTime.TryParseExact(workSheet.Cells[i, 4].Value.ToString(),"dd/MM/yyyy", null, DateTimeStyles.None, out transactionDate))
+                    if (DateTime.TryParseExact(workSheet.Cells[i, 4].Value.ToString(),"dd/MM/yyyy hh:mm:ss", null, DateTimeStyles.None, out transactionDate))
                     {
                         string temp = transactionDate.ToString("yyyy-MM-dd");
                         DateTime.TryParse(temp, out tranDate);
                         tkbdViewModel.TransactionDate = tranDate;
+
+                    }
+                    else
+                    {
+                        if(DateTime.TryParseExact(workSheet.Cells[i, 4].Value.ToString(), "MM/dd/yyyy hh:mm:ss", null, DateTimeStyles.None, out transactionDate))
+                        {
+                            string temp = transactionDate.ToString("yyyy-MM-dd");
+                            DateTime.TryParse(temp, out tranDate);
+                            tkbdViewModel.TransactionDate = tranDate;
+                        }
+                        else
+                        {
+                            transactionDate = DateTime.FromOADate(double.Parse(workSheet.Cells[i, 4].Value.ToString()));
+                            if (transactionDate != null)
+                            {
+                                string temp = transactionDate.ToString("yyyy-MM-dd");
+                                DateTime.TryParse(temp, out tranDate);
+                                tkbdViewModel.TransactionDate = tranDate;
+                            }        
+                            else
+                            {
+                                return null;
+                            }                     
+                        }
 
                     }
                     decimal.TryParse(workSheet.Cells[i, 5].Value.ToString().Replace(",", ""), out money);

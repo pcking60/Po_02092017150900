@@ -44,7 +44,7 @@ namespace PostOffice.Web.Api
         }
 
         [Route("getall")]
-        public HttpResponseMessage GetAll(HttpRequestMessage request, int page, int pageSize = 60)
+        public HttpResponseMessage GetAll(HttpRequestMessage request, int page, int pageSize = 100)
         {
             return CreateHttpResponse(request, () =>
             {

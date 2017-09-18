@@ -122,7 +122,7 @@ angular.module('postoffice.tkbd')
 
 
                 function search() {
-                    getTkbds();
+                    getTkbdHistory();
                 }                
 
                 $scope.getTkbdHistory = getTkbdHistory;
@@ -139,7 +139,7 @@ angular.module('postoffice.tkbd')
                             poId: $scope.tkbd.poId || 0,
                             userId: $scope.tkbd.userId || '',
                             page: page,
-                            pageSize: 20
+                            pageSize: 40
                         }
                     };
                     $scope.tkbds = [];

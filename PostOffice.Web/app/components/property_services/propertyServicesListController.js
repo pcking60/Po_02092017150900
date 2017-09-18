@@ -91,7 +91,7 @@ angular.module('postoffice.property_services')
                         params: {
 
                             page: page,
-                            pageSize: 60
+                            pageSize: 100
                         }
                     }
                     apiService.get('/api/property_services/getall', config, function (result) {
