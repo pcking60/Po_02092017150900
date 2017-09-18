@@ -21,7 +21,7 @@ angular.module('postoffice.tkbd')
                     districtId: 0,
                     poId: 0,
                     userId: '',
-                    serviceId: 0,
+                    serviceId: 0
                 };
 
                 //reset các tham số
@@ -73,7 +73,7 @@ angular.module('postoffice.tkbd')
 
                 // câp nhật danh sách bưu cục của đơn vị được chọn
                 $scope.updatePos = function (item) {
-                    if (item != 0 && item != null) {
+                    if (item !== 0 && item !== null) {
                         $stateParams.id = item;
                         getPos();
                     }
@@ -98,7 +98,7 @@ angular.module('postoffice.tkbd')
 
                 // lấy danh sách users của bưu cục được chọn
                 $scope.updateUser = function (item) {
-                    if (item != 0 && item != null) {
+                    if (item !== 0 && item !== null) {
                         $stateParams.id = item;
                         getListUser();
                     }
@@ -145,7 +145,7 @@ angular.module('postoffice.tkbd')
                     $scope.tkbds = [];
                     apiService.get('api/tkbd/gethistorybycondition', config,
                         function (result) {
-                            if (result.data.TotalCount == 0) {
+                            if (result.data.TotalCount === 0) {
                                 notificationService.displayWarning("Không tìm thấy bản ghi nào!");
                                 $scope.loading = false;
                             }
@@ -172,12 +172,12 @@ angular.module('postoffice.tkbd')
                             page: page,
                             pageSize: 20
                         }
-                    }
+                    };
                     apiService.get('/api/tkbd/gettkbd1day', config, function (result) {
-                        if (result.data.TotalCount == 0) {
+                        if (result.data.TotalCount === 0) {
                             notificationService.displayWarning("Không tìm thấy bản ghi nào!");
                         }
-                        
+
                         $scope.tkbds = result.data.Items;
                         $scope.page = result.data.Page;
                         $scope.pagesCount = result.data.TotalPages;
@@ -188,7 +188,7 @@ angular.module('postoffice.tkbd')
                         $scope.loading = false;
                         console.log('Load list TKBD History failed');
                     });
-                }
+                };
 
                 $scope.getTKBD7Day = function getTKBD7Day(page) {
                     page = page || 0;
@@ -197,9 +197,9 @@ angular.module('postoffice.tkbd')
                             page: page,
                             pageSize: 20
                         }
-                    }
+                    };
                     apiService.get('/api/tkbd/gettkbd7day', config, function (result) {
-                        if (result.data.TotalCount == 0) {
+                        if (result.data.TotalCount === 0) {
                             notificationService.displayWarning("Không tìm thấy bản ghi nào!");
                         }
 
@@ -213,7 +213,7 @@ angular.module('postoffice.tkbd')
                         $scope.loading = false;
                         console.log('Load list TKBD History failed');
                     });
-                }
+                };
 
                 $scope.getTKBD30Day = function getTKBD30Day(page) {
                     page = page || 0;
@@ -222,9 +222,9 @@ angular.module('postoffice.tkbd')
                             page: page,
                             pageSize: 20
                         }
-                    }
+                    };
                     apiService.get('/api/tkbd/gettkbd30day', config, function (result) {
-                        if (result.data.TotalCount == 0) {
+                        if (result.data.TotalCount === 0) {
                             notificationService.displayWarning("Không tìm thấy bản ghi nào!");
                         }
 
@@ -238,6 +238,6 @@ angular.module('postoffice.tkbd')
                         $scope.loading = false;
                         console.log('Load list TKBD History failed');
                     });
-                }
+                };
 
             }]);
