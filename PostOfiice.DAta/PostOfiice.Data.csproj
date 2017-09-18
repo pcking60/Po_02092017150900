@@ -283,6 +283,10 @@
     <Compile Include="Migrations\201709180937217_change-tkbdAmounts.Designer.cs">
       <DependentUpon>201709180937217_change-tkbdAmounts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709181008376_change-tkbdAmounts-1.cs" />
+    <Compile Include="Migrations\201709181008376_change-tkbdAmounts-1.Designer.cs">
+      <DependentUpon>201709181008376_change-tkbdAmounts-1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PostOfficeDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -462,6 +466,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709180937217_change-tkbdAmounts.resx">
       <DependentUpon>201709180937217_change-tkbdAmounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709181008376_change-tkbdAmounts-1.resx">
+      <DependentUpon>201709181008376_change-tkbdAmounts-1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
