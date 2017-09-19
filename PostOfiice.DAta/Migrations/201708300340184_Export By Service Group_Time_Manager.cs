@@ -33,7 +33,7 @@
 	            on u.POID = p.ID
 	            inner join Districts d
 	            on p.DistrictID = d.ID
-	            where ps.Name like N'Sản lượng%' and ts.Status=1 and sg.MainServiceGroupId=@mainGroup and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date) and p.ID=@poId
+	            where ps.Name like N'Sản lượng%' and ts.Status=1 and sg.MainServiceGroupId=@mainGroup and CAST( ts.TransactionDate as date) between CAST(@fromDate as date) and CAST(@toDate as date) and p.ID=@poId
 	            group by s.Name, ps.name, s.VAT
 	            ) sl
 	            join (select s.Name, sum(td.Money) as Money

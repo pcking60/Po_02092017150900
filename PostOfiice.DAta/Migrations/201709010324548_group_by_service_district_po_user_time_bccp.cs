@@ -42,7 +42,7 @@
 	                    on u.POID = p.ID
 	                    inner join Districts d
 	                    on p.DistrictID = d.ID
-	                    where (ps.Name like N'Số tiền%' or ps.Name like N'Phí%') and ts.Status=1 and ts.IsCash=0 and sg.MainServiceGroupId=1 and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date) and d.ID=@districtId and p.ID=@poId and u.Id=@userId
+	                    where (ps.Name like N'Số tiền%' or ps.Name like N'Phí%') and ts.Status=1 and ts.IsCash=0 and sg.MainServiceGroupId=1 and CAST( ts.TransactionDate as date) between CAST(@fromDate as date) and CAST(@toDate as date) and d.ID=@districtId and p.ID=@poId and u.Id=@userId
 	                    group by s.Name, ps.[Percent]
 	                    ) st	
 	                full outer join 
@@ -62,7 +62,7 @@
 	                    on u.POID = p.ID
 	                    inner join Districts d
 	                    on p.DistrictID = d.ID
-	                    where ps.Name like N'Sản lượng%' and ts.Status=1 and sg.MainServiceGroupId=1 and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date) and d.ID=@districtId and p.ID=@poId and u.Id=@userId
+	                    where ps.Name like N'Sản lượng%' and ts.Status=1 and sg.MainServiceGroupId=1 and CAST( ts.TransactionDate as date) between CAST(@fromDate as date) and CAST(@toDate as date) and d.ID=@districtId and p.ID=@poId and u.Id=@userId
 	                    group by s.Name, ps.name, s.VAT, ps.[Percent]
 	                    ) sl	
 	                on sl.Name = st.Name
@@ -83,7 +83,7 @@
 	                    on u.POID = p.ID
 	                    inner join Districts d
 	                    on p.DistrictID = d.ID
-	                    where (ps.Name like N'Số tiền%' or ps.Name like N'Phí%') and ts.Status=1 and ts.IsCash=1 and sg.MainServiceGroupId=1 and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date) and d.ID=@districtId and p.ID=@poId and u.Id=@userId
+	                    where (ps.Name like N'Số tiền%' or ps.Name like N'Phí%') and ts.Status=1 and ts.IsCash=1 and sg.MainServiceGroupId=1 and CAST( ts.TransactionDate as date) between CAST(@fromDate as date) and CAST(@toDate as date) and d.ID=@districtId and p.ID=@poId and u.Id=@userId
 	                    group by s.Name, ps.[Percent]
 	                    ) st1
 	                on sl.Name = st1.name

@@ -29,7 +29,7 @@
 	            on td.PropertyServiceId = ps.ID
                 inner join ApplicationUsers u
 	            on ts.UserId = u.Id	            
-	            where ps.Name like N'Sản lượng%' and ts.Status=1 and sg.MainServiceGroupId=@mainGroup and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date) and u.Id=@userId
+	            where ps.Name like N'Sản lượng%' and ts.Status=1 and sg.MainServiceGroupId=@mainGroup and CAST( ts.TransactionDate as date) between CAST(@fromDate as date) and CAST(@toDate as date) and u.Id=@userId
 	            group by s.Name, ps.name, s.VAT
 	            ) sl
 	            join (select s.Name, sum(td.Money) as Money
@@ -51,6 +51,7 @@
         
         public override void Down()
         {
+            DropStoredProcedure("Export_By_Service_Group_And_Time_User");
         }
     }
 }

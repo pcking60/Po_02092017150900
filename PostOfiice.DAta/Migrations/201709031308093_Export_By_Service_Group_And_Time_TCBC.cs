@@ -49,7 +49,7 @@
     	                    on u.POID = p.ID
     	                    inner join Districts d
     	                    on p.DistrictID = d.ID
-    	                    where (ps.Name like N'Số tiền%' or ps.Name like N'Phí%') and ts.Status=1 and ts.IsCash=1 and sg.MainServiceGroupId=3 and (sg.ID=93 or sg.ID=75) and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date) 
+    	                    where (ps.Name like N'Số tiền%' or ps.Name like N'Phí%') and ts.Status=1 and ts.IsCash=1 and sg.MainServiceGroupId=3 and (sg.ID=93 or sg.ID=75) and CAST( ts.TransactionDate as date) between CAST(@fromDate as date) and CAST(@toDate as date)
     	                    group by s.Name, ps.[Percent]
     	                    ) st	
     	                full outer join 
@@ -69,7 +69,7 @@
     	                    on u.POID = p.ID
     	                    inner join Districts d
     	                    on p.DistrictID = d.ID
-    	                    where ps.Name like N'Sản lượng%' and ts.Status=1 and sg.MainServiceGroupId=3 and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date)  
+    	                    where ps.Name like N'Sản lượng%' and ts.Status=1 and sg.MainServiceGroupId=3 and CAST( ts.TransactionDate as date) between CAST(@fromDate as date) and CAST(@toDate as date)
     	                    group by s.Name, ps.name, s.VAT, ps.[Percent]
     	                    ) sl	
     	                on sl.Name = st.Name
@@ -90,7 +90,7 @@
     	                    on u.POID = p.ID
     	                    inner join Districts d
     	                    on p.DistrictID = d.ID
-    	                    where (ps.Name like N'Số tiền%' or ps.Name like N'Phí%') and ts.Status=1 and ts.IsCash=1 and sg.MainServiceGroupId=3 and sg.ID=94 and ts.CreatedDate>=CAST(@fromDate as date) and ts.CreatedDate<=cast(@toDate as date)  
+    	                    where (ps.Name like N'Số tiền%' or ps.Name like N'Phí%') and ts.Status=1 and ts.IsCash=1 and sg.MainServiceGroupId=3 and sg.ID=94 and CAST( ts.TransactionDate as date) between CAST(@fromDate as date) and CAST(@toDate as date)
     	                    group by s.Name, ps.[Percent]
     	                    ) st1
     	                on sl.Name = st1.name

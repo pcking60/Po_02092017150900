@@ -103,10 +103,30 @@ namespace PostOffice.Web.Api
                 PO po = new PO();
                 ApplicationUser user = new ApplicationUser();
                 Model.Models.Service sv = new Model.Models.Service();
-
+                DateTime f;
+                DateTime h;          
                 // Thời gian để xuất dữ liệu
-                vm.FromDate = DateTime.Parse(fromDate);
-                vm.ToDate = DateTime.Parse(toDate);
+                if (DateTime.TryParseExact(fromDate, "MM/dd/yyyy", null, System.Globalization.DateTimeStyles.None, out f))
+                {
+                    DateTime.TryParse(f.ToString("dd/MM/yyyy" ), out h);
+                    vm.FromDate = h;             
+                }
+                else
+                {
+                    vm.FromDate = DateTime.ParseExact(fromDate, "MM/dd/yyyy", null);
+                }
+
+                if (DateTime.TryParseExact(toDate, "MM/dd/yyyy", null, System.Globalization.DateTimeStyles.None, out f))
+                {
+                    DateTime.TryParse(f.ToString("dd/MM/yyyy"), out h);
+                    vm.ToDate = h;
+                }
+                else
+                {
+                    vm.FromDate = DateTime.ParseExact(fromDate, "MM/dd/yyyy", null);
+                }
+
+
                 vm.CreatedBy = User.Identity.Name;
 
                 //rp1Advance = _statisticService.RP1Advance();
