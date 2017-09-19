@@ -24,6 +24,8 @@ namespace PostOffice.Service
         IEnumerable<string> GetListDistrictByName(string name);        
 
         District GetById(int id);
+        District GetDistrictByUserName(string userName);
+        District GetDistrictByUserId(string userId);
 
         void Save();
     }
@@ -92,6 +94,14 @@ namespace PostOffice.Service
             return query.Skip((page - 1) * pageSize).Take(pageSize);
         }
 
-       
+        public District GetDistrictByUserId(string userId)
+        {
+            return _DistrictRepository.GetDistrictByUserId(userId);
+        }
+
+        public District GetDistrictByUserName(string userName)
+        {
+            return _DistrictRepository.GetDistrictByUserName(userName);
+        }
     }
 }

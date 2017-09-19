@@ -6,7 +6,7 @@
     function reportsController($scope, apiService, notificationService, $filter, authService, $stateParams, $injector) {
       
         $scope.report = {
-            functionId: 0,
+            functionId: null,
             date: { startDate: moment(), endDate: moment() },
             districts: [],
             pos: [],

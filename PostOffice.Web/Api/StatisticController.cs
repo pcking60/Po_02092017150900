@@ -194,7 +194,7 @@ namespace PostOffice.Web.Api
                         {
                             if (districtId == 0)
                             {
-                                var modelGg1 = _trasactionService.GetAllByMainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), bccpId);
+                                var modelGg1 = _trasactionService.GetAllByMainGroupId(DateTime.ParseExact(fromDate, "MM/dd/yyyy", null), DateTime.Parse(toDate), bccpId);
                                 var modelGg2 = _trasactionService.GetAllByMainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), ppttId);
                                 var modelGg3 = _trasactionService.GetAllByMainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), tcbcId);
                                 var modelGg4 = _trasactionService.GetAllByMainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), otherId);
@@ -303,7 +303,7 @@ namespace PostOffice.Web.Api
                             {
                                 if (poId == 0)
                                 {
-                                    var modelGg1 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, bccpId);
+                                    var modelGg1 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.ParseExact(fromDate, "MM/dd/yyyy", null), DateTime.Parse(toDate), districtId, bccpId);
                                     var modelGg2 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, ppttId);
                                     var modelGg3 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, tcbcId);
                                     var modelGg4 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, otherId);
@@ -521,10 +521,11 @@ namespace PostOffice.Web.Api
                         {
                             if (poId == 0)
                             {
-                                var modelGg1 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, bccpId);
-                                var modelGg2 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, ppttId);
-                                var modelGg3 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, tcbcId);
-                                var modelGg4 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, otherId);
+                                districtId = _districtService.GetDistrictByUserName(currentUser).ID;
+                                var modelGg1 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.ParseExact(fromDate, "MM/dd/yyyy", null), DateTime.ParseExact(toDate, "MM/dd/yyyy", null), districtId, bccpId);
+                                var modelGg2 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.ParseExact(fromDate, "MM/dd/yyyy", null), DateTime.ParseExact(toDate, "MM/dd/yyyy", null), districtId, ppttId);
+                                var modelGg3 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.ParseExact(fromDate, "MM/dd/yyyy", null), DateTime.ParseExact(toDate, "MM/dd/yyyy", null), districtId, tcbcId);
+                                var modelGg4 = _trasactionService.GetAllBy_Time_DistrictID_MainGroupId(DateTime.ParseExact(fromDate, "MM/dd/yyyy", null), DateTime.ParseExact(toDate, "MM/dd/yyyy", null), districtId, otherId);
                                 var responseGg1 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg1);
                                 var responseGg2 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg2);
                                 var responseGg3 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg3);
@@ -628,10 +629,13 @@ namespace PostOffice.Web.Api
                             }
                             else
                             {
-                                var modelGg1 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, poId, bccpId);
-                                var modelGg2 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, poId, ppttId);
-                                var modelGg3 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, poId, tcbcId);
-                                var modelGg4 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.Parse(fromDate), DateTime.Parse(toDate), districtId, poId, otherId);
+                                districtId = _districtService.GetDistrictByUserName(currentUser).ID;
+                                poId = _poService.GetPOByCurrentUser(currentUser).ID;
+                                
+                                var modelGg1 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.ParseExact(fromDate, "MM/dd/yyyy", null), DateTime.ParseExact(fromDate, "MM/dd/yyyy", null), districtId, poId, bccpId);
+                                var modelGg2 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.ParseExact(fromDate, "MM/dd/yyyy", null), DateTime.ParseExact(toDate, "MM/dd/yyyy", null), districtId, poId, ppttId);
+                                var modelGg3 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.ParseExact(fromDate, "MM/dd/yyyy", null), DateTime.ParseExact(toDate, "MM/dd/yyyy", null), districtId, poId, tcbcId);
+                                var modelGg4 = _trasactionService.GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime.ParseExact(fromDate, "MM/dd/yyyy", null), DateTime.ParseExact(toDate, "MM/dd/yyyy", null), districtId, poId, otherId);
                                 var responseGg1 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg1);
                                 var responseGg2 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg2);
                                 var responseGg3 = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(modelGg3);

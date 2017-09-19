@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-3 control-label">Chọn chức năng </label>
                             <div class="col-sm-6">
-                                <select name="function" class="form-control" ng-model="tkbd.functionId" ng-options="option.Id as option.Name for option in functions" required>
+                                <select name="function" placeholder="Chọn mẫu báo cáo" class="form-control" ng-model="tkbd.functionId" ng-options="option.Id as option.Name for option in functions" required>
                                     <!--<option value="">Chọn mẫu báo cáo</option>-->
                                 </select> 
                                 <span ng-show="frmReportTKBD.function.$invalid" class="text-danger">Bạn chưa chọn biểu mẫu cần xuất báo cáo</span>
