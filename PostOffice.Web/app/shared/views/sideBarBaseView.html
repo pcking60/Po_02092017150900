@@ -66,7 +66,11 @@
     </ul>   
     
     <ul class="sidebar-menu" ng-controller="mainServiceGroupsListController">
-        <li class="header" style="color: #fff024 !important;"><i class="fa fa-line-chart" aria-hidden="true"></i> <span style="padding-right:2px"></span>Giao dịch khách hàng</li>
+        <li class="header" style="color: #fff024 !important;">
+            <i class="fa fa-line-chart" aria-hidden="true"></i> 
+            <span style="padding-right:2px"></span>
+            Giao dịch khách hàng
+        </li>
         <li class="treeview" ng-repeat="item in mainServiceGroups">
             <a href="">
                 <i class="fa fa-check-square-o" aria-hidden="true"></i>
@@ -83,7 +87,7 @@
                     </a>
                     <!--List Service by ServiceGroupId-->
                     <ul class="treeview-menu">
-                        <li ng-repeat="item2 in Services track by item2.ID" ng-if="item2.GroupID==item1.ID">
+                        <li ng-repeat="item2 in ::Services track by item2.ID" ng-if="item2.GroupID==item1.ID">
                             <a ui-sref="add_transaction({id:item2.ID})">
                                 <i class="fa fa-angle-double-right text-aqua"></i>
                                 <span>{{item2.Name}}</span>

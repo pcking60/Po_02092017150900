@@ -10,7 +10,7 @@
     <div class="row">
         
     </div> <!-- /.row-->
-    <div class="box" >
+    <div class="box">
         <div class="box-header">
             <!-- /.box-header -->
             <!-- form start -->
@@ -66,14 +66,19 @@
                 </div>
                 <!-- /.box-body -->
                 <!--<div class="box-footer">
-                <button type="submit" class="btn btn-info " ng-disabled="frmTimeStatistic.$invalid">Lưu</button>
-            </div>-->
+                    <button type="submit" class="btn btn-info " ng-disabled="frmTimeStatistic.$invalid">Lưu</button>
+                </div>-->
                 <!-- /.box-footer -->
             </form>
         </div>
+    </div><!-- /.box -->
+   
+     <!--BCCP-->
+    <div class="box">
         <div class="box-body table-responsive" ng-show="result">
             <div class="row">
                 <div class="col-md-12">
+                    <h2>BƯU CHÍNH CHUYỂN PHÁT</h2>
                     <table class="table table-bordered ">
                         <thead>
                             <tr>
@@ -85,9 +90,9 @@
                                 <th style="width: 13%; vertical-align: middle" class="text-center text-bold">Số tiền nộp</th>
                                 <th style="width: 13%; vertical-align: middle" class="text-center text-bold">Số tiền nợ</th>
                                 <th style="width: 7%; vertical-align: middle" class="text-center text-bold">VAT</th>
-                                <th style="width: 11%; vertical-align: middle" class="text-center text-bold">Doanh thu tính lương</th>                                
+                                <th style="width: 11%; vertical-align: middle" class="text-center text-bold">Doanh thu tính lương</th>
                             </tr>
-                            
+
                         </thead>
                         <tbody>
                             <tr ng-repeat="item in statisticResult| filter: SmartSearch">
@@ -95,12 +100,14 @@
                                 <td style="vertical-align:middle" class="text-left">{{item.ServiceName}}</td>
                                 <td style="vertical-align:middle" class="text-center">{{item.TransactionDate | date: 'dd/MM/yyyy'}}</td>
                                 <!--<td style="vertical-align:middle" class="text-center">{{currentDate.getTime()}}</td>-->
+                                
+
                                 <td style="vertical-align:middle" class="text-center">{{item.CreatedDate | date: 'dd/MM/yyyy'}}</td>
                                 <td style="vertical-align:middle" class="text-center">{{item.Quantity | number}}</td>
                                 <td style="vertical-align:middle" class="text-right">{{item.TotalCash | number:2}}</td>
                                 <td style="vertical-align:middle" class="text-right">{{item.TotalDebt | number:2}}</td>
-                                <td style="vertical-align:middle" class="text-right">{{(item.TotalCash + item.TotalDebt)-((item.TotalCash + item.TotalDebt) / item.VAT) | number:2}}</td>                                
-                                <td style="vertical-align:middle" class="text-right">{{item.EarnMoney | number:2}}</td>  
+                                <td style="vertical-align:middle" class="text-right">{{(item.TotalCash + item.TotalDebt)-((item.TotalCash + item.TotalDebt) / item.VAT) | number:2}}</td>
+                                <td style="vertical-align:middle" class="text-right">{{item.EarnMoney | number:2}}</td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -130,7 +137,7 @@
         <div class="box-footer">
             <pager-directive page="{{page}}" custom-path="{{customPath}}" pages-count="{{pagesCount}}" total-count="{{totalCount}}" search-Func="getServiceGroups(page)"></pager-directive>
         </div><!-- /.box-footer-->
-    </div><!-- /.box -->
+    </div>    
 
     
 </section>
