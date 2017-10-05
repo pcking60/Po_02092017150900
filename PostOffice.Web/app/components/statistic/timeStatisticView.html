@@ -84,12 +84,13 @@
                             <tr>
                                 <th style="width: 5%;vertical-align: middle" class="text-center text-bold">ID</th>
                                 <th style="width: 20%;vertical-align: middle" class="text-center text-bold">Tên dịch vụ</th>
-                                <th style="width: 13%; vertical-align: middle" class="text-center text-bold">Ngày giao dịch</th>
-                                <th style="width: 13%; vertical-align: middle" class="text-center text-bold">Ngày nhập</th>
+                                <th style="width: 10%; vertical-align: middle" class="text-center text-bold">Ngày giao dịch</th>
+                                <th style="width: 10%; vertical-align: middle" class="text-center text-bold">Ngày nhập</th>
                                 <th style="width: 5%; vertical-align: middle" class="text-center text-bold">Số lượng</th>
-                                <th style="width: 13%; vertical-align: middle" class="text-center text-bold">Số tiền nộp</th>
-                                <th style="width: 13%; vertical-align: middle" class="text-center text-bold">Số tiền nợ</th>
-                                <th style="width: 7%; vertical-align: middle" class="text-center text-bold">VAT</th>
+                                <th style="width: 11%; vertical-align: middle" class="text-center text-bold">Số tiền nộp</th>
+                                <th style="width: 11%; vertical-align: middle" class="text-center text-bold">Số tiền nợ</th>
+                                <th style="width: 11%; vertical-align: middle" class="text-center text-bold">Số tiền chi hộ</th>
+                                <th style="width: 6%; vertical-align: middle" class="text-center text-bold">VAT</th>
                                 <th style="width: 11%; vertical-align: middle" class="text-center text-bold">Doanh thu tính lương</th>
                             </tr>
 
@@ -99,14 +100,13 @@
                                 <td style="vertical-align:middle" class="text-center">{{item.ID}}</td>
                                 <td style="vertical-align:middle" class="text-left">{{item.ServiceName}}</td>
                                 <td style="vertical-align:middle" class="text-center">{{item.TransactionDate | date: 'dd/MM/yyyy'}}</td>
-                                <!--<td style="vertical-align:middle" class="text-center">{{currentDate.getTime()}}</td>-->
-                                
-
+                                <!--<td style="vertical-align:middle" class="text-center">{{currentDate.getTime()}}</td>-->      
                                 <td style="vertical-align:middle" class="text-center">{{item.CreatedDate | date: 'dd/MM/yyyy'}}</td>
                                 <td style="vertical-align:middle" class="text-center">{{item.Quantity | number}}</td>
                                 <td style="vertical-align:middle" class="text-right">{{item.TotalCash | number:2}}</td>
                                 <td style="vertical-align:middle" class="text-right">{{item.TotalDebt | number:2}}</td>
-                                <td style="vertical-align:middle" class="text-right">{{(item.TotalCash + item.TotalDebt)-((item.TotalCash + item.TotalDebt) / item.VAT) | number:2}}</td>
+                                <td style="vertical-align:middle" class="text-right">{{item.TotalMoneySent | number:2}}</td>
+                                <td style="vertical-align:middle" class="text-right">{{(item.TotalCash + item.TotalDebt + item.TotalMoneySent)-((item.TotalCash + item.TotalDebt + item.TotalMoneySent) / item.VAT) | number:2}}</td>
                                 <td style="vertical-align:middle" class="text-right">{{item.EarnMoney | number:2}}</td>
                             </tr>
                         </tbody>
@@ -117,8 +117,9 @@
                             <tr style="font-weight:bold">
                                 <td colspan="4" class="text-right">Tổng cộng: </td>
                                 <td class="text-center">{{report.totalQuantity | number}}</td>
-                                <td class="text-right">{{report.totalCash | number:2}}</td>
+                                <td class="text-right">{{report.totalCash | number:2}}</td>                                
                                 <td class="text-right">{{report.totalDebt | number:2}}</td>
+                                <td class="text-right">{{report.totalSent | number:2}}</td>
                                 <td class="text-right">{{report.totalVat | number:2}}</td>
                                 <td class="text-right">{{report.totalEarn | number:2}}</td>
                             </tr>

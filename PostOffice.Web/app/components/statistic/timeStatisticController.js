@@ -17,6 +17,7 @@
             serviceId: 0,
             totalQuantity: 0,
             totalCash: 0,
+            totalSent: 0,
             totalDebt: 0,
             totalEarn: 0,
             totalVat: 0
@@ -119,6 +120,7 @@
             $scope.statisticResult = null;
             $scope.report.totalQuantity = 0;
             $scope.report.totalCash = 0;
+            $scope.report.totalSent = 0;
             $scope.report.totalDebt = 0;
             $scope.report.totalEarn = 0;
             $scope.report.totalVat = 0;
@@ -145,6 +147,7 @@
                         $scope.statisticResult = response.data;
                         $scope.report.totalQuantity = 0;
                         $scope.report.totalCash = 0;
+                        $scope.report.totalSent = 0;
                         $scope.report.totalDebt = 0;
                         $scope.report.totalEarn = 0;
                         $scope.report.totalVat = 0;
@@ -152,9 +155,10 @@
                             if (item.Status === true) {
                                 $scope.report.totalQuantity += item.Quantity;
                                 $scope.report.totalCash += item.TotalCash;
+                                $scope.report.totalSent += item.TotalMoneySent;
                                 $scope.report.totalDebt += item.TotalDebt;
                                 $scope.report.totalEarn += item.EarnMoney;
-                                $scope.report.totalVat += item.TotalCash + item.TotalDebt - (item.TotalCash + item.TotalDebt) / item.VAT;
+                                $scope.report.totalVat += item.TotalCash + item.TotalDebt + item.TotalMoneySent - (item.TotalCash + item.TotalDebt + item.TotalMoneySent) / item.VAT;
                             }
                         });
                     }

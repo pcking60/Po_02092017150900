@@ -31,6 +31,7 @@ namespace PostOffice.Web.Models
         public decimal? TotalMoneySent { get; set; }
         public decimal? TotalMoneyReceive { get; set; }
         public bool IsReceive { get; set; }
+        public int groupId { get; set; }
         [Required]
         public DateTimeOffset TransactionDate { get; set; }
 

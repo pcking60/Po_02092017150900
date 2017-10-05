@@ -23,14 +23,16 @@ namespace PostOffice.Web.Api
         private IApplicationUserService _userService;
         private IServiceService _serviceService;
         private IErrorService _errorService;
+        private IServiceGroupService _serviceGr;
 
-        public TransactionController(IErrorService errorService, IServiceService serviceService, ITransactionDetailService transactionDetailService, ITransactionService transactionService, IApplicationUserService userService) : base(errorService)
+        public TransactionController(IServiceGroupService serviceGr, IErrorService errorService, IServiceService serviceService, ITransactionDetailService transactionDetailService, ITransactionService transactionService, IApplicationUserService userService) : base(errorService)
         {
             this._transactionService = transactionService;
             _transactionDetailService = transactionDetailService;
             this._errorService = errorService;
             _serviceService = serviceService;
             _userService = userService;
+            _serviceGr = serviceGr;
         }
 
         [Route("getallparents")]
@@ -54,23 +56,47 @@ namespace PostOffice.Web.Api
             {
                 var model = _transactionService.GetAllByTime(fromDate, toDate, User.Identity.Name, userId, serviceId);
                 var responseData = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(model);
-                foreach (var item in responseData)
+                try
                 {
-                    item.VAT = _serviceService.GetById(item.ServiceId).VAT;
-                    item.Quantity = Convert.ToInt32(_transactionDetailService.GetAllByCondition("Sản lượng", item.ID).Money);
-                    item.ServiceName = _serviceService.GetById(item.ServiceId).Name;                    
-                    if (!item.IsCash)
+                    foreach (var item in responseData)
                     {
-                        item.TotalDebt = _transactionDetailService.GetTotalMoneyByTransactionId(item.ID);
+                        try
+                        {
+                            item.groupId = _serviceGr.GetGroupIdByServiceId(item.ServiceId);
+                            item.VAT = _serviceService.GetById(item.ServiceId).VAT;
+                            item.Quantity = Convert.ToInt32(_transactionDetailService.GetAllByCondition("Sản lượng", item.ID).Money);
+                            item.ServiceName = _serviceService.GetById(item.ServiceId).Name;
+                        }
+                        catch(Exception ex)
+                        {
+                            return request.CreateResponse(HttpStatusCode.ExpectationFailed, ex.Message);
+                        }
+                        
+                        if (!item.IsCash && item.groupId != 94)
+                        {
+                            item.TotalDebt = _transactionDetailService.GetTotalMoneyByTransactionId(item.ID);
+                        }
+                        else
+                        {
+                            if (item.groupId == 94)
+                            {
+                                item.TotalMoneySent = _transactionDetailService.GetTotalMoneyByTransactionId(item.ID);
+                            }
+                            else
+                            {
+                                item.TotalCash = _transactionDetailService.GetTotalMoneyByTransactionId(item.ID);
+                            }
+                        }
+                        item.EarnMoney = _transactionDetailService.GetTotalEarnMoneyByTransactionId(item.ID);
                     }
-                    else
-                    {
-                        item.TotalCash = _transactionDetailService.GetTotalMoneyByTransactionId(item.ID);
-                    }
-                    item.EarnMoney = _transactionDetailService.GetTotalEarnMoneyByTransactionId(item.ID);
+                    var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                    return response;
                 }
-                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
-                return response;
+                catch(Exception e)
+                {
+                    return request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+                }              
+                
             });
         }
 

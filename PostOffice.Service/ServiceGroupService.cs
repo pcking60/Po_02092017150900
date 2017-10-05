@@ -24,6 +24,7 @@ namespace PostOffice.Service
 
         IEnumerable<Model.Models.Service> GetAllByServiceGroupId(int id);
         ServiceGroup GetSigleByServiceId(int id);
+        int GetGroupIdByServiceId(int serviceId);
 
         void Save();
     }
@@ -79,6 +80,11 @@ namespace PostOffice.Service
         public ServiceGroup GetById(int id)
         {
             return _serviceGroupRepository.GetSingleByID(id);
+        }
+
+        public int GetGroupIdByServiceId(int serviceId)
+        {
+            return _serviceGroupRepository.GetGroupIdByServiceId(serviceId);
         }
 
         public ServiceGroup GetSigleByServiceId(int id)

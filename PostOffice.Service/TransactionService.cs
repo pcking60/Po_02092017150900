@@ -1,13 +1,10 @@
-﻿using PostOffice.Common.ViewModels;
-using PostOffice.Model.Models;
+﻿using PostOffice.Model.Models;
 using PostOfiice.DAta.Infrastructure;
 using PostOfiice.DAta.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PostOffice.Service
 {
@@ -24,13 +21,14 @@ namespace PostOffice.Service
         IEnumerable<Transaction> GetAll(DateTime fromDate, DateTime toDate);
 
         IEnumerable<Transaction> GetAllBy_UserName_Now(string userName);
+
         IEnumerable<Transaction> GetAllBy_UserName_7_Days(string userName);
+
         IEnumerable<Transaction> GetAllBy_UserName_30_Days(string userName);
 
         IEnumerable<Transaction> GetAllByTime(DateTime fromDate, DateTime toDate, string userName, string userId, int serviceId);
 
         IEnumerable<Transaction> GetAll(string keyword);
-      
 
         IEnumerable<Transaction> Search(string keyword, int page, int pageSize, string sort, out int totalRow);
 
@@ -39,10 +37,12 @@ namespace PostOffice.Service
         IEnumerable<Transaction> GetAllByMainGroupId(DateTime fromDate, DateTime toDate, int mainGroupId);
 
         IEnumerable<Transaction> GetAllBy_Time_DistrictID_MainGroupId(DateTime fromDate, DateTime toDate, int districtId, int id);
+
         IEnumerable<Transaction> GetAllBy_Time_DistrictID_POID_MainGroupId(DateTime fromDate, DateTime toDate, int districtId, int poId, int id);
 
         void Save();
     }
+
     public class TransactionService : ITransactionService
     {
         private ITransactionRepository _transactionRepository;
@@ -75,7 +75,7 @@ namespace PostOffice.Service
 
         public IEnumerable<Transaction> GetAll(string keyword)
         {
-            if(!string.IsNullOrEmpty(keyword))
+            if (!string.IsNullOrEmpty(keyword))
             {
                 return _transactionRepository.GetMulti(x => x.MetaDescription.Contains(keyword));
             }
@@ -87,8 +87,8 @@ namespace PostOffice.Service
 
         public IEnumerable<Transaction> GetAllBy_UserName_Now(string userName)
         {
-            var user = _userRepository.getByUserName(userName);            
-            var date = DateTime.Now.Date;           
+            var user = _userRepository.getByUserName(userName);
+            var date = DateTime.Now.Date;
             return _transactionRepository.GetMulti(x => x.UserId == user.Id && x.Status == true && DbFunctions.TruncateTime(x.TransactionDate) == date).ToList();
         }
 
@@ -138,13 +138,13 @@ namespace PostOffice.Service
             }
             if (IsAdministrator)
             {
-                if(!string.IsNullOrEmpty(userId)&& serviceId!=0)
+                if (!string.IsNullOrEmpty(userId) && serviceId != 0)
                 {
                     return _transactionRepository.GetAll(fromDate, toDate, userId, serviceId);
                 }
                 else
                 {
-                    if (string.IsNullOrEmpty(userId) && serviceId==0)
+                    if (string.IsNullOrEmpty(userId) && serviceId == 0)
                     {
                         return _transactionRepository.GetAll(fromDate, toDate);
                     }
@@ -157,11 +157,9 @@ namespace PostOffice.Service
                         else
                         {
                             return _transactionRepository.GetAll(fromDate, toDate, userId);
-
                         }
                     }
                 }
-                
             }
             else
             {
@@ -173,25 +171,22 @@ namespace PostOffice.Service
                     }
                     else
                     {
-                        if (string.IsNullOrEmpty(userId) && serviceId==0)
+                        if (string.IsNullOrEmpty(userId) && serviceId == 0)
                         {
                             return _transactionRepository.GetAllByTimeAndPOID(fromDate, toDate, user.POID);
                         }
                         else
                         {
-                            if (string.IsNullOrEmpty(userId) )
+                            if (string.IsNullOrEmpty(userId))
                             {
                                 return _transactionRepository.GetAllByTimeAndPOID(fromDate, toDate, user.POID, serviceId);
                             }
                             else
                             {
                                 return _transactionRepository.GetAllByTimeAndPOID(fromDate, toDate, user.POID, userId);
-
                             }
                         }
                     }
-
-
                 }
                 else
                 {
@@ -225,7 +220,7 @@ namespace PostOffice.Service
             var user = _userRepository.getByUserName(userName);
             var date = DateTime.Now.Date;
             var date1 = DateTime.Now.AddDays(-7);
-            return _transactionRepository.GetMulti(x => x.UserId == user.Id && x.Status == true && (DbFunctions.TruncateTime(x.TransactionDate) <= date && DbFunctions.TruncateTime(x.TransactionDate)>date1)).ToList();
+            return _transactionRepository.GetMulti(x => x.UserId == user.Id && x.Status == true && (DbFunctions.TruncateTime(x.TransactionDate) <= date && DbFunctions.TruncateTime(x.TransactionDate) > date1)).ToList();
         }
 
         public IEnumerable<Transaction> GetAllBy_UserName_30_Days(string userName)

@@ -19,7 +19,7 @@ angular.module('postoffice.common')
         var _responseError = function (rejection) {
             if (rejection.status === 401) {
                 $location.path('/login');
-                notificationService.displayError('Truy cập trái phép!');
+                notificationService.displayError('Yêu cầu đăng nhập');
             }
             return $q.reject(rejection);
         }
