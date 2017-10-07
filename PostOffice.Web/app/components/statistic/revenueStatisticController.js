@@ -33,7 +33,7 @@
                     var totalMoney = [];
                 
                     $.each(response.data, function (i, item) {
-                        labels.push($filter('date')(item.CreatedDate, 'dd/MM/yyyy'));
+                        labels.push($filter('date')(item.TransactionDate, 'dd/MM/yyyy'));
                         totalMoney.push(item.totalMoney);
                     
                     });

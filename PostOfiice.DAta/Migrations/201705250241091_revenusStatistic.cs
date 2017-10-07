@@ -13,7 +13,7 @@
                     toDate = p.String()
                 }
                 ,
-                @"select CAST(ts.CreatedDate as Date) as CreatedDate, sum(td.Money) as totalMoney
+                @"select CAST(ts.TransactionDate as Date) as TransactionDate, sum(td.Money) as totalMoney
                 from Transactions ts
                 inner
                 join TransactionDetails td
@@ -24,8 +24,8 @@
                 inner
                 join Services s
                 on s.ID = ps.ServiceId
-                where ts.CreatedDate <= CAST(@toDate as Date) and ts.CreatedDate >= CAST(@fromDate as Date) and ps.Name not like N'Sản lượng'
-                group by CAST(ts.CreatedDate as Date)");
+                where ts.Status=1 and ts.TransactionDate <= CAST(@toDate as Date) and ts.TransactionDate >= CAST(@fromDate as Date) and ps.Name not like N'Sản lượng'
+                group by CAST(ts.TransactionDate as Date)");
         }
         
         public override void Down()

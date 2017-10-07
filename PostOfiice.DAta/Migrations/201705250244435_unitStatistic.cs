@@ -36,7 +36,7 @@
                 inner
                 join Services s
                 on s.ID = ps.ServiceId
-                where ts.CreatedDate <= CAST(@toDate as Date) and ts.CreatedDate >= CAST(@fromDate as Date) and ps.Name not like N'Sản lượng'
+                where ts.Status=1 and ts.CreatedDate <= CAST(@toDate as Date) and ts.CreatedDate >= CAST(@fromDate as Date) and ps.Name not like N'Sản lượng'
                 group by d.Name");
         }
         

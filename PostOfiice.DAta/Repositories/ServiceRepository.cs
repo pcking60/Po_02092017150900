@@ -60,7 +60,7 @@ namespace PostOfiice.DAta.Repositories
                     on ts.ServiceId equals s.ID
                     where ts.UserId == userId
                     select s;
-            return q;
+            return q.ToList().Distinct().OrderBy(x=>x.Name);
         }
     }
 }

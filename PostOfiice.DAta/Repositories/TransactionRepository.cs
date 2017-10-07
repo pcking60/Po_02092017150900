@@ -91,7 +91,7 @@ namespace PostOfiice.DAta.Repositories
             var query = from u in DbContext.Users
                         join ts in DbContext.Transactions
                         on u.Id equals ts.UserId
-                        where u.UserName == userName && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate)
+                        where u.UserName == userName && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate) && ts.Status==true
                         select ts;
             return query;
         }
@@ -101,7 +101,7 @@ namespace PostOfiice.DAta.Repositories
             var query = from u in DbContext.Users
                         join ts in DbContext.Transactions
                         on u.Id equals ts.UserId
-                        where u.UserName == Username && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate) && ts.ServiceId == serviceId
+                        where u.UserName == Username && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate) && ts.ServiceId == serviceId && ts.Status == true
                         select ts;
             return query;
         }
@@ -111,7 +111,7 @@ namespace PostOfiice.DAta.Repositories
             var query = from u in DbContext.Users
                         join ts in DbContext.Transactions
                         on u.Id equals ts.UserId
-                        where (DbFunctions.TruncateTime(ts.TransactionDate) >= (fromDate) && DbFunctions.TruncateTime(ts.TransactionDate) <= (toDate))
+                        where (DbFunctions.TruncateTime(ts.TransactionDate) >= (fromDate) && DbFunctions.TruncateTime(ts.TransactionDate) <= (toDate) && ts.Status == true)
                         select ts;
             return query;
         }
@@ -121,7 +121,7 @@ namespace PostOfiice.DAta.Repositories
             var query = from u in DbContext.Users
                         join ts in DbContext.Transactions
                         on u.Id equals ts.UserId
-                        where (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate) && ts.ServiceId == serviceId && u.Id == userId
+                        where (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate) && ts.ServiceId == serviceId && u.Id == userId && ts.Status == true
                         select ts;
             return query;
         }
@@ -131,7 +131,7 @@ namespace PostOfiice.DAta.Repositories
             var query = from u in DbContext.Users
                         join ts in DbContext.Transactions
                         on u.Id equals ts.UserId
-                        where (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate) && ts.ServiceId == serviceId
+                        where (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate) && ts.ServiceId == serviceId && ts.Status == true
                         select ts;
             return query;
         }
@@ -141,7 +141,7 @@ namespace PostOfiice.DAta.Repositories
             var query = from u in DbContext.Users
                         join ts in DbContext.Transactions
                         on u.Id equals ts.UserId
-                        where (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate) && u.Id == userId
+                        where (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate) && u.Id == userId && ts.Status == true
                         select ts;
             return query;
         }
@@ -151,7 +151,7 @@ namespace PostOfiice.DAta.Repositories
             var listTransaction = from u in this.DbContext.Users
                                   join ts in this.DbContext.Transactions
                                   on u.Id equals ts.UserId
-                                  where u.POID == id && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate)
+                                  where u.POID == id && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate) && ts.Status == true
                                   select ts;
 
             return listTransaction;
@@ -162,7 +162,7 @@ namespace PostOfiice.DAta.Repositories
             var listTransaction = from u in this.DbContext.Users
                                   join ts in this.DbContext.Transactions
                                   on u.Id equals ts.UserId
-                                  where u.POID == id && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate) && u.Id == userId && ts.ServiceId == serviceId
+                                  where u.POID == id && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate) && u.Id == userId && ts.ServiceId == serviceId && ts.Status == true
                                   select ts;
 
             return listTransaction;
@@ -173,7 +173,7 @@ namespace PostOfiice.DAta.Repositories
             var listTransaction = from u in this.DbContext.Users
                                   join ts in this.DbContext.Transactions
                                   on u.Id equals ts.UserId
-                                  where u.POID == id && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate) && u.Id == userId
+                                  where u.POID == id && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate) && u.Id == userId && ts.Status == true
                                   select ts;
 
             return listTransaction;
@@ -184,7 +184,7 @@ namespace PostOfiice.DAta.Repositories
             var listTransaction = from u in this.DbContext.Users
                                   join ts in this.DbContext.Transactions
                                   on u.Id equals ts.UserId
-                                  where u.POID == id && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate) && ts.ServiceId == serviceId
+                                  where u.POID == id && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate) && ts.ServiceId == serviceId && ts.Status == true
                                   select ts;
 
             return listTransaction;
@@ -199,7 +199,7 @@ namespace PostOfiice.DAta.Repositories
                                   on g.ID equals s.GroupID
                                   join ts in DbContext.Transactions
                                   on s.ID equals ts.ServiceId
-                                  where mg.Id == mainGroupId && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate)
+                                  where mg.Id == mainGroupId && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate) && ts.Status == true
                                   select ts;
 
             return listTransaction;
@@ -218,7 +218,7 @@ namespace PostOfiice.DAta.Repositories
                         on ts.UserId equals u.Id
                         join p in DbContext.PostOffices
                         on u.POID equals p.ID
-                        where p.DistrictID == districtId && mg.Id==id && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate)
+                        where  p.DistrictID == districtId && ts.Status == true && mg.Id==id && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate)
                         select ts;
             return query;
         }
@@ -236,7 +236,7 @@ namespace PostOfiice.DAta.Repositories
                         on ts.UserId equals u.Id
                         join p in DbContext.PostOffices
                         on u.POID equals p.ID
-                        where p.DistrictID == districtId && p.ID==poId && mg.Id == id && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate)
+                        where p.DistrictID == districtId && ts.Status == true && p.ID==poId && mg.Id == id && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate)
                         select ts;
             return query;
         }
