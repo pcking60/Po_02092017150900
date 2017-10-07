@@ -239,16 +239,24 @@ namespace PostOffice.Web.Api
             }
             else
             {
-                var oldTransaction = _transactionService.GetById(id);
-                oldTransaction.Status = false;
-                var transactionDetails = _transactionDetailService.GetAllByTransactionId(oldTransaction.ID);
-                _transactionService.Update(oldTransaction);
-                foreach (var item in transactionDetails)
+                try
                 {
-                    item.Status = false;
+                    var oldTransaction = _transactionService.GetById(id);
+                    oldTransaction.Status = false;
+                    var transactionDetails = _transactionDetailService.GetAllByTransactionId(oldTransaction.ID);
+                    _transactionService.Update(oldTransaction);
+                    foreach (var item in transactionDetails)
+                    {
+                        item.Status = false;
+                    }
+                    _transactionService.Save();
+                    return Json(oldTransaction.ID);
                 }
-                _transactionService.Save();
-                return Json(oldTransaction.ID);
+                catch(Exception e)
+                {
+                    return Json(e.InnerException.Message);
+                }
+                
             }
         }
 

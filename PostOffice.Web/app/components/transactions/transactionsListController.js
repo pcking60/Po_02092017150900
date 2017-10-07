@@ -82,11 +82,11 @@
                 }
                 apiService.del('/api/transactions/delete', config,
                     function (result) {
-                        notificationService.displaySuccess('Giao dịch đã được khóa');
+                        notificationService.displaySuccess('Giao dịch đã được xóa');
                         $state.reload();
                         //$state.go('transactions');
                     }, function (error) {
-                        notificationService.displayError('Cập nhật thất bại');
+                        notificationService.displayError('Xóa giao dịch thất bại, vui lòng liên hệ quản trị');
                     });
                 }, function () {
                 console.log('Command was cancel');
