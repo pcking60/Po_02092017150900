@@ -32,7 +32,7 @@
                 });
             }, function (error) {
                 notificationService.displayError(error.data)
-            });
+            });           
         }
 
         //function getTransactionDetail() {
@@ -63,6 +63,12 @@
         }
         //getTransactionDetail();
         loadTransactionDetail();
-        
+        $(function () {
+            $('#datetimepicker1').datetimepicker({
+                maxDate: moment(),
+                minDate: moment().subtract(3, 'day'),
+
+            });
+        });
     }
 })(angular.module('postoffice.transactions'));

@@ -118,12 +118,19 @@ namespace PostOffice.Web.Api
         {
             return CreateHttpResponse(request, () =>
             {
-                var model = _propertyServiceSerivce.GetListPropertyByServiceId(id);
+                try
+                {
+                    var model = _propertyServiceSerivce.GetListPropertyByServiceId(id).OrderBy(x => x.Name);
+                    var responseData = Mapper.Map<IEnumerable<PropertyService>, IEnumerable<PropertyServiceViewModel>>(model);
 
-                var responseData = Mapper.Map<IEnumerable<PropertyService>, IEnumerable<PropertyServiceViewModel>>(model);
-
-                var response = request.CreateResponse(HttpStatusCode.OK, responseData);
-                return response;
+                    var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                    return response;
+                }
+                catch(Exception e)
+                {
+                    return request.CreateErrorResponse(HttpStatusCode.NotFound, e.InnerException.Message);
+                }    
+                
             });
         }
 

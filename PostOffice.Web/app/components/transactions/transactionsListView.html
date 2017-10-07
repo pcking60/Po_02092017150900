@@ -63,7 +63,7 @@
                                 <td style="vertical-align:middle" class="text-right">{{item.EarnMoney | number}}</td>  
                                 <td style="vertical-align:middle" class="text-center">
                                     <button class="btn btn-xs btn-primary" ui-sref="edit_transaction({id:item.ID})" ng-disabled="editEnabled(item)"><i class="fa fa-pencil"></i></button> 
-                                    <button class="btn btn-xs btn-danger" ng-click="deleteTransaction(item.ID)"><i class="fa fa-trash"></i></button>                                                                       
+                                    <button class="btn btn-xs btn-danger" ng-click="deleteTransaction(item.ID)" ng-disabled="editEnabled(item)"><i class="fa fa-trash"></i></button>                                                                       
                                 </td>
                             </tr>
                         </tbody>

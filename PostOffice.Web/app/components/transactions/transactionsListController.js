@@ -22,22 +22,23 @@
                 }
             };
             $scope.loading = true;
-            apiService.get('/api/transactions/getall30days', config, function (result) {
-                if (result.data.TotalCount == 0) {
-                    notificationService.displayWarning("Chưa có dữ liệu");
-                }
-                $scope.transactions = [];
-                $scope.transactions = result.data.Items;
-                $scope.page = result.data.Page;
-                $scope.pagesCount = result.data.TotalPages;
-                $scope.totalCount = result.data.TotalCount;
-                console.log(result.data.Count);
-                $scope.loading = false;
-            },
-            function () {
-                $scope.loading = false;
-                console.log('Load transactions failed');
-            });
+            apiService.get('/api/transactions/getall30days', config,
+                function (result) {
+                    if (result.data.TotalCount == 0) {
+                        notificationService.displayWarning("Chưa có dữ liệu");
+                    }
+                    $scope.transactions = [];
+                    $scope.transactions = result.data.Items;
+                    $scope.page = result.data.Page;
+                    $scope.pagesCount = result.data.TotalPages;
+                    $scope.totalCount = result.data.TotalCount;
+                    console.log(result.data.Count);
+                    $scope.loading = false;
+                },
+                function () {
+                    $scope.loading = false;
+                    console.log('Load transactions failed');
+                });
         }
 
         $scope.getTransactionsIn7Days = 
@@ -53,7 +54,7 @@
             $scope.loading = true;
             apiService.get('/api/transactions/getall7days', config, function (result) {
                 if (result.data.TotalCount == 0) {
-                    notificationService.displayWarning("Chưa có dữ liệu");
+                    notificationService.displayWarning("Chưa có giao dịch phát sinh trong 7 ngày gần đây!");
                 }
                 $scope.transactions = [];
                 $scope.transactions = result.data.Items;
@@ -71,8 +72,6 @@
 
         //test gettime()
         $scope.currentDate = new Date();     
-        
-        
         
         function deleteTransaction(id) {
             $ngBootbox.confirm('Bạn có chắc muốn xóa?').then(function () {
@@ -110,7 +109,7 @@
             $scope.loading = true;
             apiService.get('/api/transactions/getall', config, function (result) {
                 if (result.data.TotalCount == 0) {
-                    notificationService.displayWarning("Chưa có dữ liệu");                    
+                    notificationService.displayWarning("Chưa có giao dịch phát sinh trong ngày!");                    
                 } 
                 $scope.transactions = result.data.Items;
                 $scope.page = result.data.Page;

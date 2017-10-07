@@ -92,7 +92,6 @@
         }
         var dateTo = new Date();
 
-        
         function getListUser() {
             apiService.get('/api/po/getbycurrentuser',
                 null,
@@ -113,7 +112,6 @@
         loadServiceDetail();
         getPropertyServices();
         getListUser();
-        //loadServices();
-       
+        //loadServices();       
     }
 })(angular.module('postoffice.transactions'));
