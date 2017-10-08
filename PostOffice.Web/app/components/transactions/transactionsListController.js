@@ -103,7 +103,7 @@
             var config = {
                 params: {
                     page: page,
-                    pageSize: 20
+                    pageSize: 40
                 }
             };
             $scope.loading = true;

@@ -60,7 +60,7 @@
                         </div>
                     </div>
                     <div class="col-sm-6 col-sm-offset-3">
-                        <span class="col-sm-3"><button type="submit" class="btn btn-success " ng-disabled="frmTimeStatistic.$invalid">Thống kê</button></span>
+                        <span class="col-sm-3"><button type="submit" class="btn btn-success " ng-disabled="frmTimeStatistic.$invalid" id="statisticBtn">Thống kê</button></span>
                         <span class="col-sm-3"><button type="button" class="btn btn-danger " ng-click="reset()">Làm mới</button></span>
                     </div>
                 </div>
@@ -71,12 +71,19 @@
                 <!-- /.box-footer -->
             </form>
         </div>
+        <div ng-if="loading" class="box-body">
+            <div class="col-xs-4"></div>
+            <div class="col-xs-4">
+                <i class="fa fa-spinner fa-3x fa-spin"></i> <label class="label label-primary"></label>
+            </div>
+            <div class="col-xs-4"></div>
+        </div>
     </div><!-- /.box -->
    
      <!--BCCP-->
     <div class="box">
         <div class="box-body table-responsive" ng-show="result">
-            <div class="row">
+            <div class="row">                
                 <div class="col-md-12">
                     <h3>KẾT QUẢ THỐNG KÊ</h3>
                     <table class="table table-bordered ">
@@ -125,14 +132,7 @@
                             </tr>
                         </tfoot>
                     </table>
-                </div>
-                <div ng-if="loading">
-                    <div class="col-xs-4"></div>
-                    <div class="col-xs-4">
-                        <i class="fa fa-spinner fa-3x fa-spin"></i> <label class="label label-primary"></label>
-                    </div>
-                    <div class="col-xs-4"></div>
-                </div>
+                </div>                
             </div>
         </div><!-- /.box-body -->
         <div class="box-footer">

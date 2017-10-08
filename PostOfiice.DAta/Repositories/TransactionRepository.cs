@@ -14,6 +14,10 @@ namespace PostOfiice.DAta.Repositories
         IEnumerable<Transaction> GetAllByUserName(string userName);
 
         IEnumerable<Transaction> GetAll(DateTime fromDate, DateTime toDate);
+        IEnumerable<Transaction> Get_by_time_districtId(DateTime fromDate, DateTime toDate, int districtId);
+        IEnumerable<Transaction> Get_by_time_districtId_poId(DateTime fromDate, DateTime toDate, int districtId, int poId);
+        IEnumerable<Transaction> Get_by_time_districtId_poId_userId(DateTime fromDate, DateTime toDate, int districtId, int poId, string userId);
+        IEnumerable<Transaction> Get_by_time_districtId_poId_userId_serviceId(DateTime fromDate, DateTime toDate, int districtId, int poId, string userId, int serviceId);
         IEnumerable<Transaction> GetAllByMainGroupId(DateTime fromDate, DateTime toDate, int mainGroupId);
 
         IEnumerable<Transaction> GetAll(DateTime fromDate, DateTime toDate, string userId, int serviceId);
@@ -93,6 +97,8 @@ namespace PostOfiice.DAta.Repositories
                         on u.Id equals ts.UserId
                         where u.UserName == userName && (DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate) && ts.Status==true
                         select ts;
+
+            var q = DbContext.Transactions.Where(x => DbFunctions.TruncateTime(x.TransactionDate) >= fromDate && DbFunctions.TruncateTime(x.TransactionDate) <= toDate && x.Status == true && x.UserId == userName).ToList();
             return query;
         }
 
@@ -240,6 +246,66 @@ namespace PostOfiice.DAta.Repositories
                         select ts;
             return query;
         }
-        
+
+        public IEnumerable<Transaction> Get_by_time_districtId(DateTime fromDate, DateTime toDate, int districtId)
+        {
+            var query = from ts in DbContext.Transactions
+                        join u in DbContext.Users
+                        on ts.UserId equals u.Id
+                        join p in DbContext.PostOffices
+                        on u.POID equals p.ID
+                        join d in DbContext.Districts
+                        on p.DistrictID equals d.ID
+                        where DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate && d.ID == districtId && ts.Status == true
+                        select ts;
+            return query.OrderBy(x => x.ID).ToList();
+        }
+        public IEnumerable<Transaction> Get_by_time_districtId_poId(DateTime fromDate, DateTime toDate, int districtId, int poId)
+        {
+            var query = from ts in DbContext.Transactions
+                        join u in DbContext.Users
+                        on ts.UserId equals u.Id
+                        join p in DbContext.PostOffices
+                        on u.POID equals p.ID
+                        join d in DbContext.Districts
+                        on p.DistrictID equals d.ID
+                        where DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate && d.ID == districtId && p.ID == poId && ts.Status == true
+                        select ts;
+            return query.OrderBy(x => x.ID).ToList();
+        }
+
+        public IEnumerable<Transaction> Get_by_time_districtId_poId_userId(DateTime fromDate, DateTime toDate, int districtId, int poId, string userId)
+        {
+            var query = from ts in DbContext.Transactions
+                        join u in DbContext.Users
+                        on ts.UserId equals u.Id
+                        join p in DbContext.PostOffices
+                        on u.POID equals p.ID
+                        join d in DbContext.Districts
+                        on p.DistrictID equals d.ID
+                        where DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate && d.ID == districtId && p.ID == poId && u.Id==userId && ts.Status == true
+                        select ts;
+            return query.OrderBy(x => x.ID).ToList();
+        }
+
+        public IEnumerable<Transaction> Get_by_time_districtId_poId_userId_serviceId(DateTime fromDate, DateTime toDate, int districtId, int poId, string userId, int serviceId)
+        {
+            var query = from ts in DbContext.Transactions
+                        join u in DbContext.Users
+                        on ts.UserId equals u.Id
+                        join p in DbContext.PostOffices
+                        on u.POID equals p.ID
+                        join d in DbContext.Districts
+                        on p.DistrictID equals d.ID
+                        where DbFunctions.TruncateTime(ts.TransactionDate) >= fromDate 
+                                && DbFunctions.TruncateTime(ts.TransactionDate) <= toDate 
+                                && d.ID == districtId 
+                                && p.ID == poId 
+                                && u.Id == userId 
+                                && ts.ServiceId==serviceId 
+                                && ts.Status == true
+                        select ts;
+            return query.OrderBy(x => x.ID).ToList();
+        }
     }
 }

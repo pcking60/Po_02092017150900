@@ -4,7 +4,7 @@
     timeStatisticController.$inject = ['$scope', 'apiService', 'notificationService', '$filter', 'authService', '$stateParams'];
 
     function timeStatisticController($scope, apiService, notificationService, $filter, authService, $stateParams) {
-        $scope.loading = true;
+        $scope.loading = false;
         $scope.statisticResult = [];
         $scope.report = {
             date: { startDate: moment(), endDate: moment() },
@@ -115,7 +115,7 @@
 
         $scope.TimeStatistic = TimeStatistic;
         function TimeStatistic() {
-            $scope.loading = true;
+            $scope.loading = true;                     
             $scope.result = false;
             $scope.statisticResult = null;
             $scope.report.totalQuantity = 0;
@@ -132,7 +132,7 @@
                     fromDate: fromDate,
                     toDate: toDate,
                     districtId: $scope.report.districtId || 0,
-                    posId: $scope.report.posId || 0,
+                    posId: $scope.report.poId || 0,
                     userId: $scope.report.userId || '',
                     serviceId: $scope.report.serviceId || 0
                 }

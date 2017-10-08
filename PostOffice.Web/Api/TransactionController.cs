@@ -54,24 +54,18 @@ namespace PostOffice.Web.Api
         {
             return CreateHttpResponse(request, () =>
             {
-                var model = _transactionService.GetAllByTime(fromDate, toDate, User.Identity.Name, userId, serviceId);
-                var responseData = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(model);
                 try
                 {
+                    var model = _transactionService.General_statistic(fromDate, toDate, districtId, posId, User.Identity.Name, userId, serviceId);
+                    var responseData = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionViewModel>>(model);
+                  
                     foreach (var item in responseData)
                     {
-                        try
-                        {
-                            item.groupId = _serviceGr.GetGroupIdByServiceId(item.ServiceId);
-                            item.VAT = _serviceService.GetById(item.ServiceId).VAT;
-                            item.Quantity = Convert.ToInt32(_transactionDetailService.GetAllByCondition("Sản lượng", item.ID).Money);
-                            item.ServiceName = _serviceService.GetById(item.ServiceId).Name;
-                        }
-                        catch(Exception ex)
-                        {
-                            return request.CreateResponse(HttpStatusCode.ExpectationFailed, ex.Message);
-                        }
-                        
+                        item.groupId = _serviceGr.GetGroupIdByServiceId(item.ServiceId);
+                        item.VAT = _serviceService.GetById(item.ServiceId).VAT;
+                        item.Quantity = Convert.ToInt32(_transactionDetailService.GetAllByCondition("Sản lượng", item.ID).Money);
+                        item.ServiceName = _serviceService.GetById(item.ServiceId).Name;  
+
                         if (!item.IsCash && item.groupId != 94)
                         {
                             item.TotalDebt = _transactionDetailService.GetTotalMoneyByTransactionId(item.ID);
@@ -89,14 +83,13 @@ namespace PostOffice.Web.Api
                         }
                         item.EarnMoney = _transactionDetailService.GetTotalEarnMoneyByTransactionId(item.ID);
                     }
-                    var response = request.CreateResponse(HttpStatusCode.OK, responseData);
-                    return response;
+                        var response = request.CreateResponse(HttpStatusCode.OK, responseData);
+                        return response;
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     return request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
-                }              
-                
+                }
             });
         }
 
