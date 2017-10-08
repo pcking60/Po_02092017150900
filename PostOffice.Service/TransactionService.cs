@@ -50,13 +50,15 @@ namespace PostOffice.Service
         private IUnitOfWork _unitOfWork;
         private IApplicationUserRepository _userRepository;
         private IApplicationGroupRepository _groupRepository;
+        private IDistrictRepository _districtRepository;
 
-        public TransactionService(ITransactionRepository transactionRepository, IUnitOfWork unitOfWork, IApplicationUserRepository userRepository, IApplicationGroupRepository groupRepository)
+        public TransactionService(IDistrictRepository districtRepository, ITransactionRepository transactionRepository, IUnitOfWork unitOfWork, IApplicationUserRepository userRepository, IApplicationGroupRepository groupRepository)
         {
             _transactionRepository = transactionRepository;
             _unitOfWork = unitOfWork;
             _userRepository = userRepository;
             _groupRepository = groupRepository;
+            _districtRepository = districtRepository;
         }
 
         public Transaction Add(Transaction transaction)
@@ -296,6 +298,7 @@ namespace PostOffice.Service
             {
                 if (IsManager)
                 {
+                    districtId = _districtRepository.GetDistrictByUserName(currentUserName).ID;
                     if (poId == 0) // user select only district 
                     {
                         return _transactionRepository.Get_by_time_districtId(fromDate, toDate, districtId);
