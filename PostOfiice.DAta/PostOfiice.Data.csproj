@@ -287,6 +287,10 @@
     <Compile Include="Migrations\201709181008376_change-tkbdAmounts-1.Designer.cs">
       <DependentUpon>201709181008376_change-tkbdAmounts-1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710171504501_add-period-savingtype-interesttype-interestrate-table.cs" />
+    <Compile Include="Migrations\201710171504501_add-period-savingtype-interesttype-interestrate-table.Designer.cs">
+      <DependentUpon>201710171504501_add-period-savingtype-interesttype-interestrate-table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PostOfficeDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -469,6 +473,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709181008376_change-tkbdAmounts-1.resx">
       <DependentUpon>201709181008376_change-tkbdAmounts-1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710171504501_add-period-savingtype-interesttype-interestrate-table.resx">
+      <DependentUpon>201710171504501_add-period-savingtype-interesttype-interestrate-table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

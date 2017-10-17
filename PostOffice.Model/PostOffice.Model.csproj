@@ -90,11 +90,15 @@
     <Compile Include="Abstract\Auditable.cs" />
     <Compile Include="Abstract\IAuditable.cs" />
     <Compile Include="Models\ApplicationUserGroup.cs" />
+    <Compile Include="Models\InterestRate.cs" />
+    <Compile Include="Models\InterestType.cs" />
     <Compile Include="Models\MainServiceGroup.cs" />
     <Compile Include="Models\PaymentMethod.cs" />
     <Compile Include="Models\Percent.cs" />
+    <Compile Include="Models\Period.cs" />
     <Compile Include="Models\PO.cs" />
     <Compile Include="Models\PropertyService.cs" />
+    <Compile Include="Models\SavingType.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\ServiceGroup.cs" />
     <Compile Include="Models\TKBDAmount.cs" />

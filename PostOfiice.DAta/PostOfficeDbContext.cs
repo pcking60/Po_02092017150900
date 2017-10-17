@@ -10,6 +10,10 @@ namespace PostOfiice.DAta
         {
             this.Configuration.LazyLoadingEnabled = false;
         }
+        public DbSet<Period> Periods { get; set; }
+        public DbSet<InterestRate> InterestRates { get; set; }
+        public DbSet<InterestType> InterestType { get; set; }
+        public DbSet<SavingType> SavingType { get; set; }
 
         public DbSet<District> Districts { get; set; }
 
